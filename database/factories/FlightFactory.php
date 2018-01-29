@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Roël Gonzalez
- * @license MIT
- */
 
 use App\Models\Flight;
 use Carbon\Carbon;

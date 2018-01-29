@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('apply', ['uses' => 'ApplicationController@create']);
+Route::post('apply', ['uses' => 'ApplicationController@store', 'as' => 'applications.store']);
+Route::get('successfully-applied', ['uses' => 'AppliedController@index', 'as' => 'applied.index']);

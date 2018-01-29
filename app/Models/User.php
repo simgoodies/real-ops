@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Roël Gonzalez
- * @license MIT
- */
 
 namespace App\Models;
 

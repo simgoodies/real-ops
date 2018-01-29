@@ -1,4 +1,3 @@
 <div class="well">
-    <hr>
-    <p class="text-center">Powered by VATGoodies.com - since 2018</p>
+    <p class="text-center">Real Ops powered by VATGoodies.com - since 2018</p>
 </div>

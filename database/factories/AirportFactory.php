@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Roël Gonzalez
- * @license MIT
- */
 
 use App\Models\Airport;
 use Faker\Generator as Faker;

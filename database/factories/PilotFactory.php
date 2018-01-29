@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Roël Gonzalez
- * @license MIT
- */
 
 use Faker\Generator as Faker;
 use App\Models\Pilot;

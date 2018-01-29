@@ -6,12 +6,12 @@
 
 <body>
 @include('partials._nav')
-<div class="container-fluid maincontent">
+<div class="container">
     @include('partials._messages')
     @yield('content')
 </div>
 <br>
-<div class="container-fluid footer">
+<div class="container-fluid">
     @include('partials._footer')
 </div>
 @include('partials._javascript')

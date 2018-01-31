@@ -22,7 +22,6 @@ class FlightTest extends TestCase
     /** @test */
     function can_see_if_a_flight_is_booked()
     {
-        /** @var Flight $flight */
         $flight = factory('App\Models\Flight')->states('unbooked')->create();
         $pilot = factory('App\Models\Pilot')->create();
 
@@ -31,5 +30,19 @@ class FlightTest extends TestCase
         $this->bookingService->bookFlight($pilot, $flight);
 
         $this->assertTrue($flight->isBooked());
+    }
+
+    /** @test */
+    function it_can_see_if_a_flight_has_been_booked()
+    {
+        $flight = factory('App\Models\Flight')->states('unbooked')->create();
+        $pilot = factory('App\Models\Pilot')->create();
+
+        $unbooked = $flight->isBooked();
+        $this->bookingService->bookFlight($pilot, $flight);
+        $booked = $flight->isBooked();
+
+        $this->assertFalse($unbooked);
+        $this->assertTrue($booked);
     }
 }

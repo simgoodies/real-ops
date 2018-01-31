@@ -18,7 +18,7 @@ class ApplyForTenancyTest extends TestCase
     function it_can_apply_for_tenancy()
     {
         $this->withoutExceptionHandling();
-        //Mail::fake();
+        Mail::fake();
 
         $response = $this->post('apply', [
             'fir_name' => 'Hakuna Matata FIR',
@@ -36,7 +36,9 @@ class ApplyForTenancyTest extends TestCase
         });
 
         $response->assertRedirect('/successfully-applied');
-        $this->assertCount(1, Application::all());
-        $this->assertEquals('Hakuna Matata FIR', Application::all()->first()->fir_name);
+
+        $applications = Application::all();
+        $this->assertCount(1, $applications);
+        $this->assertEquals('Hakuna Matata FIR', $applications->first()->fir_name);
     }
 }

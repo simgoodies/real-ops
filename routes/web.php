@@ -17,3 +17,6 @@ Route::get('successfully-applied', ['uses' => 'AppliedController@index', 'as' =>
 
 Route::post('events', 'EventController@store');
 Route::get('events/{slug}', ['uses' => 'EventController@show', 'as' => 'events.show']);
+
+Route::get('airlines', ['uses' => 'AirlineController@index', 'as' => 'airlines.index']);
+Route::post('airlines', 'AirlineController@store');

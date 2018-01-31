@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEvent extends FormRequest
+class StoreAirline extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,8 @@ class StoreEvent extends FormRequest
     {
         return [
             'name' => 'required|max:100',
-            'description' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required'
+            'callsign' => 'alpha|max:30',
+            'icao' => 'required|alpha|max:3'
         ];
     }
 
@@ -39,11 +38,13 @@ class StoreEvent extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'A name for the event is required',
+            'name.required' => 'A name for the airline is required',
             'name.max' => 'A name can consist of a maximum of 100 characters',
-            'description.required' => 'A description for the event is required',
-            'start_time.required' => 'Please enter a start time in ZULU / UTC time zone',
-            'end_time.required' => 'Please enter an end time in ZULU / UTC time zone'
+            'callsign.alpha' => 'A callsign can only consist of alphabetic characters',
+            'callsign.max' => 'A callsign can consist of a maximum of 30 characters',
+            'icao.required' => 'An ICAO code for the airline is required',
+            'icao.alpha' => 'An ICAO code can only consist of alphabetic characters',
+            'icao.max' => 'An ICAO code can consist of a maximum of 3 characters'
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Airline;
 use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -34,5 +35,27 @@ class OrganizeNewEventsTest extends TestCase
         $this->assertCount(1, $events);
         $this->assertEquals('Hakuna Matata Real Ops 2018', $events->first()->name);
         $this->assertEquals('hakuna-matata-real-ops-2018', $events->first()->slug);
+    }
+    
+    /** @test */
+    function it_can_add_a_new_airline()
+    {
+        $this->withoutExceptionHandling();
+        $this->asTenant();
+
+        $response = $this->post('airlines', [
+            'name' => 'Hakuna Matata Airline',
+            'callsign' => 'Hakuna',
+            'icao' => 'hkm'
+        ]);
+
+        $response->assertRedirect('airlines');
+
+        $airlines = Airline::all();
+
+        $this->assertCount(1, $airlines);
+        $this->assertEquals('Hakuna Matata Airline', $airlines->first()->name);
+        $this->assertEquals('HAKUNA', $airlines->first()->callsign);
+        $this->assertEquals('HKM', $airlines->first()->icao);
     }
 }

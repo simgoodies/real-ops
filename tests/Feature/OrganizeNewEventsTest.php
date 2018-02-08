@@ -20,15 +20,17 @@ class OrganizeNewEventsTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $this->asTenant();
-
-        $response = $this->post('events', [
+        
+        $response = $this->post('office/events', [
             'name' => 'Hakuna Matata Real Ops 2018',
             'description' => 'Super awesome description as to why Hakuna Matata Real Ops 2018 will be the bomb!',
-            'start_time' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
-            'end_time' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s')
+            'start_date' => Carbon::now()->addDays(3)->toDateTimeString(),
+            'start_time' => Carbon::now()->toDateTimeString(),
+            'end_date' => Carbon::now()->addDays(3)->addHours(4)->toDateTimeString(),
+            'end_time' => Carbon::now()->addHours(4)->toDateTimeString()
         ]);
 
-        $response->assertRedirect('events/hakuna-matata-real-ops-2018');
+        $response->assertRedirect('office/events/hakuna-matata-real-ops-2018');
 
         $events = Event::all();
 
@@ -36,7 +38,7 @@ class OrganizeNewEventsTest extends TestCase
         $this->assertEquals('Hakuna Matata Real Ops 2018', $events->first()->name);
         $this->assertEquals('hakuna-matata-real-ops-2018', $events->first()->slug);
     }
-    
+
     /** @test */
     function it_can_add_a_new_airline()
     {

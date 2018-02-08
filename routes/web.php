@@ -15,8 +15,16 @@ Route::get('apply', ['uses' => 'ApplicationController@create']);
 Route::post('apply', ['uses' => 'ApplicationController@store', 'as' => 'applications.store']);
 Route::get('successfully-applied', ['uses' => 'AppliedController@index', 'as' => 'applied.index']);
 
-Route::post('events', 'EventController@store');
-Route::get('events/{slug}', ['uses' => 'EventController@show', 'as' => 'events.show']);
-
 Route::get('airlines', ['uses' => 'AirlineController@index', 'as' => 'airlines.index']);
 Route::post('airlines', 'AirlineController@store');
+
+Route::group(['middleware' => ['tenancycheck']], function () {
+    Route::prefix('office')->group(function () {
+        Route::get('/', ['uses' => 'OfficeController@index', 'as' => 'office.index']);
+
+        Route::get('events', ['uses' => 'EventController@index', 'as' => 'events.index']);
+        Route::post('events', ['uses' => 'EventController@store', 'as' => 'events.store']);
+        Route::get('events/create', ['uses' => 'EventController@create', 'as' => 'events.create']);
+        Route::get('events/{slug}', ['uses' => 'EventController@show', 'as' => 'events.show']);
+    });
+});

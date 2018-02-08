@@ -26,7 +26,9 @@ class StoreEvent extends FormRequest
         return [
             'name' => 'required|max:100',
             'description' => 'required',
+            'start_date' => 'required|date',
             'start_time' => 'required',
+            'end_date' => 'required|date',
             'end_time' => 'required'
         ];
     }
@@ -42,8 +44,12 @@ class StoreEvent extends FormRequest
             'name.required' => 'A name for the event is required',
             'name.max' => 'A name can consist of a maximum of 100 characters',
             'description.required' => 'A description for the event is required',
+            'start_date.required' => 'Please enter the start date of the event!',
+            'start_date.date' => 'Please enter a valid event start date',
             'start_time.required' => 'Please enter a start time in ZULU / UTC time zone',
-            'end_time.required' => 'Please enter an end time in ZULU / UTC time zone'
+            'end_date.required' => 'Please enter the end date of the event!',
+            'end_date.date' => 'Please enter a valid event end date',
+            'end_time.required' => 'Please enter a end time in ZULU / UTC time zone',
         ];
     }
 }

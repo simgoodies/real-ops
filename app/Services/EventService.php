@@ -16,7 +16,9 @@ class EventService
         $event = new Event();
         $event->name = $request->name;
         $event->description = $request->description;
+        $event->start_date = $request->start_date;
         $event->start_time = $request->start_time;
+        $event->end_date = $request->end_date;
         $event->end_time = $request->end_time;
 
         $event->save();

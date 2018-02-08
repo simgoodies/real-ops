@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    public function index()
+    {
+        return view('office.events.index');
+    }
+
+    public function create()
+    {
+        return view('office.events.create');
+    }
+
     public function store(StoreEvent $request)
     {
         $eventService = new EventService();

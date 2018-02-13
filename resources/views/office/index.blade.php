@@ -20,10 +20,10 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <a href="{{ route('events.index') }}">
+            <a href="{{ route('office.events.index') }}">
                 <div class="panel panel-default">
                     <div class="panel-image">
-                        <img src="http://lorempixel.com/g/400/400/" alt="" class="panel-image-preview">
+                        <img src="https://loremflickr.com/400/400" alt="" class="img-responsive office-image">
                     </div>
                     <div class="panel-footer">
                         <h4>Events</h4>
@@ -34,7 +34,7 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-image">
-                    <img src="http://lorempixel.com/400/400/" alt="" class="img-responsive panel-image-preview">
+                    <img src="https://loremflickr.com/400/400" alt="" class="img-responsive office-image">
                 </div>
                 <div class="panel-footer">
                     <h4>Assistants</h4>

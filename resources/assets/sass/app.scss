@@ -1,17 +1,13 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import "node_modules/font-awesome/scss/font-awesome.scss";
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
-.panel-image img.panel-image-preview {
-  width: 100%;
-  border-radius: 4px 4px 0px 0px;
-}
 
 .panel-footer {
   text-align: center;
@@ -30,7 +26,41 @@ body {
   margin-top: 20px;
   border-radius: 4px;
   background-color: rgba(255,255,255,0.9);
-  form {
-    padding: 15px;
+  padding: 20px;
+}
+
+// events
+.office-event-show .event-banner-image {
+  margin-top: 10px;
+}
+
+.event-panel-group {
+  margin-top: 40px;
+}
+
+.panel-group .event-panel {
+  margin-bottom: 20px;
+  .panel-body {
+    padding: 0px;
   }
+}
+
+.panel-image {
+  width: 100%;
+  .office-image {
+    border-radius: 4px 4px 0px 0px;
+  }
+
+  .event-banner-image {
+    border-radius: 0px 0px 4px 4px;
+  }
+}
+
+.event-banner-image {
+  border-radius: 4px;
+}
+
+.event-office-buttons .col-md-6 {
+  margin-bottom: 5px;
+  margin-top: 5px;
 }

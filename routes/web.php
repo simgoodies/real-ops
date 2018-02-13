@@ -19,12 +19,14 @@ Route::get('airlines', ['uses' => 'AirlineController@index', 'as' => 'airlines.i
 Route::post('airlines', 'AirlineController@store');
 
 Route::group(['middleware' => ['tenancycheck']], function () {
-    Route::prefix('office')->group(function () {
-        Route::get('/', ['uses' => 'OfficeController@index', 'as' => 'office.index']);
+    Route::name('office.')->prefix('office')->group(function () {
+        Route::get('/', ['uses' => 'Office\OfficeController@index', 'as' => 'index']);
 
-        Route::get('events', ['uses' => 'EventController@index', 'as' => 'events.index']);
-        Route::post('events', ['uses' => 'EventController@store', 'as' => 'events.store']);
-        Route::get('events/create', ['uses' => 'EventController@create', 'as' => 'events.create']);
-        Route::get('events/{slug}', ['uses' => 'EventController@show', 'as' => 'events.show']);
+        Route::get('events', ['uses' => 'Office\EventController@index', 'as' => 'events.index']);
+        Route::post('events', ['uses' => 'Office\EventController@store', 'as' => 'events.store']);
+        Route::get('events/create', ['uses' => 'Office\EventController@create', 'as' => 'events.create']);
+        Route::get('events/{slug}', ['uses' => 'Office\EventController@show', 'as' => 'events.show']);
+        Route::get('events/{slug}/edit', ['uses' => 'Office\EventController@edit', 'as' => 'events.edit']);
+        Route::patch('events/{slug}/edit', ['uses' => 'Office\EventController@update', 'as' => 'events.update']);
     });
 });

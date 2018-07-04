@@ -32,6 +32,13 @@
                 <div class="col-md-6">
                     <a href="#" class="btn btn-info btn-block">Some other stuff.....</a>
                 </div>
+                <div class="col-md-12">
+                    <form action="{{ route('office.events.destroy', $event->slug) }}" method="post" onsubmit="return confirm('Are you sure you want to permanently delete this event? This action cannot be undone.')">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button class="btn btn-danger btn-block" type="submit">Permanently cancel / Delete event (THIS ACTION CANNOT BE UNDONE)</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

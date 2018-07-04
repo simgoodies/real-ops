@@ -60,7 +60,9 @@ body {
   border-radius: 4px;
 }
 
-.event-office-buttons .col-md-6 {
-  margin-bottom: 5px;
-  margin-top: 5px;
+.event-office-buttons {
+  .btn {
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
 }

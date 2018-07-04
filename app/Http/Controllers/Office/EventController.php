@@ -54,4 +54,11 @@ class EventController extends Controller
 
         return redirect()->route('office.events.show', $event);
     }
+
+    public function destroy(Request $request, EventService $eventService, $slug)
+    {
+        $eventService->deleteEvent($request, $slug);
+
+        return redirect()->route('office.events.index');
+    }
 }

@@ -21,6 +21,8 @@ $factory->define(Event::class, function (Faker $faker) {
         'title' => 'Hakuna Matata Real Ops 2018',
         'description' => 'Super awesome description as to why Hakuna Matata Real Ops 2018 will be the bomb!',
         'start_time' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
-        'end_time' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s')
+        'end_time' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s'),
+        'start_date' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
+        'end_date' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s')
     ];
 });

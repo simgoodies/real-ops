@@ -95,4 +95,25 @@ class OrganizeNewEventsTest extends TestCase
         $this->assertEquals('2018-12-30', $event->end_date);
         $this->assertEquals('21:00:00', $event->end_time);
     }
+
+    /** @test */
+    function it_can_delete_events()
+    {
+        $this->asTenant();
+
+        factory('App\Models\Event')->create([
+            'slug' => 'to-be-deleted-event'
+        ]);
+
+        $events = Event::all();
+        $this->assertCount(1, $events);
+
+        $response =  $this->delete('office/events/to-be-deleted-event');
+
+        $response->assertRedirect('office/events');
+
+        $events = Event::all();
+        $this->assertCount(0, $events);
+
+    }
 }

@@ -55,4 +55,11 @@ class EventService
 
         return $event;
     }
+
+    public function deleteEvent(Request $request, $slug)
+    {
+        $event = $this->getBySlug($slug);
+
+        $event->delete();
+    }
 }

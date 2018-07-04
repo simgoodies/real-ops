@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="panel-group event-panel-group">
-                @foreach($events as $event)
+                @forelse($events as $event)
                     <div class="panel event-panel panel-info">
                         <div class="panel-heading">
                             <div class="row">
@@ -36,7 +36,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="content-wrapper">
+                        <h5>There are no organized events as this time.</h5>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>

@@ -29,10 +29,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="name">Event name:</label>
-                                <input type="text" class="form-control" name="name" required="true"
-                                       value="{{ old('name') }}"
-                                       placeholder="Enter the name of the real ops event...">
+                                <label for="title">Event title:</label>
+                                <input type="text" class="form-control" name="title" required="true"
+                                       value="{{ old('title') }}"
+                                       placeholder="Enter the title of the real ops event...">
                             </div>
                         </div>
                         <div class="col-md-12">

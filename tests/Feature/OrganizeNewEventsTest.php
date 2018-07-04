@@ -22,7 +22,7 @@ class OrganizeNewEventsTest extends TestCase
         $this->asTenant();
 
         $response = $this->post('office/events', [
-            'name' => 'Hakuna Matata Real Ops 2018',
+            'title' => 'Hakuna Matata Real Ops 2018',
             'description' => 'Super awesome description as to why Hakuna Matata Real Ops 2018 will be the bomb!',
             'start_date' => Carbon::now()->addDays(3)->toDateTimeString(),
             'start_time' => Carbon::now()->toDateTimeString(),
@@ -35,7 +35,7 @@ class OrganizeNewEventsTest extends TestCase
         $events = Event::all();
 
         $this->assertCount(1, $events);
-        $this->assertEquals('Hakuna Matata Real Ops 2018', $events->first()->name);
+        $this->assertEquals('Hakuna Matata Real Ops 2018', $events->first()->title);
         $this->assertEquals('hakuna-matata-real-ops-2018', $events->first()->slug);
     }
 
@@ -68,8 +68,7 @@ class OrganizeNewEventsTest extends TestCase
         $this->asTenant();
 
         factory('App\Models\Event')->create([
-            'name' => 'Original Name',
-            'slug' => 'original-name',
+            'title' => 'Original Name',
             'description' => 'Original Description',
             'start_date' => '2018-12-31',
             'start_time' => '18:00',
@@ -77,7 +76,8 @@ class OrganizeNewEventsTest extends TestCase
             'end_time' => '20:00'
         ]);
 
-        $response = $this->patch('office/events/original-name/edit', [
+        $response = $this->put('office/events/original-name/edit', [
+            'title' => 'Changed Name',
             'description' => 'New Description',
             'start_date' => '2018-12-30',
             'start_time' => '19:00',
@@ -85,9 +85,10 @@ class OrganizeNewEventsTest extends TestCase
             'end_time' => '21:00'
         ]);
 
-        $response->assertRedirect('office/events/original-name');
+        $response->assertRedirect('office/events/changed-name');
         $event = Event::all()->first();
 
+        $this->assertEquals('Changed Name', $event->title);
         $this->assertEquals('New Description', $event->description);
         $this->assertEquals('2018-12-30', $event->start_date);
         $this->assertEquals('19:00:00', $event->start_time);

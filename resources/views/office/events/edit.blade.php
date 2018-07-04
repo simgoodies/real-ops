@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h1>{{ $event->name or '' }} - Make changes</h1>
+    <h1>{{ $event->title or '' }} - Make changes</h1>
     <hr>
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
@@ -18,9 +18,18 @@
         <div class="col-md-offset-1 col-md-10">
             <div class="content-wrapper">
                 <form action="{{ route('office.events.update', $event->slug) }}" method="POST">
-                    {{ method_field('PATCH') }}
+                    {{ method_field('PUT') }}
                     {{ csrf_field() }}
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="title">Event title:</label>
+                                <input type="text" class="form-control" name="title" required="true"
+                                       value="{{ old('title', $event->title) }}"
+                                       placeholder="Enter the title of the real ops event...">
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description">Event description:</label>

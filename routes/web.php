@@ -27,6 +27,6 @@ Route::group(['middleware' => ['tenancycheck']], function () {
         Route::get('events/create', ['uses' => 'Office\EventController@create', 'as' => 'events.create']);
         Route::get('events/{slug}', ['uses' => 'Office\EventController@show', 'as' => 'events.show']);
         Route::get('events/{slug}/edit', ['uses' => 'Office\EventController@edit', 'as' => 'events.edit']);
-        Route::patch('events/{slug}/edit', ['uses' => 'Office\EventController@update', 'as' => 'events.update']);
+        Route::put('events/{slug}/edit', ['uses' => 'Office\EventController@update', 'as' => 'events.update']);
     });
 });

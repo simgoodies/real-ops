@@ -24,6 +24,7 @@ class UpdateEvent extends FormRequest
     public function rules()
     {
         return [
+            'title' => 'required',
             'description' => 'required',
             'start_date' => 'required|date',
             'start_time' => 'required',

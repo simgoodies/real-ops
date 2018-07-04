@@ -18,8 +18,7 @@ use Faker\Generator as Faker;
 $factory->define(Event::class, function (Faker $faker) {
     return [
         'tenant_id' => 1,
-        'name' => 'Hakuna Matata Real Ops 2018',
-        'slug' => 'hakuna-matata-real-ops-2018',
+        'title' => 'Hakuna Matata Real Ops 2018',
         'description' => 'Super awesome description as to why Hakuna Matata Real Ops 2018 will be the bomb!',
         'start_time' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
         'end_time' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s')

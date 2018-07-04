@@ -25,9 +25,8 @@ class EventController extends Controller
         return view('office.events.create');
     }
 
-    public function store(StoreEvent $request)
+    public function store(StoreEvent $request, EventService $eventService)
     {
-        $eventService = new EventService();
         $event = $eventService->processNewEvent($request);
 
         return redirect()->route('office.events.show', $event);
@@ -49,10 +48,9 @@ class EventController extends Controller
             ->with('event', $event);
     }
 
-    public function update(UpdateEvent $request, $slug)
+    public function update(UpdateEvent $request, EventService $eventService, $slug)
     {
-        $eventService = new EventService();
-        $event = $eventService->patchEvent($request, $slug);
+        $event = $eventService->updateEvent($request, $slug);
 
         return redirect()->route('office.events.show', $event);
     }

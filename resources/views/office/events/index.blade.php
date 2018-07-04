@@ -21,7 +21,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h4>{{ $event->name }}</h4>
+                                    <h4>{{ $event->title }}</h4>
                                 </div>
                                 <div class="col-md-4">
                                     <a href="{{ route('office.events.show', ['slug' => $event->slug]) }}"

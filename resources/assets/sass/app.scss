@@ -1,7 +1,7 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-@import "node_modules/font-awesome/scss/font-awesome.scss";
+@import "~@fortawesome/fontawesome-free/css/all.css";
 
 // Variables
 @import "variables";
@@ -9,4 +9,5 @@
 // Bootstrap
 @import "~bootstrap-scss/bootstrap";
 
-@import "common.blocks/office/office";
+// Import partials scss
+@import "common.blocks/partials/footer";

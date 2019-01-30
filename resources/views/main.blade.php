@@ -15,6 +15,10 @@
     <!-- INCLUDE REQUIRED JAVASCRIPT -->
     @include('partials._javascript')
 
+<script>
+    // Get the current year for the copyright
+    $('#year').text(new Date().getFullYear());
+</script>
 <!-- YIELD FOR CUSTOM SCRIPTS  -->
 @yield('scripts')
 

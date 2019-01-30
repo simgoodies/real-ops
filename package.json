@@ -22,6 +22,6 @@
         "webpack-livereload-plugin": "^1.2.0"
     },
     "dependencies": {
-        "font-awesome": "^4.7.0"
+        "@fortawesome/fontawesome-free": "^5.7.0"
     }
 }

@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
+{{-- HEAD --}}
 <head>
     @include('partials._head')
 </head>
 
+<!-- BODY -->
 <body>
-@include('partials._nav')
 
-<div class="container">
-    @include('partials._messages')
-    @yield('content')
-</div>
-<br>
-<div class="container">
-    @include('partials._footer')
-</div>
+<!-- YIELD FOR MAIN-CONTENT -->
+@yield('main-content')
 
-@include('partials._javascript')
+    <!-- INCLUDE REQUIRED JAVASCRIPT -->
+    @include('partials._javascript')
 
+<!-- YIELD FOR CUSTOM SCRIPTS  -->
 @yield('scripts')
+
 </body>
 </html>

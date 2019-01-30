@@ -11,12 +11,15 @@
     },
     "devDependencies": {
         "axios": "^0.17",
-        "bootstrap-sass": "^3.3.7",
+        "bootstrap": "^4.2.1",
+        "bootstrap-scss": "^4.2.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
-        "vue": "^2.5.7"
+        "popper.js": "^1.14.6",
+        "vue": "^2.5.7",
+        "webpack-livereload-plugin": "^1.2.0"
     },
     "dependencies": {
         "font-awesome": "^4.7.0"

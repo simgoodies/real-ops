@@ -17,7 +17,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Flight::class, function (Faker $faker) {
     return [
-        'tenant_id' => 1,
         'airline_id' => 1,
         'event_id' => 1,
         'pilot_id' => function () {

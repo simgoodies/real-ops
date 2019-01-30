@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
-use HipsterJazzbo\Landlord\BelongsToTenants;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    use BelongsToTenants;
     use Sluggable;
 
     public function getRouteKeyName()

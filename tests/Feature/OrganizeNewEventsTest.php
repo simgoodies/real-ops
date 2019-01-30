@@ -7,7 +7,6 @@ use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class OrganizeNewEventsTest extends TestCase
@@ -19,7 +18,6 @@ class OrganizeNewEventsTest extends TestCase
     public function it_can_organize_a_new_event()
     {
         $this->withoutExceptionHandling();
-        $this->asTenant();
 
         $response = $this->post('office/events', [
             'title' => 'Hakuna Matata Real Ops 2018',
@@ -43,7 +41,6 @@ class OrganizeNewEventsTest extends TestCase
     function it_can_add_a_new_airline()
     {
         $this->withoutExceptionHandling();
-        $this->asTenant();
 
         $response = $this->post('airlines', [
             'name' => 'Hakuna Matata Airline',
@@ -65,7 +62,6 @@ class OrganizeNewEventsTest extends TestCase
     function it_can_update_details_of_an_event()
     {
         $this->withoutExceptionHandling();
-        $this->asTenant();
 
         factory('App\Models\Event')->create([
             'title' => 'Original Name',
@@ -99,8 +95,6 @@ class OrganizeNewEventsTest extends TestCase
     /** @test */
     function it_can_delete_events()
     {
-        $this->asTenant();
-
         factory('App\Models\Event')->create([
             'slug' => 'to-be-deleted-event'
         ]);

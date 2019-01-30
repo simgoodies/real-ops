@@ -16,7 +16,6 @@ use App\Models\Pilot;
 
 $factory->define(Pilot::class, function (Faker $faker) {
     return [
-        'tenant_id' => 1,
         'vatsim_number' => $faker->randomNumber(7),
         'first_name' => $faker->firstName(),
         'last_name' => $faker->lastName(),

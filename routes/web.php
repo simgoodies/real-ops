@@ -11,12 +11,34 @@
 |
 */
 
+// Authentication Routes...
+Route::get('login', 'Auth\User\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\User\LoginController@login');
+Route::post('login-management', 'Auth\Admin\LoginController@login')->name('login-management');
+Route::get('logout', 'Auth\User\LoginController@logout')->name('logout');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\User\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\User\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\User\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\User\ResetPasswordController@reset');
+Route::get('admin-password/reset', 'Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::post('admin-password/email', 'Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::get('admin-password/reset/{token}', 'Auth\Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
+Route::post('admin-password/reset', 'Auth\Admin\ResetPasswordController@reset');
+
 Route::get('apply', ['uses' => 'ApplicationController@create']);
 Route::post('apply', ['uses' => 'ApplicationController@store', 'as' => 'applications.store']);
 Route::get('successfully-applied', ['uses' => 'AppliedController@index', 'as' => 'applied.index']);
 
 Route::get('airlines', ['uses' => 'AirlineController@index', 'as' => 'airlines.index']);
 Route::post('airlines', 'AirlineController@store');
+
+Route::name('management.')->prefix('management')->middleware(['checkForTenancy'])->group(function () {
+    Route::get('/', ['uses' => 'Management\ManagementController@index', 'as' => 'index']);
+
+    Route::get('tenants', ['uses' => 'Management\TenantController@index', 'as' => 'tenants.index']);
+});
 
 Route::name('office.')->prefix('office')->group(function () {
     Route::get('/', ['uses' => 'Office\OfficeController@index', 'as' => 'index']);

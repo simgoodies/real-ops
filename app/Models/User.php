@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Hyn\Tenancy\Traits\UsesTenantConnection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -10,6 +11,7 @@ class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use Notifiable;
+    use UsesTenantConnection;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +19,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -26,6 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 }

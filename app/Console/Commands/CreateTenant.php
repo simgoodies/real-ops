@@ -128,13 +128,11 @@ class CreateTenant extends Command
      */
     private function tenantExists(string $identifier, string $email)
     {
-        $tenant = Tenant::where('identifier', $identifier)->orWhere('email', $email)->first();
-
-        if (is_null($tenant)) {
-            return false;
+        if (Tenant::identifierExists($identifier) || Tenant::emailExists($email)) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**

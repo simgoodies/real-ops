@@ -5,13 +5,13 @@ namespace App\Models;
 use Hyn\Tenancy\Traits\UsesTenantConnection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laratrust\Traits\LaratrustUserTrait;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait;
     use Notifiable;
     use UsesTenantConnection;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

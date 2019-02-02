@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Hyn\Tenancy\Models\Hostname;
 use Illuminate\Database\Eloquent\Model;
 
 /**

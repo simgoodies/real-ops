@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Laratrust\Models\LaratrustRole;
+use Hyn\Tenancy\Traits\UsesTenantConnection;
+use Spatie\Permission\Models\Role as BaseRole;
 
-class Role extends LaratrustRole
+class Role extends BaseRole
 {
-    //
+    use UsesTenantConnection;
 }

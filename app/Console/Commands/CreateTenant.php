@@ -180,6 +180,8 @@ class CreateTenant extends Command
     private function addAdminForTenant(Tenant $tenant, string $password)
     {
         $admin = User::create(['name' => $tenant->name, 'email' => $tenant->email, 'password' => Hash::make($password)]);
+        $admin->guard_name = 'web';
+        $admin->assignRole('admin');
 
         return $admin;
     }

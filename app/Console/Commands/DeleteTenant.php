@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Hostname;
 use App\Models\Tenant;
 use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
-use Hyn\Tenancy\Environment;
 use Hyn\Tenancy\Repositories\HostnameRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
@@ -57,7 +55,7 @@ class DeleteTenant extends Command
 
     /**
      * The tenant will be deleted if found
-     * 
+     *
      * @param $identifier
      * @throws \Exception
      */

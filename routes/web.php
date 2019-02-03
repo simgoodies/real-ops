@@ -12,6 +12,7 @@
 */
 
 // Authentication Routes...
+// Login and Logout Routes...
 Route::get('login', 'Auth\User\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\User\LoginController@login');
 Route::post('login-management', 'Auth\Admin\LoginController@login')->name('login-management');

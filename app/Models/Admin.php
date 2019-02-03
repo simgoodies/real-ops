@@ -10,7 +10,6 @@ use Laratrust\Traits\LaratrustUserTrait;
 
 class Admin extends Authenticatable
 {
-    use LaratrustUserTrait;
     use Notifiable;
 
     protected $guard = 'admin';

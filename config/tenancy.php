@@ -25,10 +25,10 @@ return [
          */
 
         // Must implement \Hyn\Tenancy\Contracts\Hostname
-        'hostname' => \Hyn\Tenancy\Models\Hostname::class,
+        'hostname' => \App\Models\Hostname::class,
 
         // Must implement \Hyn\Tenancy\Contracts\Website
-        'website' => \Hyn\Tenancy\Models\Website::class
+        'website' => \App\Models\Website::class
     ],
     /**
      * The package middleware. Removing a middleware here will disable it.
@@ -112,7 +112,7 @@ return [
          */
         'cache' => false,
     ],
-    'hostnamehostname' => [
+    'hostname' => [
         /**
          * If you want the multi tenant application to fall back to a default
          * hostname/website in case the requested hostname was not found

@@ -23,20 +23,4 @@ class Tenant extends Model
     public function hostname() {
         return $this->hasOne(Hostname::class);
     }
-
-    /**
-     * @param $identifier
-     * @return bool|mixed
-     */
-    public static function identifierExists($identifier) {
-        return Tenant::where('identifier', $identifier)->exists();
-    }
-
-    /**
-     * @param $email
-     * @return bool|mixed
-     */
-    public static function emailExists($email) {
-        return Tenant::where('email', $email)->exists();
-    }
 }

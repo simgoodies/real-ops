@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Tenant;
-use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
-use Hyn\Tenancy\Repositories\HostnameRepository;
+use App\Services\Command\TenantCommandService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
 
@@ -25,13 +23,21 @@ class DeleteTenant extends Command
     protected $description = 'Deletes a tenant of the provided identifier. Only available on the local environment e.g. php artisan tenant:delete boise';
 
     /**
+     * The variable that will hold an instance of TenantCommandService
+     *
+     * @var TenantCommandService
+     */
+    protected $tenantCommandService;
+
+    /**
      * Create a new command instance.
      *
-     * @return void
+     * @param TenantCommandService $tenantCommandService
      */
-    public function __construct()
+    public function __construct(TenantCommandService $tenantCommandService)
     {
         parent::__construct();
+        $this->tenantCommandService = $tenantCommandService;
     }
 
     /**
@@ -50,31 +56,14 @@ class DeleteTenant extends Command
         }
 
         $identifier = $this->argument('identifier');
-        $this->deleteTenant($identifier);
-    }
 
-    /**
-     * The tenant will be deleted if found
-     *
-     * @param $identifier
-     * @throws \Exception
-     */
-    private function deleteTenant($identifier)
-    {
-        if (Tenant::identifierExists($identifier) == false) {
+        if ($this->tenantCommandService->identifierExists($identifier) == false) {
             $this->error("A tenant with the identifier '{$identifier}' does not exist.");
             return;
         }
 
-        $tenant = $tenant = Tenant::where('identifier', $identifier)->firstOrFail();
-        $hostname = $tenant->hostname()->first();
-        $website = $hostname->website()->first();
-
-        $tenant->delete();
-        app(HostnameRepository::class)->delete($hostname, true);
-        app(WebsiteRepository::class)->delete($website, true);
+        $this->tenantCommandService->deleteTenant($identifier);
 
         $this->info("Tenant {$identifier} successfully deleted.");
-
     }
 }

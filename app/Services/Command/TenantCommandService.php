@@ -12,6 +12,7 @@ use Hyn\Tenancy\Repositories\HostnameRepository;
 use Hyn\Tenancy\Repositories\WebsiteRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 
 class TenantCommandService extends TenantService
 {
@@ -25,8 +26,8 @@ class TenantCommandService extends TenantService
      */
     public function createTenant($identifier, $name, $email)
     {
-        if ($this->isTenantInfoValid($identifier, $name, $email) == false) {
-            return;
+        if (($errors = $this->isTenantInfoValid($identifier, $name, $email)) instanceof MessageBag) {
+            return $errors;
         }
 
         $tenant = new Tenant();
@@ -78,14 +79,10 @@ class TenantCommandService extends TenantService
             'email' => 'required|max:255|unique:tenants'
         ]);
 
-        $errors = $validator->errors()->getMessages();
+        $errors = $validator->errors();
 
-        if (empty($errors)) {
+        if (empty($errors->getMessages())) {
             return true;
-        }
-
-        foreach ($errors as $error) {
-            $this->error($error[0]);
         }
 
         return $errors;

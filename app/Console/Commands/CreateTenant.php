@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Services\Command\TenantCommandService;
 use Illuminate\Console\Command;
+use Illuminate\Support\MessageBag;
 
 class CreateTenant extends Command
 {
@@ -53,7 +54,16 @@ class CreateTenant extends Command
             return;
         }
 
-        $tenant = $this->tenantCommandService->createTenant($identifier, $name, $email);
+        $result = $this->tenantCommandService->createTenant($identifier, $name, $email);
+
+        if ($result instanceof MessageBag) {
+            foreach ($result->getMessages() as $message) {
+                $this->error($message[0]);
+            }
+            return;
+        }
+
+        $tenant = $result;
         $tenant = $this->tenantCommandService->registerTenant($tenant);
 
         $password = str_random(16);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Hyn\Tenancy\Traits\UsesSystemConnection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,8 +12,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tenant extends Model
 {
+    use UsesSystemConnection;
+
     protected $fillable = [
-        'identifier', 'name', 'email'
+        'identifier',
+        'name',
+        'email'
     ];
 
     /**
@@ -20,7 +25,8 @@ class Tenant extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function hostname() {
+    public function hostname()
+    {
         return $this->hasOne(Hostname::class);
     }
 }

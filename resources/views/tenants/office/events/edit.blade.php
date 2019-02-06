@@ -7,40 +7,35 @@
 @endsection
 
 @section('content')
-    <h1>Organize the next big real ops event!</h1>
+    <h1>{{ $event->title or '' }} - Make changes</h1>
     <hr>
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
-            <a href="{{ route('office.events.index') }}" class="btn btn-danger btn-block">Return to event management</a>
+            <a href="{{ route('tenants.office.events.index') }}" class="btn btn-danger btn-block">Return to event management</a>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-offset-2 col-md-8">
-
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-md-offset-1 col-md-10">
             <div class="content-wrapper">
-                <form action="{{ route('office.events.store') }}" method="post">
+                <form action="{{ route('tenants.office.events.update', $event->slug) }}" method="POST">
+                    {{ method_field('PUT') }}
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="title">Event title:</label>
                                 <input type="text" class="form-control" name="title" required="true"
-                                       value="{{ old('title') }}"
+                                       value="{{ old('title', $event->title) }}"
                                        placeholder="Enter the title of the real ops event...">
                             </div>
                         </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description">Event description:</label>
                                 <textarea name="description" class="form-control" required="true"
                                           placeholder="Enter the event description / invitation message to pilots..."
-                                          cols="30" rows="10">{{ old('description') }}</textarea>
+                                          cols="30" rows="10">{{ old('description', $event->description) }}</textarea>
                             </div>
                         </div>
 
@@ -48,7 +43,7 @@
                             <div class="form-group">
                                 <label for="start_date">Event start date:</label>
                                 <div class="input-group date">
-                                    <input type="date" name="start_date" class="form-control">
+                                    <input type="date" name="start_date" class="form-control" value="{{ old('start_date', $event->start_date) }}">
                                     <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -60,7 +55,7 @@
                             <div class="form-group">
                                 <label for="start_time">Event start time: (in ZULU)</label>
                                 <div class="input-group date">
-                                    <input type="time" name="start_time" class="form-control">
+                                    <input type="time" name="start_time" class="form-control" value="{{ old('start_time', $event->start_time) }}">
                                     <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-time"></span>
                                 </span>
@@ -72,7 +67,7 @@
                             <div class="form-group">
                                 <label for="end_date">Event end date:</label>
                                 <div class="input-group date">
-                                    <input type="date" name="end_date" class="form-control">
+                                    <input type="date" name="end_date" class="form-control" value="{{ old('end_date', $event->end_date) }}">
                                     <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -84,7 +79,7 @@
                             <div class="form-group">
                                 <label for="end_time">Event end time: (in ZULU)</label>
                                 <div class="input-group date">
-                                    <input type="time" name="end_time" class="form-control">
+                                    <input type="time" name="end_time" class="form-control" value="{{ old('end_time', $event->end_time) }}">
                                     <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-time"></span>
                                 </span>
@@ -92,7 +87,7 @@
                             </div>
                         </div>
                         <div class="col-md-offset-4 col-md-8">
-                            <button type="submit" class="btn btn-success btn-block">Organize event</button>
+                            <button type="submit" class="btn btn-success btn-block">Save changes</button>
                         </div>
                     </div>
                 </form>

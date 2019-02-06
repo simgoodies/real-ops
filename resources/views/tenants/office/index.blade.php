@@ -6,7 +6,7 @@
     <div class="office">
 
         <!-- INCLUDE OFFICE NAV -->
-    @include('office.partials.nav._nav')
+    @include('tenants.office.partials.nav._nav')
 
     <!-- OFFICE TITLE SECTION -->
         <section class="office-title bg-secondary py-4">
@@ -44,7 +44,7 @@
                             <p>Manage the details of your event(s)</p>
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-outline-primary" href="{{ route('office.events.index') }}">Visit <i
+                            <a class="btn btn-outline-primary" href="{{ route('tenants.office.events.index') }}">Visit <i
                                         class="fas fa-arrow-alt-circle-right"></i></a>
                         </div>
                     </div>

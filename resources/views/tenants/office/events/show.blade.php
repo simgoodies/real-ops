@@ -8,7 +8,7 @@
         <hr>
         <div class="row">
             <div class="col-md-12">
-                <a href="{{ route('office.events.index') }}" class="btn btn-danger btn-block">Return to events</a>
+                <a href="{{ route('tenants.office.events.index') }}" class="btn btn-danger btn-block">Return to events</a>
             </div>
         </div>
         <div class="row">
@@ -21,7 +21,7 @@
         <div class="content-wrapper">
             <div class="row event-office-buttons">
                 <div class="col-md-6">
-                    <a href="{{ route('office.events.edit', ['slug' => $event->slug]) }}" class="btn btn-info btn-block">Change event details</a>
+                    <a href="{{ route('tenants.office.events.edit', ['slug' => $event->slug]) }}" class="btn btn-info btn-block">Change event details</a>
                 </div>
                 <div class="col-md-6">
                     <a href="#" class="btn btn-info btn-block">Manage focus airports</a>
@@ -33,7 +33,7 @@
                     <a href="#" class="btn btn-info btn-block">Some other stuff.....</a>
                 </div>
                 <div class="col-md-12">
-                    <form action="{{ route('office.events.destroy', $event->slug) }}" method="post" onsubmit="return confirm('Are you sure you want to permanently delete this event? This action cannot be undone.')">
+                    <form action="{{ route('tenants.office.events.destroy', $event->slug) }}" method="post" onsubmit="return confirm('Are you sure you want to permanently delete this event? This action cannot be undone.')">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <button class="btn btn-danger btn-block" type="submit">Permanently cancel / Delete event (THIS ACTION CANNOT BE UNDONE)</button>

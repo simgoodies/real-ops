@@ -7,7 +7,7 @@ use App\Services\Tenants\EventService;
 use Carbon\Carbon;
 use Tests\TenantTestCase;
 
-class OrganizeNewEventsTest extends TenantTestCase
+class EventTest extends TenantTestCase
 {
 
     /**
@@ -21,10 +21,9 @@ class OrganizeNewEventsTest extends TenantTestCase
         $this->eventService = new EventService();
     }
 
-    public function testItCanOrganizeANewEvent()
+    public function testTenantCanCreateNewEvent()
     {
         $this->withoutExceptionHandling();
-
         $this->createTenant();
 
         $response = $this->post($this->prepareTenantUrl('office/events'), [
@@ -45,7 +44,7 @@ class OrganizeNewEventsTest extends TenantTestCase
         $this->assertEquals('hakuna-matata-real-ops-2018', $events->first()->slug);
     }
 
-    public function testItCanUpdateDetailsOfAnEvent()
+    public function testTenantCanUpdateDetailsOfAnEvent()
     {
         $this->withoutExceptionHandling();
         $this->createTenant();
@@ -79,7 +78,7 @@ class OrganizeNewEventsTest extends TenantTestCase
         $this->assertEquals('21:00:00', $event->end_time);
     }
 
-    function testItCanDeleteEvents()
+    function testTenantCanDeleteEvents()
     {
         $this->createTenant();
 

@@ -15,27 +15,27 @@ class EventController extends Controller
         $eventService = new EventService();
         $events = $eventService->getAll();
 
-        return view('office.events.index')
+        return view('tenants.office.events.index')
             ->with('events', $events);
     }
 
     public function create()
     {
-        return view('office.events.create');
+        return view('tenants.office.events.create');
     }
 
     public function store(StoreEvent $request, EventService $eventService)
     {
         $event = $eventService->processNewEvent($request);
 
-        return redirect()->route('office.events.show', $event);
+        return redirect()->route('tenants.office.events.show', $event);
     }
 
     public function show($slug)
     {
         $eventService = new EventService();
         $event = $eventService->getBySlug($slug);
-        return view('office.events.show')
+        return view('tenants.office.events.show')
             ->with('event', $event);
     }
 
@@ -43,7 +43,7 @@ class EventController extends Controller
     {
         $eventService = new EventService();
         $event = $eventService->getBySlug($slug);
-        return view('office.events.edit')
+        return view('tenants.office.events.edit')
             ->with('event', $event);
     }
 
@@ -51,13 +51,13 @@ class EventController extends Controller
     {
         $event = $eventService->updateEvent($request, $slug);
 
-        return redirect()->route('office.events.show', $event);
+        return redirect()->route('tenants.office.events.show', $event);
     }
 
     public function destroy(Request $request, EventService $eventService, $slug)
     {
         $eventService->deleteEvent($request, $slug);
 
-        return redirect()->route('office.events.index');
+        return redirect()->route('tenants.office.events.index');
     }
 }

@@ -1,5 +1,5 @@
 <?php
-Route::namespace('App\Http\Controllers')->middleware('web')->group(function () {
+Route::namespace('App\Http\Controllers')->middleware('web')->name('tenants.')->group(function () {
     // Authentication Routes...
 // Login and Logout Routes...
     Route::get('login', 'Auth\User\LoginController@showLoginForm')->name('login');

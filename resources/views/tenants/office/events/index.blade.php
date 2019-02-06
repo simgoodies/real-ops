@@ -7,10 +7,10 @@
     <hr>
     <div class="row">
         <div class="col-md-6">
-            <a href="{{ route('office.index') }}" class="btn btn-danger btn-block">Return to office</a>
+            <a href="{{ route('tenants.office.index') }}" class="btn btn-danger btn-block">Return to office</a>
         </div>
         <div class="col-md-6">
-            <a href="{{ route('office.events.create') }}" class="btn btn-success btn-block">Organize new event!</a>
+            <a href="{{ route('tenants.office.events.create') }}" class="btn btn-success btn-block">Organize new event!</a>
         </div>
     </div>
     <div class="row">
@@ -24,7 +24,7 @@
                                     <h4>{{ $event->title }}</h4>
                                 </div>
                                 <div class="col-md-4">
-                                    <a href="{{ route('office.events.show', ['slug' => $event->slug]) }}"
+                                    <a href="{{ route('tenants.office.events.show', ['slug' => $event->slug]) }}"
                                        class="btn btn-default btn-block">Manage</a>
                                 </div>
                             </div>

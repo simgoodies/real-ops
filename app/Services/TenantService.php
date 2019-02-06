@@ -3,9 +3,17 @@
 namespace App\Services;
 
 use App\Models\Tenant;
+use Hyn\Tenancy\Environment;
 
 class TenantService
 {
+    protected $tenancy;
+
+    public function __construct()
+    {
+        $this->tenancy = app(Environment::class);
+    }
+
     /**
      * Does a tenant exist with given identifier
      *
@@ -85,5 +93,13 @@ class TenantService
     public function findByEmail($email)
     {
         return Tenant::where('email', $email)->first();
+    }
+
+    /**
+     * @return Tenant
+     */
+    public function getCurrentTenant() {
+        $hostname = $this->tenancy->hostname();
+        return $hostname->tenant;
     }
 }

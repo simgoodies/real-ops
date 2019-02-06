@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1><i class="fas fa-plane mr-3 d-none d-sm-inline"></i>[Hakuna Matata FIR] Real Ops - Office
+                        <h1><i class="fas fa-plane mr-3 d-none d-sm-inline"></i>{{ $office_title }} - Office
                         </h1>
                     </div>
                 </div>

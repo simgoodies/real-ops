@@ -9,8 +9,13 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected function asTenant(int $tenant_id = 1)
+    protected function assertSystemDatabaseHas($table, array $data)
     {
-        Landlord::addTenant('tenant_id', $tenant_id);
+        $this->assertDatabaseHas($table, $data, config('extras.db_connection', 'system'));
+    }
+
+    protected function assertSystemDatabaseMissing($table, array $data)
+    {
+        $this->assertDatabaseMissing($table, $data, config('extras.db_connection', 'system'));
     }
 }

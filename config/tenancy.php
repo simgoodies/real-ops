@@ -305,7 +305,7 @@ return [
          * Set to true to flush all global routes before setting the routes from the
          * tenants.php routes file.
          */
-        'replace-global' => false,
+        'replace-global' => true,
     ],
 
     /**

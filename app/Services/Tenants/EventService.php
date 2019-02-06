@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Tenants;
 
 use App\Http\Requests\UpdateEvent;
-use App\Models\Event;
+use App\Models\Tenants\Event;
 use Illuminate\Http\Request;
 
 class EventService

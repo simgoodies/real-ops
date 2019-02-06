@@ -2,15 +2,11 @@
 
 namespace Tests\Command;
 
-use App\Models\Tenant;
 use App\Models\User;
 use App\Services\Command\TenantCommandService;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Artisan;
-use Prophecy\Exception\Doubler\MethodNotFoundException;
-use Tests\TenantAwareTestCase;
+use Tests\TenantTestCase;
 
-class TenantCreateCommandTest extends TenantAwareTestCase
+class TenantCreateCommandTest extends TenantTestCase
 {
     /** @var TenantCommandService $tenantCommandService */
     protected $tenantCommandService;
@@ -63,11 +59,5 @@ class TenantCreateCommandTest extends TenantAwareTestCase
         $this->assertTrue($user->hasPermissionTo('edit user'));
         $this->assertTrue($user->hasPermissionTo('create user'));
         $this->assertTrue($user->hasPermissionTo('delete user'));
-    }
-
-    protected function tearDown()
-    {
-        $this->deleteTenantIfExists(['identifier' => 'tjzs']);
-        parent::tearDown();
     }
 }

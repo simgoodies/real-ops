@@ -47,12 +47,32 @@ class TenantService
     }
 
     /**
+     * @param array $attributes
+     * @return Tenant|\Illuminate\Database\Eloquent\Model
+     */
+    public function create(array $attributes)
+    {
+        return Tenant::create($attributes);
+    }
+
+    /**
+     * @param Tenant $tenant
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete(Tenant $tenant)
+    {
+        return $tenant->delete();
+    }
+
+    /**
      * Find tenant based on the identifier
      *
      * @param $identifier
      * @return Tenant|\Illuminate\Database\Eloquent\Model|null|object
      */
-    public function findByIdentifier($identifier) {
+    public function findByIdentifier($identifier)
+    {
         return Tenant::where('identifier', $identifier)->first();
     }
 
@@ -62,7 +82,8 @@ class TenantService
      * @param $email
      * @return Tenant|\Illuminate\Database\Eloquent\Model|null|object
      */
-    public function findByEmail($email) {
+    public function findByEmail($email)
+    {
         return Tenant::where('email', $email)->first();
     }
 }

@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Office;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEvent;
 use App\Http\Requests\UpdateEvent;
-use App\Models\Event;
-use App\Services\EventService;
+use App\Services\Tenants\EventService;
 use Illuminate\Http\Request;
 
 class EventController extends Controller

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenants;
 
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Model;
+use Hyn\Tenancy\Abstracts\TenantModel;
 
-class Event extends Model
+class Event extends TenantModel
 {
     use Sluggable;
 

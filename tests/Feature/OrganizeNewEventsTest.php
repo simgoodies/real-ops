@@ -2,24 +2,32 @@
 
 namespace Tests\Feature;
 
-use App\Models\Airline;
-use App\Models\Event;
+use App\Models\Tenants\Event;
+use App\Services\Tenants\EventService;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Tests\TestCase;
+use Tests\TenantTestCase;
 
-class OrganizeNewEventsTest extends TestCase
+class OrganizeNewEventsTest extends TenantTestCase
 {
-    use DatabaseMigrations;
-    use WithoutMiddleware;
 
-    /** @test */
-    public function it_can_organize_a_new_event()
+    /**
+     * @var EventService $eventService
+     */
+    protected $eventService;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->eventService = new EventService();
+    }
+
+    public function testItCanOrganizeANewEvent()
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('office/events', [
+        $this->createTenant();
+
+        $response = $this->post($this->prepareTenantUrl('office/events'), [
             'title' => 'Hakuna Matata Real Ops 2018',
             'description' => 'Super awesome description as to why Hakuna Matata Real Ops 2018 will be the bomb!',
             'start_date' => Carbon::now()->addDays(3)->toDateTimeString(),
@@ -30,40 +38,19 @@ class OrganizeNewEventsTest extends TestCase
 
         $response->assertRedirect('office/events/hakuna-matata-real-ops-2018');
 
-        $events = Event::all();
+        $events = $this->eventService->getAll();
 
         $this->assertCount(1, $events);
         $this->assertEquals('Hakuna Matata Real Ops 2018', $events->first()->title);
         $this->assertEquals('hakuna-matata-real-ops-2018', $events->first()->slug);
     }
 
-    /** @test */
-    function it_can_add_a_new_airline()
+    public function testItCanUpdateDetailsOfAnEvent()
     {
         $this->withoutExceptionHandling();
+        $this->createTenant();
 
-        $response = $this->post('airlines', [
-            'name' => 'Hakuna Matata Airline',
-            'callsign' => 'Hakuna',
-            'icao' => 'hkm'
-        ]);
-
-        $response->assertRedirect('airlines');
-
-        $airlines = Airline::all();
-
-        $this->assertCount(1, $airlines);
-        $this->assertEquals('Hakuna Matata Airline', $airlines->first()->name);
-        $this->assertEquals('HAKUNA', $airlines->first()->callsign);
-        $this->assertEquals('HKM', $airlines->first()->icao);
-    }
-
-    /** @test */
-    function it_can_update_details_of_an_event()
-    {
-        $this->withoutExceptionHandling();
-
-        factory('App\Models\Event')->create([
+        factory(Event::class)->create([
             'title' => 'Original Name',
             'description' => 'Original Description',
             'start_date' => '2018-12-31',
@@ -72,7 +59,7 @@ class OrganizeNewEventsTest extends TestCase
             'end_time' => '20:00'
         ]);
 
-        $response = $this->put('office/events/original-name/edit', [
+        $response = $this->put($this->prepareTenantUrl('office/events/original-name/edit'), [
             'title' => 'Changed Name',
             'description' => 'New Description',
             'start_date' => '2018-12-30',
@@ -82,7 +69,7 @@ class OrganizeNewEventsTest extends TestCase
         ]);
 
         $response->assertRedirect('office/events/changed-name');
-        $event = Event::all()->first();
+        $event = $this->eventService->getAll()->first();
 
         $this->assertEquals('Changed Name', $event->title);
         $this->assertEquals('New Description', $event->description);
@@ -92,21 +79,23 @@ class OrganizeNewEventsTest extends TestCase
         $this->assertEquals('21:00:00', $event->end_time);
     }
 
-    /** @test */
-    function it_can_delete_events()
+    function testItCanDeleteEvents()
     {
-        factory('App\Models\Event')->create([
+        $this->createTenant();
+
+        factory(Event::class)->create([
             'slug' => 'to-be-deleted-event'
         ]);
 
-        $events = Event::all();
+        $events = $this->eventService->getAll();
+
         $this->assertCount(1, $events);
 
-        $response =  $this->delete('office/events/to-be-deleted-event');
+        $response =  $this->delete($this->prepareTenantUrl('office/events/to-be-deleted-event'));
 
         $response->assertRedirect('office/events');
 
-        $events = Event::all();
+        $events = $this->eventService->getAll();
         $this->assertCount(0, $events);
 
     }

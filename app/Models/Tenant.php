@@ -2,17 +2,15 @@
 
 namespace App\Models;
 
-use Hyn\Tenancy\Traits\UsesSystemConnection;
-use Illuminate\Database\Eloquent\Model;
+use Hyn\Tenancy\Abstracts\SystemModel;
 
 /**
  * @property string identifier
  * @property string name
  * @property string email
  */
-class Tenant extends Model
+class Tenant extends SystemModel
 {
-    use UsesSystemConnection;
 
     protected $fillable = [
         'identifier',

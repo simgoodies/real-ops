@@ -1,7 +1,7 @@
 <?php
 
 use Carbon\Carbon;
-use App\Models\Event;
+use App\Models\Tenants\Event;
 use Faker\Generator as Faker;
 
 /*

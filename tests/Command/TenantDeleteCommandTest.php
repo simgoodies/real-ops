@@ -2,9 +2,9 @@
 namespace Tests\Command;
 
 use Illuminate\Database\QueryException;
-use Tests\TenantAwareTestCase;
+use Tests\TenantTestCase;
 
-class TenantDeleteCommandTest extends TenantAwareTestCase
+class TenantDeleteCommandTest extends TenantTestCase
 {
     public function testTenantNameIsRequired()
     {
@@ -25,10 +25,5 @@ class TenantDeleteCommandTest extends TenantAwareTestCase
         $this->artisan('tenant:delete', ['identifier' => 'tjzs']);
         $this->expectException(QueryException::class);
         $this->assertDatabaseHas('users', ['email' => 'tjzs@example.com']);
-    }
-    protected function tearDown()
-    {
-        $this->deleteTenantIfExists(['identifier' => 'tjzs']);
-        parent::tearDown();
     }
 }

@@ -37,11 +37,11 @@
             <div class="container">
                 <div class="card-deck text-center">
                     <div class="card bg-light">
-                        <img class="card-img-top img-fluid" src="https://picsum.photos/400/?random"
-                             alt="Card image cap">
+                        <img class="area-selector__card_size card-img-top img-fluid" src="{{ asset('images/tenants/office/area-selector-events.jpeg') }}"
+                             alt="Events">
                         <div class="card-body">
                             <h5 class="card-title">Events</h5>
-                            <p>Manage the details of your event(s)</p>
+                            <p>Manage the details of your event(s)!</p>
                         </div>
                         <div class="card-footer">
                             <a class="btn btn-outline-primary" href="{{ route('tenants.office.events.index') }}">Visit <i
@@ -49,11 +49,11 @@
                         </div>
                     </div>
                     <div class="card bg-light">
-                        <img class="card-img-top img-fluid" src="https://picsum.photos/400/?random"
-                             alt="Card image cap">
+                        <img class="area-selector__card_size card-img-top img-fluid" src="{{ asset('images/tenants/office/area-selector-volunteers.jpeg') }}"
+                             alt="Volunteers">
                         <div class="card-body">
-                            <h5 class="card-title">Assistants</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                            <h5 class="card-title">Volunteers</h5>
+                            <p>Manage the hard-working volunteers!</p>
                         </div>
                         <div class="card-footer">
                             <a class="btn btn-outline-primary" href="#">Visit <i
@@ -61,11 +61,11 @@
                         </div>
                     </div>
                     <div class="card bg-light">
-                        <img class="card-img-top img-fluid" src="https://picsum.photos/400/?random"
-                             alt="Card image cap">
+                        <img class="area-selector__card_size card-img-top img-fluid" src="{{ asset('images/tenants/office/area-selector-live.jpeg') }}"
+                             alt="Live">
                         <div class="card-body">
-                            <h5 class="card-title">Lorem Ipsum</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                            <h5 class="card-title">Live (coming soon)</h5>
+                            <p>Live action as your event takes place!</p>
                         </div>
                         <div class="card-footer">
                             <a class="btn btn-outline-primary" href="#">Visit <i

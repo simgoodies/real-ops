@@ -5,8 +5,7 @@
 @section('main-content')
     <div class="office">
 
-        <!-- INCLUDE OFFICE NAV -->
-    @include('tenants.office.partials.nav._nav')
+    @include('tenants.partials._nav')
 
     <!-- OFFICE TITLE SECTION -->
         <section class="office-title bg-secondary py-4">
@@ -37,19 +36,22 @@
             <div class="container">
                 <div class="card-deck text-center">
                     <div class="card bg-light">
-                        <img class="area-selector__card_size card-img-top img-fluid" src="{{ asset('images/tenants/office/area-selector-events.jpeg') }}"
+                        <img class="area-selector__card_size card-img-top img-fluid"
+                             src="{{ asset('images/tenants/office/area-selector-events.jpeg') }}"
                              alt="Events">
                         <div class="card-body">
                             <h5 class="card-title">Events</h5>
                             <p>Manage the details of your event(s)!</p>
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-outline-primary" href="{{ route('tenants.office.events.index') }}">Visit <i
+                            <a class="btn btn-outline-primary" href="{{ route('tenants.office.events.index') }}">Visit
+                                <i
                                         class="fas fa-arrow-alt-circle-right"></i></a>
                         </div>
                     </div>
                     <div class="card bg-light">
-                        <img class="area-selector__card_size card-img-top img-fluid" src="{{ asset('images/tenants/office/area-selector-volunteers.jpeg') }}"
+                        <img class="area-selector__card_size card-img-top img-fluid"
+                             src="{{ asset('images/tenants/office/area-selector-volunteers.jpeg') }}"
                              alt="Volunteers">
                         <div class="card-body">
                             <h5 class="card-title">Volunteers</h5>
@@ -61,7 +63,8 @@
                         </div>
                     </div>
                     <div class="card bg-light">
-                        <img class="area-selector__card_size card-img-top img-fluid" src="{{ asset('images/tenants/office/area-selector-live.jpeg') }}"
+                        <img class="area-selector__card_size card-img-top img-fluid"
+                             src="{{ asset('images/tenants/office/area-selector-live.jpeg') }}"
                              alt="Live">
                         <div class="card-body">
                             <h5 class="card-title">Live (coming soon)</h5>

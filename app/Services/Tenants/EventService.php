@@ -23,6 +23,7 @@ class EventService
         $event->start_time = $request->start_time;
         $event->end_date = $request->end_date;
         $event->end_time = $request->end_time;
+        $event->banner_image_link = $request->banner_image_link;
 
         $event->save();
 
@@ -50,6 +51,7 @@ class EventService
         $event->start_time = $request->start_time;
         $event->end_date = $request->end_date;
         $event->end_time = $request->end_time;
+        $event->banner_image_link = $request->banner_image_link;
 
         $event->save();
 

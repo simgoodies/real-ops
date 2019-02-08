@@ -15,7 +15,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('tenants.office.index', OfficeComposer::class);
+        View::composer('tenants.office.*', OfficeComposer::class);
     }
 
     /**

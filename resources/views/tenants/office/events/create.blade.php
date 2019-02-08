@@ -2,28 +2,28 @@
 
 @section('title', 'Organize event')
 
-@section('stylesheets')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/') }}">
-@endsection
+@section('main-content')
 
-@section('content')
-    <h1>Organize the next big real ops event!</h1>
-    <hr>
-    <div class="row">
-        <div class="col-md-offset-2 col-md-8">
-            <a href="{{ route('tenants.office.events.index') }}" class="btn btn-danger btn-block">Return to event management</a>
+    @include('tenants.partials._nav')
+
+    @component('tenants.office.components._office-title')
+        {{ $office_title }} - Organize new event!
+    @endcomponent
+
+    <div class="container">
+        <div class="row my-3">
+            <div class="offset-md-2 col-md-8">
+                <a href="{{ route('tenants.office.events.index') }}" class="btn btn-danger btn-block">
+                    Return to event management
+                </a>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-offset-2 col-md-8">
+        <div class="row">
+            <div class="offset-md-1 col-md-10">
 
-        </div>
-    </div>
+                @include('partials._errors')
 
-    <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-            <div class="content-wrapper">
                 <form action="{{ route('tenants.office.events.store') }}" method="post">
                     {{ csrf_field() }}
                     <div class="row">
@@ -48,10 +48,8 @@
                             <div class="form-group">
                                 <label for="start_date">Event start date:</label>
                                 <div class="input-group date">
-                                    <input type="date" name="start_date" class="form-control">
-                                    <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+                                    <input type="date" name="start_date" class="form-control"
+                                           value="{{ old('start_date') }}">
                                 </div>
                             </div>
                         </div>
@@ -60,22 +58,18 @@
                             <div class="form-group">
                                 <label for="start_time">Event start time: (in ZULU)</label>
                                 <div class="input-group date">
-                                    <input type="time" name="start_time" class="form-control">
-                                    <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-time"></span>
-                                </span>
+                                    <input type="time" name="start_time" class="form-control"
+                                           value="{{ old('start_time') }}">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-7">
+                        <div class=" col-md-7">
                             <div class="form-group">
                                 <label for="end_date">Event end date:</label>
                                 <div class="input-group date">
-                                    <input type="date" name="end_date" class="form-control">
-                                    <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+                                    <input type="date" name="end_date" class="form-control"
+                                           value="{{ old('end_date') }}">
                                 </div>
                             </div>
                         </div>
@@ -84,15 +78,28 @@
                             <div class="form-group">
                                 <label for="end_time">Event end time: (in ZULU)</label>
                                 <div class="input-group date">
-                                    <input type="time" name="end_time" class="form-control">
-                                    <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-time"></span>
-                                </span>
+                                    <input type="time" name="end_time" class="form-control"
+                                           value="{{ old('end_time') }}">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-offset-4 col-md-8">
-                            <button type="submit" class="btn btn-success btn-block">Organize event</button>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="banner_image_link">Event Banner:</label>
+                                <input type="text" class="form-control" name="banner_image_link"
+                                       value="{{ old('banner_image_link') }}"
+                                       placeholder="Enter the permalink to the event banner...">
+                                <small class="form-text text-muted">
+                                    For example: https://theplace.wheretheimageis.com/images/banner.jpg
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto">
+                            <button type="submit" class="btn btn-success btn-block">Organize event
+                            </button>
                         </div>
                     </div>
                 </form>

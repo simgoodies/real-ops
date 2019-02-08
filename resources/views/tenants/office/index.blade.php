@@ -5,21 +5,13 @@
 @section('main-content')
     <div class="office">
 
-    @include('tenants.partials._nav')
+        @include('tenants.partials._nav')
 
-    <!-- OFFICE TITLE SECTION -->
-        <section class="office-title bg-secondary py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1><i class="fas fa-plane mr-3 d-none d-sm-inline"></i>{{ $office_title }} - Office
-                        </h1>
-                    </div>
-                </div>
-            </div>
-        </section>
+        @component('tenants.office.components._office-title')
+            <i class="fas fa-plane mr-3 d-none d-sm-inline"></i>{{ $office_title }} - Office
+        @endcomponent
 
-        <!-- AREA SELECTOR SECTION -->
+    <!-- AREA SELECTOR SECTION -->
         <section class="area-selector my-3">
             <div class="container">
 
@@ -44,9 +36,9 @@
                             <p>Manage the details of your event(s)!</p>
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-outline-primary" href="{{ route('tenants.office.events.index') }}">Visit
-                                <i
-                                        class="fas fa-arrow-alt-circle-right"></i></a>
+                            <a class="btn btn-outline-primary" href="{{ route('tenants.office.events.index') }}">
+                                Visit <i class="fas fa-arrow-alt-circle-right"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="card bg-light">

@@ -2,6 +2,7 @@
 
 namespace App\Services\Tenants;
 
+use App\Http\Requests\StoreEvent;
 use App\Http\Requests\UpdateEvent;
 use App\Models\Tenants\Event;
 use Illuminate\Http\Request;
@@ -11,10 +12,10 @@ class EventService
     /**
      * This is used during the creation of a new event
      *
-     * @param Request $request
+     * @param StoreEvent $request
      * @return Event
      */
-    public function processNewEvent(Request $request)
+    public function storeEvent(StoreEvent $request)
     {
         $event = new Event();
         $event->title = $request->title;
@@ -30,16 +31,13 @@ class EventService
         return $event;
     }
 
-    public function getAll()
-    {
-        return Event::all();
-    }
-
-    public function getBySlug($slug)
-    {
-        return Event::whereSlug($slug)->first();
-    }
-
+    /**
+     * This is used during the update of an existing event
+     *
+     * @param UpdateEvent $request
+     * @param $slug
+     * @return mixed
+     */
     public function updateEvent(UpdateEvent $request, $slug)
     {
         $event = $this->getBySlug($slug);
@@ -58,10 +56,48 @@ class EventService
         return $event;
     }
 
-    public function deleteEvent(Request $request, $slug)
+    /**
+     * This is used during the destruction of an existing event
+     *
+     * @param Request $request
+     * @param $slug
+     */
+    public function destroyEvent(Request $request, $slug)
     {
         $event = $this->getBySlug($slug);
 
+        $this->delete($event);
+    }
+
+    /**
+     * This returns a collection of all the events
+     *
+     * @return Event[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getAll()
+    {
+        return Event::all();
+    }
+
+    /**
+     * This is used to grab an event based on slug
+     *
+     * @param $slug
+     * @return mixed
+     */
+    public function getBySlug($slug)
+    {
+        return Event::whereSlug($slug)->first();
+    }
+
+    /**
+     * Delete the given tenant
+     *
+     * @param Event $event
+     * @throws \Exception
+     */
+    public function delete(Event $event)
+    {
         $event->delete();
     }
 }

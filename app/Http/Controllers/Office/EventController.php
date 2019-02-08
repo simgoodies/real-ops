@@ -10,13 +10,21 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    /** @var EventService */
+    protected $eventService;
+
+    public function __construct(EventService $eventService)
+    {
+        $this->eventService = $eventService;
+    }
+
     public function index()
     {
-        $eventService = new EventService();
-        $events = $eventService->getAll();
+        $events = $this->eventService->getAll();
 
-        return view('tenants.office.events.index')
-            ->with('events', $events);
+        return view('tenants.office.events.index', [
+            'events' => $events
+        ]);
     }
 
     public function create()
@@ -24,39 +32,49 @@ class EventController extends Controller
         return view('tenants.office.events.create');
     }
 
-    public function store(StoreEvent $request, EventService $eventService)
+    public function store(StoreEvent $request)
     {
-        $event = $eventService->processNewEvent($request);
+        $event = $this->eventService->storeEvent($request);
 
         return redirect()->route('tenants.office.events.show', $event);
     }
 
     public function show($slug)
     {
-        $eventService = new EventService();
-        $event = $eventService->getBySlug($slug);
-        return view('tenants.office.events.show')
-            ->with('event', $event);
+        $event = $this->eventService->getBySlug($slug);
+        abort_if(is_null($event),404);
+
+        return view('tenants.office.events.show', [
+            'event' => $event
+        ]);
     }
 
     public function edit($slug)
     {
-        $eventService = new EventService();
-        $event = $eventService->getBySlug($slug);
-        return view('tenants.office.events.edit')
-            ->with('event', $event);
+        $event = $this->eventService->getBySlug($slug);
+        abort_if(is_null($event),404);
+
+        return view('tenants.office.events.edit', [
+            'event' => $event
+        ]);
     }
 
-    public function update(UpdateEvent $request, EventService $eventService, $slug)
+    public function update(UpdateEvent $request, $slug)
     {
-        $event = $eventService->updateEvent($request, $slug);
+        $event = $this->eventService->getBySlug($slug);
+        abort_if(is_null($event),404);
+
+        $event = $this->eventService->updateEvent($request, $slug);
 
         return redirect()->route('tenants.office.events.show', $event);
     }
 
-    public function destroy(Request $request, EventService $eventService, $slug)
+    public function destroy(Request $request, $slug)
     {
-        $eventService->deleteEvent($request, $slug);
+        $event = $this->eventService->getBySlug($slug);
+        abort_if(is_null($event),404);
+
+        $this->eventService->destroyEvent($request, $slug);
 
         return redirect()->route('tenants.office.events.index');
     }

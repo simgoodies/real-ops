@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="title">Event title:</label>
+                                <label for="title">Event title* :</label>
                                 <input type="text" class="form-control" name="title" required="true"
                                        value="{{ old('title') }}"
                                        placeholder="Enter the title of the real ops event...">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="description">Event description:</label>
+                                <label for="description">Event description* :</label>
                                 <textarea name="description" class="form-control" required="true"
                                           placeholder="Enter the event description / invitation message to pilots..."
                                           cols="30" rows="10">{{ old('description') }}</textarea>
@@ -46,7 +46,7 @@
 
                         <div class="col-md-7">
                             <div class="form-group">
-                                <label for="start_date">Event start date:</label>
+                                <label for="start_date">Event start date* :</label>
                                 <div class="input-group date">
                                     <input type="date" name="start_date" class="form-control"
                                            value="{{ old('start_date') }}">
@@ -56,7 +56,7 @@
 
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label for="start_time">Event start time: (in ZULU)</label>
+                                <label for="start_time">Event start time* : (in ZULU)</label>
                                 <div class="input-group date">
                                     <input type="time" name="start_time" class="form-control"
                                            value="{{ old('start_time') }}">
@@ -66,7 +66,7 @@
 
                         <div class=" col-md-7">
                             <div class="form-group">
-                                <label for="end_date">Event end date:</label>
+                                <label for="end_date">Event end date* :</label>
                                 <div class="input-group date">
                                     <input type="date" name="end_date" class="form-control"
                                            value="{{ old('end_date') }}">
@@ -76,7 +76,7 @@
 
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label for="end_time">Event end time: (in ZULU)</label>
+                                <label for="end_time">Event end time* : (in ZULU)</label>
                                 <div class="input-group date">
                                     <input type="time" name="end_time" class="form-control"
                                            value="{{ old('end_time') }}">

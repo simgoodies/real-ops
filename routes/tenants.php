@@ -1,13 +1,16 @@
 <?php
-Route::namespace('App\Http\Controllers')->middleware('web')->name('tenants.')->group(function () {
+Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenants.')->group(function () {
+
+    Route::get('/')->uses('PageController@landing')->name('landing');
+
     // Authentication Routes...
-// Login and Logout Routes...
+    // Login and Logout Routes...
     Route::get('login', 'Auth\User\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\User\LoginController@login');
     Route::post('login-management', 'Auth\Admin\LoginController@login')->name('login-management');
     Route::get('logout', 'Auth\User\LoginController@logout')->name('logout');
 
-// Password Reset Routes...
+    // Password Reset Routes...
     Route::get('password/reset',
         'Auth\User\ForgotPasswordController@showLinkRequestForm')->name('password.request');
     Route::post('password/email', 'Auth\User\ForgotPasswordController@sendResetLinkEmail')->name('password.email');

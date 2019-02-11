@@ -27,13 +27,13 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('admin.password.email') }}"
+                        <form method="POST" action="{{ route('tenants.auth.password.email') }}"
                               aria-label="Reset Password">
                             @csrf
 
                             <div class="form-group row">
                                 <label for="email"
-                                       class="col-md-4 col-form-label text-md-right">E-mail Address</label>
+                                       class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"

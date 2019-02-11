@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class AdminResetPasswordNotification extends Notification
+class ResetPasswordNotification extends Notification
 {
     use Queueable;
 
@@ -44,7 +44,7 @@ class AdminResetPasswordNotification extends Notification
     {
         return (new MailMessage)
             ->line('You are receiving this email because we recieved a password reset request for your account.')
-            ->action('Reset Password', route('admin.password.reset', $this->token))
+            ->action('Reset Password', route('tenants.auth.password.reset', $this->token))
             ->line('If you did not request a password reset, ignore this email.');
     }
 

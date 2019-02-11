@@ -20,7 +20,7 @@
                 <div class="card">
                     <div class="card-header">Login to the office...</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}" aria-label="Login">
+                        <form method="POST" action="{{ route('tenants.auth.login') }}" aria-label="Login">
                             @csrf
 
                             <div class="form-group row">
@@ -75,7 +75,7 @@
                                         Login
                                     </button>
 
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link" href="{{ route('tenants.auth.password.request') }}">
                                         Forgot Your Password?
                                     </a>
                                 </div>

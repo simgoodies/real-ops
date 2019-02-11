@@ -18,6 +18,14 @@
                         <a class="nav-link" href="{{ route('tenants.office.index') }}">Office</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="{{ route('tenants.auth.login') }}" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('tenants.auth.logout') }}" class="nav-link">Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

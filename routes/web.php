@@ -3,8 +3,6 @@
 Route::get('/', ['uses' => 'LandingPageController@index']);
 
 Route::get('apply', ['uses' => 'ApplicationController@index', 'as' => 'applications.index']);
-Route::post('apply', ['uses' => 'ApplicationController@store', 'as' => 'applications.store']);
-Route::get('successfully-applied', ['uses' => 'AppliedController@index', 'as' => 'applied.index']);
 
 Route::get('airlines', ['uses' => 'AirlineController@index', 'as' => 'airlines.index']);
 Route::post('airlines', 'AirlineController@store');

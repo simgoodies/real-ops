@@ -1,5 +1,8 @@
 <?php
-Route::get('apply', ['uses' => 'ApplicationController@create']);
+
+Route::get('/', ['uses' => 'LandingPageController@index']);
+
+Route::get('apply', ['uses' => 'ApplicationController@index', 'as' => 'applications.index']);
 Route::post('apply', ['uses' => 'ApplicationController@store', 'as' => 'applications.store']);
 Route::get('successfully-applied', ['uses' => 'AppliedController@index', 'as' => 'applied.index']);
 

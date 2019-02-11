@@ -1,8 +1,8 @@
 <?php
 
-Route::get('/', ['uses' => 'LandingPageController@index']);
-
-Route::get('apply', ['uses' => 'ApplicationController@index', 'as' => 'applications.index']);
+Route::get('/', ['uses' => 'PageController@landing']);
+Route::get('contact', ['uses' => 'PageController@contact', 'as' => 'core.pages.contact']);
+Route::get('apply', ['uses' => 'PageController@application', 'as' => 'core.pages.application']);
 
 Route::get('airlines', ['uses' => 'AirlineController@index', 'as' => 'airlines.index']);
 Route::post('airlines', 'AirlineController@store');

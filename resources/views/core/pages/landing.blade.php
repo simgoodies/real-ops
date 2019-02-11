@@ -13,7 +13,7 @@
                         <div class="landing-page__card card text-dark text-center">
                             <div class="card-body">
                                 <h1 class="display-4">VATGoodies presents Real Ops</h1>
-                                <a class="btn btn-outline-primary" href="{{ route('applications.index') }}">I want to
+                                <a class="btn btn-outline-primary" href="{{ route('core.pages.application') }}">I want to
                                     get started with my FIR!</a>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 VATGoodies!</p>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ route('applications.index') }}" class="btn btn-primary btn-block">Sign me up
+                            <a href="{{ route('core.pages.application') }}" class="btn btn-primary btn-block">Sign me up
                                 now...</a>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
         <div class="container py-4">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center text-light">
-                    <a class="btn btn-lg btn-primary" href="{{ route('applications.index') }}">I'm convinced, sign my
+                    <a class="btn btn-lg btn-primary" href="{{ route('core.pages.application') }}">I'm convinced, sign my
                         FIR up!</a>
                 </div>
             </div>

@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Notifications\ResetPasswordNotification;
-use Hyn\Tenancy\Traits\UsesTenantConnection;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Hyn\Tenancy\Traits\UsesTenantConnection;
+use App\Notifications\ResetPasswordNotification;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {

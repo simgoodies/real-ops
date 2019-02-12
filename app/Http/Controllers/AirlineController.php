@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAirline;
 use App\Services\AirlineService;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreAirline;
 
 class AirlineController extends Controller
 {

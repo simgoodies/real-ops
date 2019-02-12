@@ -1,6 +1,6 @@
 <?php
-Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenants.')->group(function () {
 
+Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenants.')->group(function () {
     Route::get('/')->uses('PageController@landing')->name('landing');
 
     // Authentication Routes...

@@ -22,6 +22,6 @@ $factory->define(Event::class, function (Faker $faker) {
         'start_time' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
         'end_time' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s'),
         'start_date' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
-        'end_date' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s')
+        'end_date' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s'),
     ];
 });

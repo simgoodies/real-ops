@@ -2,8 +2,8 @@
 
 namespace App\Models\Tenants;
 
-use Cviebrock\EloquentSluggable\Sluggable;
 use Hyn\Tenancy\Abstracts\TenantModel;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Event extends TenantModel
 {
@@ -23,8 +23,8 @@ class Event extends TenantModel
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 }

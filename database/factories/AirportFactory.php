@@ -23,6 +23,6 @@ $factory->define(Airport::class, function (Faker $faker) {
         'city' => $faker->city,
         'state' => $faker->city,
         'country' => $faker->country,
-        'elevation' => $faker->numberBetween(0, 3000)
+        'elevation' => $faker->numberBetween(0, 3000),
     ];
 });

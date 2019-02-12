@@ -2,22 +2,22 @@
 
 namespace App\Services\Command;
 
-use App\Models\Tenant;
 use App\Models\User;
+use App\Models\Tenant;
 use App\Models\Website;
-use App\Services\TenantService;
 use Hyn\Tenancy\Environment;
+use App\Services\TenantService;
 use Hyn\Tenancy\Models\Hostname;
-use Hyn\Tenancy\Repositories\HostnameRepository;
-use Hyn\Tenancy\Repositories\WebsiteRepository;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
+use Hyn\Tenancy\Repositories\WebsiteRepository;
+use Hyn\Tenancy\Repositories\HostnameRepository;
 
 class TenantCommandService extends TenantService
 {
     /**
-     * The tenant will be created along with the appropriate website and subdomain
+     * The tenant will be created along with the appropriate website and subdomain.
      *
      * @param string $identifier The identifier of the tenant for example: tjzs
      * @param string $name The name of the tenant for example: San Juan CERAP
@@ -41,7 +41,7 @@ class TenantCommandService extends TenantService
     }
 
     /**
-     * The tenant will be deleted if found
+     * The tenant will be deleted if found.
      *
      * @param $identifier
      * @throws \Exception
@@ -58,7 +58,7 @@ class TenantCommandService extends TenantService
     }
 
     /**
-     * Checks to see if the provided arguments comply with validation requirements
+     * Checks to see if the provided arguments comply with validation requirements.
      *
      * @param string $identifier
      * @param string $name
@@ -70,13 +70,13 @@ class TenantCommandService extends TenantService
         $input = [
             'identifier' => $identifier,
             'name' => $name,
-            'email' => $email
+            'email' => $email,
         ];
 
         $validator = Validator::make($input, [
             'identifier' => 'required|max:4|unique:tenants',
             'name' => 'required|max:255|unique:tenants',
-            'email' => 'required|max:255|unique:tenants'
+            'email' => 'required|max:255|unique:tenants',
         ]);
 
         $errors = $validator->errors();
@@ -88,9 +88,8 @@ class TenantCommandService extends TenantService
         return $errors;
     }
 
-
     /**
-     * Creates the tenant environment
+     * Creates the tenant environment.
      *
      * @param Tenant $tenant
      * @return Tenant
@@ -99,7 +98,7 @@ class TenantCommandService extends TenantService
     {
         // Formulate the subdomain e.g. tjzs.realops.example
         $hostname = new Hostname;
-        $hostname->fqdn = $tenant->identifier . '.' . config('app.url_base');
+        $hostname->fqdn = $tenant->identifier.'.'.config('app.url_base');
         $hostname->tenant_id = $tenant->id;
         $hostname = app(HostnameRepository::class)->create($hostname);
 
@@ -116,7 +115,7 @@ class TenantCommandService extends TenantService
     }
 
     /**
-     * Creates the first user for the tenant
+     * Creates the first user for the tenant.
      *
      * @param Tenant $tenant
      * @param string $password
@@ -127,7 +126,7 @@ class TenantCommandService extends TenantService
         $admin = User::create([
             'name' => $tenant->name,
             'email' => $tenant->email,
-            'password' => Hash::make($password)
+            'password' => Hash::make($password),
         ]);
         $admin->guard_name = 'web';
         $admin->assignRole('admin');

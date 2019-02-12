@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pilot extends Model
 {
     /**
-     * The bookings that the pilot has
+     * The bookings that the pilot has.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

@@ -15,7 +15,7 @@ class TenantService
     }
 
     /**
-     * Does a tenant exist with given identifier
+     * Does a tenant exist with given identifier.
      *
      * @param $identifier
      * @return bool|mixed
@@ -23,11 +23,12 @@ class TenantService
     public function identifierExists($identifier)
     {
         $tenant = $this->findByIdentifier($identifier);
+
         return is_null($tenant) ? false : true;
     }
 
     /**
-     * Does a tenant exist with given email
+     * Does a tenant exist with given email.
      *
      * @param $email
      * @return bool|mixed
@@ -35,11 +36,12 @@ class TenantService
     public function emailExists($email)
     {
         $tenant = $this->findByEmail($email);
+
         return is_null($tenant) ? false : true;
     }
 
     /**
-     * Determine if a tenant already exists in the database
+     * Determine if a tenant already exists in the database.
      *
      * @param string $identifier
      * @param string $email
@@ -74,7 +76,7 @@ class TenantService
     }
 
     /**
-     * Find tenant based on the identifier
+     * Find tenant based on the identifier.
      *
      * @param $identifier
      * @return Tenant|\Illuminate\Database\Eloquent\Model|null|object
@@ -85,7 +87,7 @@ class TenantService
     }
 
     /**
-     * Find tenant based on the email
+     * Find tenant based on the email.
      *
      * @param $email
      * @return Tenant|\Illuminate\Database\Eloquent\Model|null|object
@@ -98,8 +100,10 @@ class TenantService
     /**
      * @return Tenant
      */
-    public function getCurrentTenant() {
+    public function getCurrentTenant()
+    {
         $hostname = $this->tenancy->hostname();
+
         return $hostname->tenant;
     }
 }

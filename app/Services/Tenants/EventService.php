@@ -2,15 +2,15 @@
 
 namespace App\Services\Tenants;
 
+use Illuminate\Http\Request;
+use App\Models\Tenants\Event;
 use App\Http\Requests\StoreEvent;
 use App\Http\Requests\UpdateEvent;
-use App\Models\Tenants\Event;
-use Illuminate\Http\Request;
 
 class EventService
 {
     /**
-     * This is used during the creation of a new event
+     * This is used during the creation of a new event.
      *
      * @param StoreEvent $request
      * @return Event
@@ -32,7 +32,7 @@ class EventService
     }
 
     /**
-     * This is used during the update of an existing event
+     * This is used during the update of an existing event.
      *
      * @param UpdateEvent $request
      * @param $slug
@@ -57,7 +57,7 @@ class EventService
     }
 
     /**
-     * This is used during the destruction of an existing event
+     * This is used during the destruction of an existing event.
      *
      * @param Request $request
      * @param $slug
@@ -70,7 +70,7 @@ class EventService
     }
 
     /**
-     * This returns a collection of all the events
+     * This returns a collection of all the events.
      *
      * @return Event[]|\Illuminate\Database\Eloquent\Collection
      */
@@ -80,7 +80,7 @@ class EventService
     }
 
     /**
-     * This is used to grab an event based on slug
+     * This is used to grab an event based on slug.
      *
      * @param $slug
      * @return mixed
@@ -91,7 +91,7 @@ class EventService
     }
 
     /**
-     * Delete the given tenant
+     * Delete the given tenant.
      *
      * @param Event $event
      * @throws \Exception

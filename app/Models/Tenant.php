@@ -11,15 +11,14 @@ use Hyn\Tenancy\Abstracts\SystemModel;
  */
 class Tenant extends SystemModel
 {
-
     protected $fillable = [
         'identifier',
         'name',
-        'email'
+        'email',
     ];
 
     /**
-     * A tenant has one hostname
+     * A tenant has one hostname.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

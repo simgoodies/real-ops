@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Models\Flight;
 use App\Models\Pilot;
+use App\Models\Flight;
 
 class BookingService
 {
     /**
-     * This method will attempt to make a booking for a pilot
+     * This method will attempt to make a booking for a pilot.
      *
      * @param Pilot $pilot
      * @param Flight $flight

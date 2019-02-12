@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Flight;
 use Carbon\Carbon;
+use App\Models\Flight;
 use Faker\Generator as Faker;
 
 /*
@@ -30,7 +30,7 @@ $factory->define(Flight::class, function (Faker $faker) {
         },
         'number' => 'ABC123',
         'departure_time' => Carbon::now()->toTimeString(),
-        'arrival_time' => Carbon::parse('+1 hour')->toTimeString()
+        'arrival_time' => Carbon::parse('+1 hour')->toTimeString(),
     ];
 });
 

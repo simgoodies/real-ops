@@ -5,7 +5,6 @@
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
  */
 
 return [
@@ -105,7 +104,7 @@ return [
     */
     'user_models' => [
         'users' => 'App\Models\User',
-        'admins' => 'App\Models\Admin'
+        'admins' => 'App\Models\Admin',
     ],
 
     /*
@@ -119,17 +118,17 @@ return [
     |
     */
     'models' => [
-        /**
+        /*
          * Role model
          */
         'role' => 'App\Models\Role',
 
-        /**
+        /*
          * Permission model
          */
         'permission' => 'App\Models\Permission',
 
-        /**
+        /*
          * Team model
          */
         'team' => 'App\Models\Team',
@@ -145,32 +144,32 @@ return [
     |
     */
     'tables' => [
-        /**
+        /*
          * Roles table.
          */
         'roles' => 'roles',
 
-        /**
+        /*
          * Permissions table.
          */
         'permissions' => 'permissions',
 
-        /**
+        /*
          * Teams table.
          */
         'teams' => 'teams',
 
-        /**
+        /*
          * Role - User intermediate table.
          */
         'role_user' => 'role_user',
 
-        /**
+        /*
          * Permission - User intermediate table.
          */
         'permission_user' => 'permission_user',
 
-        /**
+        /*
          * Permission - Role intermediate table.
          */
         'permission_role' => 'permission_role',
@@ -186,22 +185,22 @@ return [
     |
     */
     'foreign_keys' => [
-        /**
+        /*
          * User foreign key on Laratrust's role_user and permission_user tables.
          */
         'user' => 'user_id',
 
-        /**
+        /*
          * Role foreign key on Laratrust's role_user and permission_role tables.
          */
         'role' => 'role_id',
 
-        /**
+        /*
          * Role foreign key on Laratrust's permission_user and permission_role tables.
          */
         'permission' => 'permission_id',
 
-        /**
+        /*
          * Role foreign key on Laratrust's role_user and permission_user tables.
          */
         'team' => 'team_id',
@@ -217,29 +216,29 @@ return [
     |
     */
     'middleware' => [
-        /**
+        /*
          * Define if the laratrust middleware are registered automatically in the service provider
          */
         'register' => true,
 
-        /**
+        /*
          * Method to be called in the middleware return case.
          * Available: abort|redirect
          */
         'handling' => 'abort',
 
-        /**
+        /*
          * Handlers for the unauthorized method in the middlewares.
          * The name of the handler must be the same as the handling.
          */
         'handlers' => [
-            /**
+            /*
              * Aborts the execution with a 403 code.
              */
             'abort' => [
-                'code' => 403
+                'code' => 403,
             ],
-            /**
+            /*
              * Redirects the user to the given url.
              * If you want to flash a key to the session,
              * you can do it by setting the key and the content of the message
@@ -249,10 +248,10 @@ return [
                 'url' => '/home',
                 'message' => [
                     'key' => 'error',
-                    'content' => ''
-                ]
-            ]
-        ]
+                    'content' => '',
+                ],
+            ],
+        ],
     ],
 
     /*

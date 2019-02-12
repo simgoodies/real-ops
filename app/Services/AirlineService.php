@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\Models\Airline;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class AirlineService
 {
     /**
-     * Do all required actions to successfully process a new airline
+     * Do all required actions to successfully process a new airline.
      *
      * @param Request $request
      * @return Event

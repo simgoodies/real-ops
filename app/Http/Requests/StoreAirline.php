@@ -26,7 +26,7 @@ class StoreAirline extends FormRequest
         return [
             'name' => 'required|max:100',
             'callsign' => 'alpha|max:30',
-            'icao' => 'required|alpha|max:3'
+            'icao' => 'required|alpha|max:3',
         ];
     }
 
@@ -44,7 +44,7 @@ class StoreAirline extends FormRequest
             'callsign.max' => 'A callsign can consist of a maximum of 30 characters',
             'icao.required' => 'An ICAO code for the airline is required',
             'icao.alpha' => 'An ICAO code can only consist of alphabetic characters',
-            'icao.max' => 'An ICAO code can consist of a maximum of 3 characters'
+            'icao.max' => 'An ICAO code can consist of a maximum of 3 characters',
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Command\TenantCommandService;
 use Illuminate\Console\Command;
 use Illuminate\Support\MessageBag;
+use App\Services\Command\TenantCommandService;
 
 class CreateTenant extends Command
 {
@@ -47,7 +47,6 @@ class CreateTenant extends Command
         $name = $this->argument('name');
         $email = $this->argument('email');
 
-
         if ($this->tenantCommandService->tenantExists($identifier, $email)) {
             $this->error("A tenant with identifier '{$identifier}' and/or email '{$email}' already exists");
 
@@ -60,6 +59,7 @@ class CreateTenant extends Command
             foreach ($result->getMessages() as $message) {
                 $this->error($message[0]);
             }
+
             return;
         }
 

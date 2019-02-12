@@ -2,12 +2,11 @@
 
 namespace App\Http\View\Composers\Tenants;
 
-use App\Services\TenantService;
 use Illuminate\View\View;
+use App\Services\TenantService;
 
 class OfficeComposer
 {
-
     protected $tenantService;
 
     public function __construct(TenantService $tenantService)
@@ -26,7 +25,8 @@ class OfficeComposer
         $view->with('office_title', $this->getOfficeTitle());
     }
 
-    private function getOfficeTitle() {
+    private function getOfficeTitle()
+    {
         return $this->tenantService->getCurrentTenant()->name;
     }
 }

@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use App\Notifications\ResetPasswordNotification;
-use Hyn\Tenancy\Traits\UsesSystemConnection;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laratrust\Traits\LaratrustUserTrait;
 
 class Admin extends Authenticatable
 {
@@ -20,7 +18,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','title',
+        'name', 'email', 'password', 'title',
     ];
 
     /**

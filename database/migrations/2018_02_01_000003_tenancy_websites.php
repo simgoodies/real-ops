@@ -12,9 +12,9 @@
  * @see https://github.com/hyn/multi-tenant
  */
 
-use Hyn\Tenancy\Abstracts\AbstractMigration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Hyn\Tenancy\Abstracts\AbstractMigration;
 
 class TenancyWebsites extends AbstractMigration
 {

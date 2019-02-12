@@ -30,7 +30,7 @@ class StoreEvent extends FormRequest
             'start_time' => 'required',
             'end_date' => 'required|date',
             'end_time' => 'required',
-            'banner_image_link' => 'nullable|url'
+            'banner_image_link' => 'nullable|url',
         ];
     }
 
@@ -51,7 +51,7 @@ class StoreEvent extends FormRequest
             'end_date.required' => 'Please enter the end date of the event!',
             'end_date.date' => 'Please enter a valid event end date',
             'end_time.required' => 'Please enter a end time in ZULU / UTC time zone',
-            'banner_image_link.url' => 'Please enter a valid url for the event banner'
+            'banner_image_link.url' => 'Please enter a valid url for the event banner',
         ];
     }
 }

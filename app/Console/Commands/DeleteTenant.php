@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Command\TenantCommandService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
+use App\Services\Command\TenantCommandService;
 
 class DeleteTenant extends Command
 {
@@ -23,7 +23,7 @@ class DeleteTenant extends Command
     protected $description = 'Deletes a tenant of the provided identifier. Only available on the local environment e.g. php artisan tenant:delete boise';
 
     /**
-     * The variable that will hold an instance of TenantCommandService
+     * The variable that will hold an instance of TenantCommandService.
      *
      * @var TenantCommandService
      */
@@ -52,6 +52,7 @@ class DeleteTenant extends Command
         // if you are on the local environment
         if (App::environment() == 'production') {
             $this->error('This command is not available in the production environment.');
+
             return;
         }
 
@@ -59,6 +60,7 @@ class DeleteTenant extends Command
 
         if ($this->tenantCommandService->identifierExists($identifier) == false) {
             $this->error("A tenant with the identifier '{$identifier}' does not exist.");
+
             return;
         }
 

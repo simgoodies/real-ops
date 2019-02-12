@@ -1,7 +1,7 @@
 <?php
 
-use Faker\Generator as Faker;
 use App\Models\Pilot;
+use Faker\Generator as Faker;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +19,6 @@ $factory->define(Pilot::class, function (Faker $faker) {
         'vatsim_number' => $faker->randomNumber(7),
         'first_name' => $faker->firstName(),
         'last_name' => $faker->lastName(),
-        'email' => $faker->safeEmail
+        'email' => $faker->safeEmail,
     ];
 });

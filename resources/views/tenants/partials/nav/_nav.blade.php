@@ -20,10 +20,11 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="{{ route('tenants.auth.login') }}" class="nav-link">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('tenants.auth.logout') }}" class="nav-link">Logout</a>
+                        @auth
+                            <a href="{{ route('tenants.auth.logout') }}" class="nav-link">Logout</a>
+                        @else
+                            <a href="{{ route('tenants.auth.login') }}" class="nav-link">Login</a>
+                        @endauth
                     </li>
                 </ul>
             </div>

@@ -26,7 +26,7 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         Route::post('admin-password/reset', 'Auth\Admin\ResetPasswordController@reset');
     });
 
-    Route::name('office.')->prefix('office')->group(function () {
+    Route::name('office.')->prefix('office')->middleware('auth')->group(function () {
         Route::get('/', ['uses' => 'Office\OfficeController@index', 'as' => 'index']);
 
         Route::get('events', ['uses' => 'Office\EventController@index', 'as' => 'events.index']);

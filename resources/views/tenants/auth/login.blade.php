@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('main-content')
-    @include('partials._nav')
+    @include('tenants.partials._nav')
 
     <!-- LOGIN TITLE SECTION -->
     <section class="bg-secondary py-4">

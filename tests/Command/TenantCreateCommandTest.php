@@ -2,7 +2,7 @@
 
 namespace Tests\Command;
 
-use App\Models\User;
+use App\Models\Tenants\User;
 use App\Services\Command\TenantCommandService;
 use Tests\TenantTestCase;
 
@@ -50,14 +50,14 @@ class TenantCreateCommandTest extends TenantTestCase
         $this->assertDatabaseHas('users', ['email' => 'tjzs@example.com']);
     }
 
-    public function testAdminHasProperRoles()
+    public function testAdminHasProperRole()
     {
         $this->artisan('tenant:create',
-            ['identifier' => 'tjzs', 'name' => 'San Juan CERAP', 'email' => 'tjzs@example.com']);
+            ['identifier' => 'tjzs', 'name' => 'San Juan CERAP', 'email' => 'tjzs@example.com']
+        );
+
         $user = User::where('email', 'tjzs@example.com')->firstOrFail();
+
         $this->assertTrue($user->hasRole('admin'));
-        $this->assertTrue($user->hasPermissionTo('edit user'));
-        $this->assertTrue($user->hasPermissionTo('create user'));
-        $this->assertTrue($user->hasPermissionTo('delete user'));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Tenant;
 
 use App\Models\Tenants\Event;
 use App\Services\Tenants\EventService;
@@ -21,10 +21,10 @@ class EventTest extends TenantTestCase
         $this->eventService = new EventService();
     }
 
-    public function testTenantCanCreateNewEvent()
+    public function testItCanCreateNewEvent()
     {
-        $this->withoutExceptionHandling();
         $this->createTenant();
+        $this->loggedInAdminUser();
 
         $response = $this->post($this->prepareTenantUrl('office/events'), [
             'title' => 'Hakuna Matata Real Ops 2018',
@@ -32,7 +32,8 @@ class EventTest extends TenantTestCase
             'start_date' => Carbon::now()->addDays(3)->toDateTimeString(),
             'start_time' => Carbon::now()->toDateTimeString(),
             'end_date' => Carbon::now()->addDays(3)->addHours(4)->toDateTimeString(),
-            'end_time' => Carbon::now()->addHours(4)->toDateTimeString()
+            'end_time' => Carbon::now()->addHours(4)->toDateTimeString(),
+            'banner_image_link' => 'https://www.example.com/image.jpeg'
         ]);
 
         $response->assertRedirect('office/events/hakuna-matata-real-ops-2018');
@@ -44,10 +45,10 @@ class EventTest extends TenantTestCase
         $this->assertEquals('hakuna-matata-real-ops-2018', $events->first()->slug);
     }
 
-    public function testTenantCanUpdateDetailsOfAnEvent()
+    public function testItCanUpdateDetailsOfAnEvent()
     {
-        $this->withoutExceptionHandling();
         $this->createTenant();
+        $this->loggedInAdminUser();
 
         factory(Event::class)->create([
             'title' => 'Original Name',
@@ -55,7 +56,8 @@ class EventTest extends TenantTestCase
             'start_date' => '2018-12-31',
             'start_time' => '18:00',
             'end_date' => '2018-12-31',
-            'end_time' => '20:00'
+            'end_time' => '20:00',
+            'banner_image_link' => 'https://www.exampple.com/image.jpeg'
         ]);
 
         $response = $this->put($this->prepareTenantUrl('office/events/original-name/edit'), [
@@ -64,7 +66,8 @@ class EventTest extends TenantTestCase
             'start_date' => '2018-12-30',
             'start_time' => '19:00',
             'end_date' => '2018-12-30',
-            'end_time' => '21:00'
+            'end_time' => '21:00',
+            'banner_image_link' => 'https://www.exampple.com/new_image.jpeg'
         ]);
 
         $response->assertRedirect('office/events/changed-name');
@@ -76,22 +79,22 @@ class EventTest extends TenantTestCase
         $this->assertEquals('19:00:00', $event->start_time);
         $this->assertEquals('2018-12-30', $event->end_date);
         $this->assertEquals('21:00:00', $event->end_time);
+        $this->assertEquals('https://www.exampple.com/new_image.jpeg', $event->banner_image_link);
     }
 
-    function testTenantCanDeleteEvents()
+    function testItCanDeleteEvents()
     {
         $this->createTenant();
+        $this->loggedInAdminUser();
 
         factory(Event::class)->create([
             'slug' => 'to-be-deleted-event'
         ]);
 
         $events = $this->eventService->getAll();
-
         $this->assertCount(1, $events);
 
         $response =  $this->delete($this->prepareTenantUrl('office/events/to-be-deleted-event'));
-
         $response->assertRedirect('office/events');
 
         $events = $this->eventService->getAll();

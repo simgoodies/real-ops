@@ -26,48 +26,42 @@
 
             <!-- AREA SELECTOR CARDS -->
             <div class="container">
-                <div class="card-deck text-center">
-                    <div class="card bg-light">
-                        <img class="area-selector__card_size card-img-top img-fluid"
-                             src="{{ asset('images/tenants/office/area-selector-events.jpeg') }}"
-                             alt="Events">
-                        <div class="card-body">
-                            <h5 class="card-title">Events</h5>
-                            <p>Manage the details of your event(s)!</p>
-                        </div>
-                        <div class="card-footer">
-                            <a class="btn btn-outline-primary" href="{{ route('tenants.office.events.index') }}">
-                                Visit <i class="fas fa-arrow-alt-circle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card bg-light">
-                        <img class="area-selector__card_size card-img-top img-fluid"
-                             src="{{ asset('images/tenants/office/area-selector-volunteers.jpeg') }}"
-                             alt="Volunteers">
-                        <div class="card-body">
-                            <h5 class="card-title">Volunteers</h5>
-                            <p>Manage the hard-working volunteers!</p>
-                        </div>
-                        <div class="card-footer">
-                            <a class="btn btn-outline-primary" href="#">Visit <i
-                                        class="fas fa-arrow-alt-circle-right"></i></a>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card-events card bg-light">
+                            <img class="area-selector__card_size card-img-top img-fluid"
+                                 src="{{ asset('images/tenants/office/area-selector-events.jpeg') }}"
+                                 alt="Events">
+                            <div class="card-body">
+                                <h5 class="card-title">Events</h5>
+                                <p>Manage the details of your event(s)!</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a class="btn btn-outline-primary"
+                                   href="{{ route('tenants.office.events.index') }}">
+                                    Visit <i class="fas fa-arrow-alt-circle-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <div class="card bg-light">
-                        <img class="area-selector__card_size card-img-top img-fluid"
-                             src="{{ asset('images/tenants/office/area-selector-live.jpeg') }}"
-                             alt="Live">
-                        <div class="card-body">
-                            <h5 class="card-title">Live (coming soon)</h5>
-                            <p>Live action as your event takes place!</p>
-                        </div>
-                        <div class="card-footer">
-                            <a class="btn btn-outline-primary" href="#">Visit <i
-                                        class="fas fa-arrow-alt-circle-right"></i></a>
+                    <div class="col-md-4">
+                        <div class="card-staff card bg-light">
+                            <img class="area-selector__card_size card-img-top img-fluid"
+                                 src="{{ asset('images/tenants/office/area-selector-staff-members.jpeg') }}"
+                                 alt="Staff">
+                            <div class="card-body">
+                                <h5 class="card-title">Staff Members</h5>
+                                <p>Manage the event staff members!</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a class="btn btn-outline-primary" href="#">Visit <i
+                                            class="fas fa-arrow-alt-circle-right"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </section>
 

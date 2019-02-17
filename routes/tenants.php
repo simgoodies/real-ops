@@ -8,7 +8,6 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         // Login and Logout Routes...
         Route::get('login', 'LoginController@showLoginForm')->name('login');
         Route::post('login', 'LoginController@login');
-        Route::post('login-management', 'Auth\Admin\LoginController@login')->name('login-management');
         Route::get('logout', 'LoginController@logout')->name('logout');
 
         // Password Reset Routes...

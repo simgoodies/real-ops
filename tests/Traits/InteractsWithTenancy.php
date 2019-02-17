@@ -3,6 +3,7 @@
 namespace Tests\Traits;
 
 use App\Models\Tenant;
+use App\Models\Tenants\User;
 use App\Services\TenantService;
 use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
 use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
@@ -144,7 +145,8 @@ trait InteractsWithTenancy
         $this->connection->system()->disconnect();
     }
 
-    private function refreshTenantRoutes() {
+    private function refreshTenantRoutes()
+    {
         $config = $this->app->make(Repository::class);
         $path = $config->get('tenancy.routes.path');
 
@@ -158,5 +160,11 @@ trait InteractsWithTenancy
 
             $router->middleware([])->group($path);
         }
+    }
+
+    protected function loggedInAdminUser() {
+        $user = factory(User::class)->create();
+        $user->assignRole('admin');
+        $this->actingAs($user);
     }
 }

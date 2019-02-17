@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Tenant;
+use Hyn\Tenancy\Contracts\CurrentHostname;
 use Hyn\Tenancy\Environment;
 
 class TenantService
@@ -102,8 +103,7 @@ class TenantService
      */
     public function getCurrentTenant()
     {
-        $hostname = $this->tenancy->hostname();
-
-        return $hostname->tenant;
+        $website = $this->tenancy->tenant();
+        return $website->hostnames()->firstOrFail()->tenant;
     }
 }

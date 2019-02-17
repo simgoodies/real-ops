@@ -2,8 +2,8 @@
 
 namespace App\Services\Command;
 
-use App\Models\User;
 use App\Models\Tenant;
+use App\Models\Tenants\User;
 use App\Models\Website;
 use Hyn\Tenancy\Environment;
 use App\Services\TenantService;
@@ -128,6 +128,7 @@ class TenantCommandService extends TenantService
             'email' => $tenant->email,
             'password' => Hash::make($password),
         ]);
+
         $admin->guard_name = 'web';
         $admin->assignRole('admin');
 

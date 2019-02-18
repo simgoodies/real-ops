@@ -91,6 +91,17 @@ class EventService
     }
 
     /**
+     * This is used to grab an event based on id
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id)
+    {
+        return Event::find($id);
+    }
+
+    /**
      * Delete the given tenant.
      *
      * @param Event $event

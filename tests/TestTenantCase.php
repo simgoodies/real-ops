@@ -10,6 +10,12 @@ abstract class TenantTestCase extends TestCase
 {
     use InteractsWithTenancy;
 
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->artisan('permission:cache-reset');
+    }
+
     /**
      * Creates the application.
      *

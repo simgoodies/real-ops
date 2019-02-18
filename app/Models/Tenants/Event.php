@@ -27,4 +27,9 @@ class Event extends TenantModel
             ],
         ];
     }
+
+    public function flights()
+    {
+        return $this->hasMany(Flight::class);
+    }
 }

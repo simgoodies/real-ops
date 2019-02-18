@@ -25,7 +25,7 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         Route::post('admin-password/reset', 'Auth\Admin\ResetPasswordController@reset');
     });
 
-    Route::name('office.')->prefix('office')->middleware('auth')->group(function () {
+    Route::name('office.')->prefix('office')->middleware(['auth', 'permission:access-office'])->group(function () {
         Route::get('/', ['uses' => 'Office\OfficeController@index', 'as' => 'index']);
 
         Route::get('events', ['uses' => 'Office\EventController@index', 'as' => 'events.index']);
@@ -35,5 +35,8 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         Route::get('events/{slug}/edit', ['uses' => 'Office\EventController@edit', 'as' => 'events.edit']);
         Route::put('events/{slug}/edit', ['uses' => 'Office\EventController@update', 'as' => 'events.update']);
         Route::delete('events/{slug}', ['uses' => 'Office\EventController@destroy', 'as' => 'events.destroy']);
+
+        Route::get('events/{slug}/flights')->uses('Office\FlightController@index')->name('events.flights.index');
+        Route::post('events/{slug}/flights')->uses('Office\FlightController@store')->name('events.flights.store');
     });
 });

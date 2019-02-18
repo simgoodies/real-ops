@@ -1,7 +1,8 @@
 <?php
 
 use Carbon\Carbon;
-use App\Models\Flight;
+use App\Models\Tenants\Flight;
+use App\Models\Tenants\Event;
 use Faker\Generator as Faker;
 
 /*
@@ -17,20 +18,19 @@ use Faker\Generator as Faker;
 
 $factory->define(Flight::class, function (Faker $faker) {
     return [
-        'airline_id' => 1,
-        'event_id' => 1,
+        'event_id' => function () {
+            return factory(Event::class)->create()->id;
+        },
         'pilot_id' => function () {
             return factory('App\Models\Pilot')->create()->id;
         },
-        'origin_airport_id' => function () {
-            return factory('App\Models\Airport')->create()->id;
-        },
-        'destination_airport_id' => function () {
-            return factory('App\Models\Airport')->create()->id;
-        },
-        'number' => 'ABC123',
+        'callsign' => 'ABC123',
+        'origin_airport_icao' => 'ABCD',
+        'destination_airport_icao' => 'EFGH',
         'departure_time' => Carbon::now()->toTimeString(),
-        'arrival_time' => Carbon::parse('+1 hour')->toTimeString(),
+        'arrival_time' => Carbon::now()->addHours(2)->toTimeString(),
+        'route' => 'ABCDE1 ABC ABC ABC ABCDE2',
+        'aircraft_type_icao' => 'B734',
     ];
 });
 

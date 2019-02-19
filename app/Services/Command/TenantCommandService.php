@@ -63,7 +63,7 @@ class TenantCommandService extends TenantService
      * @param string $identifier
      * @param string $name
      * @param string $email
-     * @return bool
+     * @return bool|MessageBag
      */
     private function isTenantInfoValid(string $identifier, string $name, string $email)
     {
@@ -76,7 +76,7 @@ class TenantCommandService extends TenantService
         $validator = Validator::make($input, [
             'identifier' => 'required|max:4|unique:tenants',
             'name' => 'required|max:255|unique:tenants',
-            'email' => 'required|max:255|unique:tenants',
+            'email' => 'required|e-mail|max:255|unique:tenants',
         ]);
 
         $errors = $validator->errors();

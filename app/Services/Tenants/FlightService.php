@@ -20,6 +20,7 @@ class FlightService
 
     /**
      * @param Event $event
+     * @return mixed
      */
     public function getAllForEvent(Event $event)
     {
@@ -48,5 +49,23 @@ class FlightService
         $flight->save();
 
         return $flight;
+    }
+
+    /**9
+     * @param Flight $flight
+     * @throws \Exception
+     */
+    public function destroyFlight(Flight $flight)
+    {
+        $this->delete($flight);
+    }
+
+    /**
+     * @param Flight $flight
+     * @throws \Exception
+     */
+    public function delete(Flight $flight)
+    {
+        $flight->delete();
     }
 }

@@ -13,6 +13,6 @@ class Pilot extends Model
      */
     public function bookings()
     {
-        return $this->hasMany('App\Models\Flight');
+        return $this->hasMany('App\Models\Tenants\Flight');
     }
 }

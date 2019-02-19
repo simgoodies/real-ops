@@ -16,13 +16,6 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
         Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
         Route::post('password/reset', 'ResetPasswordController@reset');
-        Route::get('admin-password/reset',
-            'Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-        Route::post('admin-password/email',
-            'Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-        Route::get('admin-password/reset/{token}',
-            'Auth\Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
-        Route::post('admin-password/reset', 'Auth\Admin\ResetPasswordController@reset');
     });
 
     Route::name('office.')->prefix('office')->middleware(['auth', 'permission:access-office'])->group(function () {
@@ -38,5 +31,6 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
 
         Route::get('events/{slug}/flights')->uses('Office\FlightController@index')->name('events.flights.index');
         Route::post('events/{slug}/flights')->uses('Office\FlightController@store')->name('events.flights.store');
+        Route::delete('events/{slug}/flights/{callsign}')->uses('Office\FlightController@destroy')->name('events.flights.destroy');
     });
 });

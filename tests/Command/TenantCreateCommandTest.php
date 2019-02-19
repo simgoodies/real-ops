@@ -2,6 +2,7 @@
 
 namespace Tests\Command;
 
+use App\Models\Tenant;
 use App\Models\Tenants\User;
 use App\Services\Command\TenantCommandService;
 use Tests\TenantTestCase;
@@ -41,6 +42,22 @@ class TenantCreateCommandTest extends TenantTestCase
             ['identifier' => 'tjzs', 'name' => 'San Juan CERAP', 'email' => 'tjzs@example.com']);
         $this->assertSystemDatabaseHas('tenants',
             ['identifier' => 'tjzs', 'name' => 'San Juan CERAP', 'email' => 'tjzs@example.com']);
+    }
+
+    public function testItCannotCreateAnAlreadyExistingTenant()
+    {
+        $this->artisan('tenant:create',
+            ['identifier' => 'tjzs', 'name' => 'San Juan CERAP', 'email' => 'tjzs@example.com']);
+        $this->artisan('tenant:create',
+            ['identifier' => 'tjzs', 'name' => 'San Juan CERAP', 'email' => 'tjzs@example.com']);
+        $this->assertCount(1, Tenant::all());
+    }
+
+    public function testItCannotCreateATenantWithWrongArguments()
+    {
+        $this->artisan('tenant:create',
+        ['identifier' => 'toomanycharacters', 'name' => 'San Juan CERAP', 'email' => 'not-an-email.com']);
+        $this->assertCount(0, $this->tenantCommandService->getAll());
     }
 
     public function testTenantHasAdmin()

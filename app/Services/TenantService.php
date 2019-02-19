@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Tenant;
-use Hyn\Tenancy\Contracts\CurrentHostname;
 use Hyn\Tenancy\Environment;
 
 class TenantService
@@ -105,5 +104,12 @@ class TenantService
     {
         $website = $this->tenancy->tenant();
         return $website->hostnames()->firstOrFail()->tenant;
+    }
+
+    /**
+     * @return Tenant[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getAll() {
+        return Tenant::all();
     }
 }

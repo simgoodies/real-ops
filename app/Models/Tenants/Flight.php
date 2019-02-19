@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Flight extends Model
 {
+
+    public function getRouteKeyName()
+    {
+        return 'callsign';
+    }
+
     /**
      * The pilot that is associated with the flight.
      *

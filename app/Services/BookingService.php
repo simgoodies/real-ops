@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Pilot;
-use App\Models\Flight;
+use App\Models\Tenants\Flight;
 
 class BookingService
 {

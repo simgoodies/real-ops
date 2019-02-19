@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Tenant\Office;
 
-use Illuminate\Http\Request;
+use App\Models\Tenants\Event;
 use App\Http\Requests\StoreEvent;
 use App\Http\Requests\UpdateEvent;
 use App\Http\Controllers\Controller;
@@ -39,42 +39,30 @@ class EventController extends Controller
         return redirect()->route('tenants.office.events.show', $event);
     }
 
-    public function show($slug)
+    public function show(Event $slug)
     {
-        $event = $this->eventService->getBySlug($slug);
-        abort_if(is_null($event), 404);
-
         return view('tenants.office.events.show', [
-            'event' => $event,
+            'event' => $slug,
         ]);
     }
 
-    public function edit($slug)
+    public function edit(Event $slug)
     {
-        $event = $this->eventService->getBySlug($slug);
-        abort_if(is_null($event), 404);
-
         return view('tenants.office.events.edit', [
-            'event' => $event,
+            'event' => $slug,
         ]);
     }
 
-    public function update(UpdateEvent $request, $slug)
+    public function update(UpdateEvent $request, Event $slug)
     {
-        $event = $this->eventService->getBySlug($slug);
-        abort_if(is_null($event), 404);
-
         $event = $this->eventService->updateEvent($request, $slug);
 
         return redirect()->route('tenants.office.events.show', $event);
     }
 
-    public function destroy(Request $request, $slug)
+    public function destroy(Event $slug)
     {
-        $event = $this->eventService->getBySlug($slug);
-        abort_if(is_null($event), 404);
-
-        $this->eventService->destroyEvent($request, $slug);
+        $this->eventService->destroyEvent($slug);
 
         return redirect()->route('tenants.office.events.index');
     }

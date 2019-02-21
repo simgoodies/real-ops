@@ -31,4 +31,9 @@ class Flight extends Model
     {
         return $this->pilot()->get()->isNotEmpty();
     }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

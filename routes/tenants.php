@@ -29,8 +29,11 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         Route::put('events/{slug}/edit', ['uses' => 'Office\EventController@update', 'as' => 'events.update']);
         Route::delete('events/{slug}', ['uses' => 'Office\EventController@destroy', 'as' => 'events.destroy']);
 
-        Route::get('events/{slug}/flights')->uses('Office\FlightController@index')->name('events.flights.index');
-        Route::post('events/{slug}/flights')->uses('Office\FlightController@store')->name('events.flights.store');
-        Route::delete('events/{slug}/flights/{callsign}')->uses('Office\FlightController@destroy')->name('events.flights.destroy');
+        Route::name('events.flights.')->prefix('events/{slug}')->middleware(['permission:access-flights'])->group(function () {
+            Route::get('flights')->uses('Office\FlightController@index')->name('index');
+            Route::post('flights')->uses('Office\FlightController@store')->name('store');
+            Route::patch('flights/{callsign}')->uses('Office\FlightController@update')->name('update');
+            Route::delete('flights/{callsign}')->uses('Office\FlightController@destroy')->name('destroy');
+        });
     });
 });

@@ -3,6 +3,7 @@
 namespace App\Services\Tenants;
 
 use App\Http\Requests\Tenants\StoreFlight;
+use App\Http\Requests\Tenants\UpdateFlight;
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
 
@@ -67,5 +68,22 @@ class FlightService
     public function delete(Flight $flight)
     {
         $flight->delete();
+    }
+
+    public function updateFlight(UpdateFlight $request, Flight $flight)
+    {
+        $flight->event_id = $request->event_id;
+        $flight->pilot_id = $request->pilot_id;
+        $flight->callsign = $request->callsign;
+        $flight->origin_airport_icao = $request->origin_airport_icao;
+        $flight->destination_airport_icao = $request->destination_airport_icao;
+        $flight->departure_time = $request->departure_time;
+        $flight->arrival_time = $request->arrival_time;
+        $flight->route = $request->route;
+        $flight->aircraft_type_icao = $request->aircraft_type_icao;
+
+        $flight->save();
+
+        return $flight;
     }
 }

@@ -25,12 +25,12 @@ class StoreFlight extends FormRequest
     public function rules()
     {
         return [
-            'event_id' => 'required|exists:events,id',
+            'event_id' => 'required|exists:tenant.events,id',
             'callsign' => [
                 'required',
                 'alpha_num',
                 'max:10',
-                Rule::unique('flights')->where(function ($query) {
+                Rule::unique('tenant.flights')->where(function ($query) {
                     return $query->where('event_id', request()->get('event_id'));
                 })
             ],
@@ -39,7 +39,7 @@ class StoreFlight extends FormRequest
             'destination_airport_icao' => 'required|max:4|alpha',
             'departure_time' => 'required',
             'arrival_time' => 'required',
-            'aircraft_type_icao' => 'max:4|alpha_num'
+            'aircraft_type_icao' => 'nullable|max:4|alpha_num'
         ];
     }
 

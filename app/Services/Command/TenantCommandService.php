@@ -103,7 +103,7 @@ class TenantCommandService extends TenantService
         $hostname = app(HostnameRepository::class)->create($hostname);
 
         // Create the website
-        $uuid = implode('_', [config('extras.tenancy_database'), $tenant->identifier, str_random(6)]);
+        $uuid = implode('_', [config('extras.database.tenancy_database'), $tenant->identifier, str_random(6)]);
         $website = new Website(['uuid' => $uuid]);
         $website = app(WebsiteRepository::class)->create($website);
         app(HostnameRepository::class)->attach($hostname, $website);

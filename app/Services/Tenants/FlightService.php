@@ -6,6 +6,7 @@ use App\Http\Requests\Tenants\StoreFlight;
 use App\Http\Requests\Tenants\UpdateFlight;
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
+use Illuminate\Support\Facades\Session;
 
 class FlightService
 {
@@ -26,6 +27,11 @@ class FlightService
     public function getAllForEvent(Event $event)
     {
         return $event->flights->all();
+    }
+
+    public function indexFlight(Event $event)
+    {
+        return $event->flights()->paginate(config('extras.office.events.flights.per_page', 12));
     }
 
     /**
@@ -49,6 +55,8 @@ class FlightService
 
         $flight->save();
 
+        Session::flash('success', 'The flight has been added successfully!');
+
         return $flight;
     }
 
@@ -59,6 +67,8 @@ class FlightService
     public function destroyFlight(Flight $flight)
     {
         $this->delete($flight);
+
+        Session::flash('success', 'The flight has been deleted successfully!');
     }
 
     /**
@@ -74,7 +84,6 @@ class FlightService
     {
         $flight->event_id = $request->event_id;
         $flight->pilot_id = $request->pilot_id;
-        $flight->callsign = $request->callsign;
         $flight->origin_airport_icao = $request->origin_airport_icao;
         $flight->destination_airport_icao = $request->destination_airport_icao;
         $flight->departure_time = $request->departure_time;
@@ -83,6 +92,8 @@ class FlightService
         $flight->aircraft_type_icao = $request->aircraft_type_icao;
 
         $flight->save();
+
+        Session::flash('success', 'The flight has been updated successfully!');
 
         return $flight;
     }

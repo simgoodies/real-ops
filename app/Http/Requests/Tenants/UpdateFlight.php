@@ -25,21 +25,13 @@ class UpdateFlight extends FormRequest
     public function rules()
     {
         return [
-            'event_id' => 'required|exists:events,id',
-            'callsign' => [
-                'required',
-                'alpha_num',
-                'max:10',
-                Rule::unique('flights')->where(function ($query) {
-                    return $query->where('event_id', request()->get('event_id'));
-                })
-            ],
+            'event_id' => 'required|exists:tenant.events,id',
             'pilot_id' => 'exists:pilots,id',
             'origin_airport_icao' => 'required|max:4|alpha',
             'destination_airport_icao' => 'required|max:4|alpha',
             'departure_time' => 'required',
             'arrival_time' => 'required',
-            'aircraft_type_icao' => 'max:4|alpha_num'
+            'aircraft_type_icao' => 'nullable|max:4|alpha_num',
         ];
     }
 
@@ -53,10 +45,6 @@ class UpdateFlight extends FormRequest
         return [
             'event_id.required' => 'An event must be attached to this flight',
             'event_id.exists' => 'The attached event must exist',
-            'callsign.required' => 'A callsign is required, for example AAL123',
-            'callsign.alpha_num' => 'A callsign may only consist of letters and digits, for example AAL123',
-            'callsign.max' => 'A callsign can consist of a maximum of 10 characters',
-            'callsign.unique' => 'The provided callsign is already in use',
             'pilot_id.exists' => 'The pilot must exist',
             'origin_airport_icao.required' => 'The origin airport is required, for example TJSJ',
             'origin_airport_icao.max' => 'The origin airport can have a maximum of four characters, for example TJSJ',

@@ -10,11 +10,11 @@ abstract class TestCase extends BaseTestCase
 
     protected function assertSystemDatabaseHas($table, array $data)
     {
-        $this->assertDatabaseHas($table, $data, config('extras.db_connection', 'system'));
+        $this->assertDatabaseHas($table, $data, config('extras.database.db_connection', 'system'));
     }
 
     protected function assertSystemDatabaseMissing($table, array $data)
     {
-        $this->assertDatabaseMissing($table, $data, config('extras.db_connection', 'system'));
+        $this->assertDatabaseMissing($table, $data, config('extras.database.db_connection', 'system'));
     }
 }

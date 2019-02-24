@@ -21,6 +21,30 @@ class FlightController extends Controller
         $this->flightService = $flightService;
     }
 
+    public function index(Event $slug)
+    {
+        $flights = $this->flightService->indexFlight($slug);
+
+        return view('tenants.office.events.flights.index', [
+            'event' => $slug,
+            'flights' => $flights,
+        ]);
+    }
+
+    public function edit(Event $slug, Flight $callsign)
+    {
+        return view('tenants.office.events.flights.edit', [
+            'event' => $slug,
+            'flight' => $callsign
+        ]);
+    }
+
+    public function update(UpdateFlight $request, Event $slug, Flight $callsign)
+    {
+        $this->flightService->updateFlight($request, $callsign);
+        return redirect()->route('tenants.office.events.flights.index', $slug);
+    }
+
     public function store(StoreFlight $request, Event $slug)
     {
         $this->flightService->storeFlight($request);
@@ -30,12 +54,6 @@ class FlightController extends Controller
     public function destroy(Event $slug, Flight $callsign)
     {
         $this->flightService->destroyFlight($callsign);
-        return redirect()->route('tenants.office.events.flights.index', $slug);
-    }
-
-    public function update(UpdateFlight $request, Event $slug, Flight $callsign)
-    {
-        $this->flightService->updateFlight($request, $callsign);
         return redirect()->route('tenants.office.events.flights.index', $slug);
     }
 }

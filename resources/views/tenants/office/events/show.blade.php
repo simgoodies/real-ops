@@ -36,17 +36,11 @@
                    class="btn btn-info btn-block">Change event details</a>
             </div>
             <div class="col-md-6 my-2">
-                <a href="#" class="btn btn-info btn-block">Manage focus airports</a>
-            </div>
-            <div class="col-md-6 my-2">
-                <a href="#" class="btn btn-info btn-block">Manage flights</a>
-            </div>
-            <div class="col-md-6 my-2">
-                <a href="#" class="btn btn-info btn-block">Some other stuff.....</a>
+                <a href="{{ route('tenants.office.events.flights.index', ['slug' => $event->slug]) }}" class="btn btn-info btn-block">Manage Flights</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
                 <form action="{{ route('tenants.office.events.destroy', $event->slug) }}" method="post"
                       onsubmit="return confirm('Are you sure you want to permanently delete this event? This action cannot be undone.')">
                     {{ csrf_field() }}

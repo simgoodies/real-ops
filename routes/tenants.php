@@ -32,6 +32,7 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         Route::name('events.flights.')->prefix('events/{slug}')->middleware(['permission:access-flights'])->group(function () {
             Route::get('flights')->uses('Office\FlightController@index')->name('index');
             Route::post('flights')->uses('Office\FlightController@store')->name('store');
+            Route::get('flights/{callsign}/edit')->uses('Office\FlightController@edit')->name('edit');
             Route::patch('flights/{callsign}')->uses('Office\FlightController@update')->name('update');
             Route::delete('flights/{callsign}')->uses('Office\FlightController@destroy')->name('destroy');
         });

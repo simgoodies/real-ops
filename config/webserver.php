@@ -24,7 +24,7 @@ return [
         /*
          * Whether the integration with Apache2 is currently active.
          */
-        'enabled' => true,
+        'enabled' => env('RUNNING_APACHE', false),
 
         /*
          * Define the ports of your Apache service.
@@ -105,7 +105,7 @@ return [
         /*
          * Whether the integration with nginx is currently active.
          */
-        'enabled' => false,
+        'enabled' => env('RUNNING_NGINX', false),
 
         /*
          * The php sock to be used.

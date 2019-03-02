@@ -57,23 +57,24 @@ class Flight extends TenantModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function pilot()
+    public function bookedBy()
     {
-        return $this->belongsTo('App\Models\Pilot');
-    }
-
-    /**
-     * This method will let you know if a flight has been booked.
-     *
-     * @return bool
-     */
-    public function isBooked()
-    {
-        return $this->pilot()->get()->isNotEmpty();
+        return $this->belongsTo(Pilot::class, 'pilot_id');
     }
 
     public function event()
     {
         return $this->belongsTo(Event::class);
+    }
+
+    /**
+     * Scope to determine all flights that are booked
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeBooked($query)
+    {
+        return $query->whereNotNull('pilot_id');
     }
 }

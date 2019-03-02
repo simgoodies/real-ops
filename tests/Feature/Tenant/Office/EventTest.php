@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Tenant;
+namespace Tests\Feature\Tenant\Office;
 
 use App\Models\Tenants\Event;
 use App\Services\Tenants\EventService;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Tenant;
+namespace Tests\Feature\Tenant\Office;
 
 use Illuminate\Auth\AuthenticationException;
 use Tests\TenantTestCase;

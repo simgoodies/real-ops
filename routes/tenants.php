@@ -18,6 +18,7 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         Route::post('password/reset', 'ResetPasswordController@reset');
     });
 
+    // Office Routes...
     Route::name('office.')->prefix('office')->middleware(['auth', 'permission:access-office'])->group(function () {
         Route::get('/', ['uses' => 'Office\OfficeController@index', 'as' => 'index']);
 
@@ -37,4 +38,7 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
             Route::delete('flights/{callsign}')->uses('Office\FlightController@destroy')->name('destroy');
         });
     });
+
+    Route::get('events/{slug}/flights/{callsign}')->uses(FlightController::class . '@show')->name('events.flights.show');
+    Route::post('events/{slug}/flights/{callsign}/book')->uses(BookingController::class . '@store')->name('events.bookings.store');
 });

@@ -15,7 +15,7 @@ class CreatePilotsTable extends Migration
     {
         Schema::create('pilots', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('vatsim_number', 7);
+            $table->string('vatsim_id', 7);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->nullable();

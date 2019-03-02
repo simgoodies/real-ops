@@ -78,7 +78,7 @@ trait InteractsWithTenancy
         });
     }
 
-    protected function createTenant($identifier = 'tjzs', $name = 'San Juan CERAP', $email = 'email')
+    protected function createTenant($identifier = 'tjzs', $name = 'San Juan CERAP', $email = 'tjzs@example.com')
     {
         $tenant = $this->tenantService->create(['identifier' => $identifier, 'name' => $name, 'email' => $email]);
         $hostname = $this->handleHostname($tenant);

@@ -2,11 +2,9 @@
 
 namespace App\Mail;
 
-use App\Services\Tenants\MailService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
+use App\Models\Tenants\Flight;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class BookingForFlightRequested extends TenantMailable
 {
@@ -22,10 +20,16 @@ class BookingForFlightRequested extends TenantMailable
      */
     private $fromName;
 
-    public function __construct()
+    /**
+     * @var Flight
+     */
+    private $flight;
+
+    public function __construct(Flight $flight)
     {
         parent::__construct();
 
+        $this->flight = $flight;
         $this->fromAddress = $this->mailService->getFromAddress($this->tenant);
         $this->fromName = $this->mailService->getFromName($this->tenant);
     }
@@ -39,6 +43,10 @@ class BookingForFlightRequested extends TenantMailable
     {
         return $this->from($this->fromAddress, $this->fromName)
             ->subject('Confirm your requested flight booking')
-            ->markdown('tenants.email.booking-for-flight-requested');
+            ->markdown('tenants.email.booking.requested')
+            ->with([
+                'tenantName' => $this->tenant->name,
+                'flight' => $this->flight,
+            ]);
     }
 }

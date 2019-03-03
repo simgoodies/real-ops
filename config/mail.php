@@ -113,7 +113,7 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'default',
+        'theme' => 'vatgoodiesmail',
 
         'paths' => [
             resource_path('views/vendor/mail'),

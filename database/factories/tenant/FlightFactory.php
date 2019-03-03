@@ -1,9 +1,10 @@
 <?php
 
 use Carbon\Carbon;
-use App\Models\Tenants\Flight;
 use App\Models\Tenants\Event;
 use Faker\Generator as Faker;
+use App\Models\Tenants\Flight;
+use App\Models\Tenants \Pilot;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ $factory->define(Flight::class, function (Faker $faker) {
             return factory(Event::class)->create()->id;
         },
         'pilot_id' => function () {
-            return factory('App\Models\Pilot')->create()->id;
+            return factory(Pilot::class)->create()->id;
         },
         'callsign' => 'ABC123',
         'origin_airport_icao' => 'ABCD',

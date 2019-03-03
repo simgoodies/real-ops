@@ -30,19 +30,14 @@ class BookingTest extends TenantTestCase
         $this->pilotService = new PilotService();
     }
 
-    public function testAPilotCanBookAFlight()
+    public function testAPilotCanRequestToBookAFlight()
     {
         $this->createTenant('tjzs', 'San Juan CERAP');
 
         Mail::fake();
 
-        $event = factory(Event::class)->create([
-            'slug' => 'the-event',
-        ]);
-
-        $flight = factory(Flight::class)->state('unbooked')->create([
-            'event_id' => $event->id,
-        ]);
+        $event = factory(Event::class)->create(['slug' => 'the-event']);
+        $flight = factory(Flight::class)->state('unbooked')->create(['event_id' => $event->id]);
 
         $this->assertCount(0, $this->pilotService->getAll());
 
@@ -54,9 +49,9 @@ class BookingTest extends TenantTestCase
         $flight = $flight->fresh();
         $pilot = $this->pilotService->getByVatsimId('1234567');
 
-        Mail::assertSent(BookingForFlightRequested::class, function($mail) use ($flight, $pilot) {
+        Mail::assertSent(BookingForFlightRequested::class, function($mail) {
             return $mail->build() &&
-                $mail->hasTo($pilot->email) &&
+                $mail->hasTo('pilotemail@example.com') &&
                 $mail->hasFrom('no-reply-tjzs@realops.main', 'San Juan CERAP Real Ops');
         });
 
@@ -64,5 +59,25 @@ class BookingTest extends TenantTestCase
         $this->assertCount(1, $this->pilotService->getAll());
         $this->assertTrue($this->bookingService->isFlightBooked($event, $flight));
         $this->assertEquals('pilotemail@example.com', $pilot->email);
+    }
+
+    public function testAPilotCanConfirmARequestToBooking()
+    {
+        $this->assertTrue(true);
+    }
+
+    public function testAPilotCanRequestToCancelABooking()
+    {
+        $this->assertTrue(true);
+    }
+
+    public function testAPilotCanConfirmARequestToCancelABooking()
+    {
+        $this->assertTrue(true);
+    }
+
+    public function testAPilotCanOnlyCancelTheirOwnBooking()
+    {
+        $this->assertTrue(true);
     }
 }

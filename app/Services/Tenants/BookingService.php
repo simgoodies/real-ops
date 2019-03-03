@@ -2,11 +2,11 @@
 
 namespace App\Services\Tenants;
 
-use App\Http\Requests\Tenants\StoreBooking;
-use App\Mail\BookingForFlightRequested;
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingForFlightRequested;
+use App\Http\Requests\Tenants\StoreBooking;
 
 class BookingService
 {
@@ -35,7 +35,7 @@ class BookingService
 
         $flight->bookedBy()->associate($pilot);
 
-        Mail::to($pilot->email)->send(new BookingForFlightRequested());
+        Mail::to($pilot->email)->send(new BookingForFlightRequested($flight->fresh()));
 
         $flight->save();
     }

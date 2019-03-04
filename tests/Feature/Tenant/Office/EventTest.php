@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Tenant\Office;
 
+use Carbon\Carbon;
+use Tests\TenantTestCase;
 use App\Models\Tenants\Event;
 use App\Services\Tenants\EventService;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\URL;
-use Tests\TenantTestCase;
 
 class EventTest extends TenantTestCase
 {

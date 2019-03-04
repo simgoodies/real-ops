@@ -3,9 +3,9 @@
 namespace Tests\Command;
 
 use App\Models\Tenant;
+use Tests\TenantTestCase;
 use App\Models\Tenants\User;
 use App\Services\Command\TenantCommandService;
-use Tests\TenantTestCase;
 
 class TenantCreateCommandTest extends TenantTestCase
 {

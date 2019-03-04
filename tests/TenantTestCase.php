@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\Hash;
 use Tests\Traits\InteractsWithTenancy;
+use Illuminate\Contracts\Console\Kernel;
 
 abstract class TenantTestCase extends TestCase
 {

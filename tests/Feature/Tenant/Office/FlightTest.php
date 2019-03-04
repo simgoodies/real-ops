@@ -2,12 +2,11 @@
 
 namespace Tests\Feature\Tenants\Office;
 
-use App\Models\Tenants\Event;
-use App\Models\Tenants\Flight;
-use App\Services\Tenants\EventService;
-use App\Services\Tenants\FlightService;
 use Carbon\Carbon;
 use Tests\TenantTestCase;
+use App\Models\Tenants\Event;
+use App\Models\Tenants\Flight;
+use App\Services\Tenants\FlightService;
 
 class FlightTest extends TenantTestCase
 {
@@ -26,7 +25,7 @@ class FlightTest extends TenantTestCase
     public function testItCanCreateAFlight()
     {
         $this->withoutExceptionHandling();
-        $this->createTenant();
+        $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
         $event = factory(Event::class)->create([
@@ -36,7 +35,7 @@ class FlightTest extends TenantTestCase
         $flights = $this->flightService->getAllForEvent($event);
         $this->assertCount(0, $flights);
 
-        $response = $this->post($this->prepareTenantUrl('office/events/event-one/flights'), [
+        $response = $this->post('office/events/event-one/flights', [
             'event_id' => $event->id,
             'callsign' => 'ABC123',
             'origin_airport_icao' => 'ABCD',
@@ -56,7 +55,7 @@ class FlightTest extends TenantTestCase
     public function testItCanDeleteAFlight()
     {
         $this->withoutExceptionHandling();
-        $this->createTenant();
+        $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
         $event = factory(Event::class)->create([
@@ -72,7 +71,7 @@ class FlightTest extends TenantTestCase
 
         $this->assertCount(1, $this->flightService->getAllForEvent($event->fresh()));
 
-        $response = $this->delete($this->prepareTenantUrl('office/events/the-event/flights/ABC123'));
+        $response = $this->delete('office/events/the-event/flights/ABC123');
 
         $response->assertRedirect('office/events/the-event/flights');
         $this->assertCount(0, $this->flightService->getAllForEvent($event->fresh()));
@@ -81,7 +80,7 @@ class FlightTest extends TenantTestCase
     public function testItCanUpdateAFlight()
     {
         $this->withoutExceptionHandling();
-        $this->createTenant();
+        $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
         $event = factory(Event::class)->create([
@@ -101,7 +100,7 @@ class FlightTest extends TenantTestCase
 
         $this->assertCount(1, $this->flightService->getAllForEvent($event->fresh()));
 
-        $response = $this->patch($this->prepareTenantUrl('office/events/event-one/flights/ABC123'), [
+        $response = $this->patch('office/events/event-one/flights/ABC123', [
             'event_id' => $event->id,
             'origin_airport_icao' => 'AAAA',
             'destination_airport_icao' => 'BBBB',
@@ -124,13 +123,13 @@ class FlightTest extends TenantTestCase
 
     public function testItCanAddTheSameCallsignForTwoDifferentEvents()
     {
-        $this->createTenant();
+        $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
         $eventOne = factory(Event::class)->create(['slug' => 'event-one']);
         $eventTwo = factory(Event::class)->create(['slug' => 'event-two']);
 
-        $this->post($this->prepareTenantUrl('office/events/event-one/flights'), [
+        $this->post('office/events/event-one/flights', [
             'event_id' => $eventOne->id,
             'callsign' => 'ABC123',
             'origin_airport_icao' => 'AAAA',
@@ -140,7 +139,7 @@ class FlightTest extends TenantTestCase
             'route' => 'I WANT TO IDENTIFY FLIGHT ONE'
         ]);
 
-        $this->post($this->prepareTenantUrl('office/events/event-two/flights'), [
+        $this->post('office/events/event-two/flights', [
             'event_id' => $eventTwo->id,
             'callsign' => 'ABC123',
             'origin_airport_icao' => 'AAAA',
@@ -161,12 +160,12 @@ class FlightTest extends TenantTestCase
 
     public function testItCannotAddTheSameCallsignWithinSameEvent()
     {
-        $this->createTenant();
+        $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
         $event = factory(Event::class)->create(['slug' => 'event-one']);
 
-        $responseOne = $this->post($this->prepareTenantUrl('office/events/event-one/flights'), [
+        $responseOne = $this->post('office/events/event-one/flights', [
             'event_id' => $event->id,
             'callsign' => 'ABC123',
             'origin_airport_icao' => 'AAAA',
@@ -177,7 +176,7 @@ class FlightTest extends TenantTestCase
         ]);
         $responseOne->assertSessionHasNoErrors();
 
-        $responseTwo = $this->post($this->prepareTenantUrl('office/events/event-one/flights'), [
+        $responseTwo = $this->post('office/events/event-one/flights', [
             'event_id' => $event->id,
             'callsign' => 'ABC123',
             'origin_airport_icao' => 'AAAA',

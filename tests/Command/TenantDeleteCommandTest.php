@@ -1,9 +1,9 @@
 <?php
 namespace Tests\Command;
 
-use App\Services\Command\TenantCommandService;
-use Illuminate\Database\QueryException;
 use Tests\TenantTestCase;
+use Illuminate\Database\QueryException;
+use App\Services\Command\TenantCommandService;
 
 class TenantDeleteCommandTest extends TenantTestCase
 {

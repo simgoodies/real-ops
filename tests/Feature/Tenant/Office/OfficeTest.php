@@ -2,17 +2,19 @@
 
 namespace Tests\Feature\Tenant\Office;
 
-use Illuminate\Auth\AuthenticationException;
 use Tests\TenantTestCase;
+use Illuminate\Auth\AuthenticationException;
 
 class OfficeTest extends TenantTestCase
 {
+
     public function testItCanNotAccessOfficeIfUnauthenticated()
     {
-        $this->createTenant();
+        $this->expectException(AuthenticationException::class);
         $this->withoutExceptionHandling();
 
-        $this->expectException(AuthenticationException::class);
-        $this->get($this->prepareTenantUrl('office'));
+        $this->setUpAndActivateTenant();
+
+        $this->get('office');
     }
 }

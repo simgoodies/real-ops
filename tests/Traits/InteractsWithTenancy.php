@@ -159,7 +159,7 @@ trait InteractsWithTenancy
 
     protected function setUpWebsite(bool $save = false, bool $connect = false)
     {
-        if (!$this->website) {
+        if ($this->website === null) {
             $uuid = implode('_',
                 [config('extras.database.tenancy_database'), $this->tenant->identifier, str_random(6)]);
             $this->website = new Website(['uuid' => $uuid]);

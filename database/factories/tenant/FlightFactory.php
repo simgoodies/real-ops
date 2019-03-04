@@ -2,9 +2,9 @@
 
 use Carbon\Carbon;
 use App\Models\Tenants\Event;
+use App\Models\Tenants\Pilot;
 use Faker\Generator as Faker;
 use App\Models\Tenants\Flight;
-use App\Models\Tenants \Pilot;
 
 /*
 |--------------------------------------------------------------------------

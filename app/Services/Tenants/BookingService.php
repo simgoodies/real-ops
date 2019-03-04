@@ -6,7 +6,7 @@ use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingForFlightRequested;
-use App\Http\Requests\Tenants\StoreBooking;
+use App\Http\Requests\Tenants\StoreBookingRequest;
 
 class BookingService
 {
@@ -23,21 +23,20 @@ class BookingService
     /**
      * Method that handles the BookingController store action
      *
-     * @param StoreBooking $request
+     * @param StoreBookingRequest $request
+     * @param Event $event
      * @param Flight $flight
      */
-    public function storeBooking(StoreBooking $request, Flight $flight)
+    public function storeBookingRequest(StoreBookingRequest $request, Event $event, Flight $flight)
     {
         $pilot = $this->pilotService->firstOrCreatePilot([
             'vatsim_id' => $request->vatsim_id,
             'email' => $request->email,
         ]);
 
-        $flight->bookedBy()->associate($pilot);
+        $url = $this->getBookingConfirmationUrl($event->slug, $flight->callsign, $pilot->vatsim_id);
 
-        Mail::to($pilot->email)->send(new BookingForFlightRequested($flight->fresh()));
-
-        $flight->save();
+        Mail::to($pilot->email)->send(new BookingForFlightRequested($flight, $url));
     }
 
     /**
@@ -53,5 +52,22 @@ class BookingService
             'event_id' => $event->id,
             'callsign' => $flight->callsign,
         ])->exists();
+    }
+
+    /**
+     * This will generate the confirmation URL for flight booking requests.
+     *
+     * @param string $slug
+     * @param string $callsign
+     * @param string $vatsimId
+     * @return string
+     */
+    public function getBookingConfirmationUrl(string $slug, string $callsign, string $vatsimId)
+    {
+        return route('tenants.events.bookings.store', [
+            'slug' => $slug,
+            'callsign' => $callsign,
+            'vatsimId' => encrypt($vatsimId),
+        ]);
     }
 }

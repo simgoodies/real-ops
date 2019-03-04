@@ -6,7 +6,7 @@ Thanks for your booking request of flight {{ $flight->callsign }}.
 
 Please confirm your booking by pressing the button below
 
-@component('mail::button', ['url' => '#', 'color' => 'green'])
+@component('mail::button', ['url' => $url, 'color' => 'green'])
     Confirm booking for {{ $flight->callsign }}
 @endcomponent
 

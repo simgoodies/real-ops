@@ -18,12 +18,13 @@ class MailService
 
     public function getFromAddress(Tenant $tenant = null)
     {
-        if (is_null($tenant)) {
+        if ($tenant === null) {
             $tenant = $this->tenantService->getCurrentTenant();
         }
 
         $identifier = $tenant->identifier;
         $appUrlBase = config('app.url_base');
+
         return sprintf('no-reply-%s@%s', $identifier, $appUrlBase);
     }
 

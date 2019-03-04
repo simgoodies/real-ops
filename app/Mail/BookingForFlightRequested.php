@@ -25,13 +25,21 @@ class BookingForFlightRequested extends TenantMailable
      */
     private $flight;
 
-    public function __construct(Flight $flight)
+    /**
+     * This will contain the url to confirm the booking that was requested
+     *
+     * @var string
+     */
+    private $url;
+
+    public function __construct(Flight $flight, string $url)
     {
         parent::__construct();
 
         $this->flight = $flight;
         $this->fromAddress = $this->mailService->getFromAddress($this->tenant);
         $this->fromName = $this->mailService->getFromName($this->tenant);
+        $this->url = $url;
     }
 
     /**
@@ -47,6 +55,7 @@ class BookingForFlightRequested extends TenantMailable
             ->with([
                 'tenantName' => $this->tenant->name,
                 'flight' => $this->flight,
+                'url' => $this->url,
             ]);
     }
 }

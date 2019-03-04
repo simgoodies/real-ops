@@ -1,7 +1,14 @@
 <?php
 
+use App\Models\Tenants\Flight;
+use App\Http\Controllers\Tenant\FlightController;
+
 Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenants.')->group(function () {
     Route::get('/')->uses('PageController@landing')->name('landing');
+
+    Route::get('mailable', function() {
+        return new \App\Mail\BookingForFlightRequested(Flight::first(), 'https://google.com');
+    });
 
     // Authentication Routes...
     Route::namespace('Auth')->name('auth.')->group(function () {
@@ -40,5 +47,6 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
     });
 
     Route::get('events/{slug}/flights/{callsign}')->uses(FlightController::class . '@show')->name('events.flights.show');
-    Route::post('events/{slug}/flights/{callsign}/book')->uses(BookingController::class . '@store')->name('events.bookings.store');
+    Route::post('events/{slug}/flights/{callsign}/book')->uses('BookingRequestController@store')->name('events.bookingRequests.store');
+    Route::get('events/{slug}/flights/{callsign}/book/{vatsimId}')->uses('BookingController@store')->name('events.bookings.store');
 });

@@ -5,10 +5,11 @@ namespace Tests\Feature\Tenant;
 use Tests\TenantTestCase;
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
-use Illuminate\Support\Facades\Mail;
-use App\Services\Tenants\PilotService;
-use App\Mail\BookingForFlightRequested;
+use App\Models\Tenants\Pilot;
 use App\Services\Tenants\BookingService;
+use App\Services\Tenants\PilotService;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class BookingTest extends TenantTestCase
 {
@@ -35,17 +36,18 @@ class BookingTest extends TenantTestCase
         $this->setUpAndActivateTenant();
 
         Mail::fake();
-
         $event = factory(Event::class)->create(['slug' => 'the-event']);
-        $flight = factory(Flight::class)->state('unbooked')->create(['event_id' => $event->id]);
+        $flight = factory(Flight::class)->state('unbooked')->create(['event_id' => $event->id, 'callsign' => 'ABC123']);
 
         $this->assertCount(0, $this->pilotService->getAll());
 
+        // Execution Phase
         $response = $this->post('events/the-event/flights/ABC123/book', [
             'vatsim_id' => '1234567',
             'email' => 'pilotemail@example.com'
         ]);
 
+        // Assertion Phase
         $flight = $flight->fresh();
         $pilot = $this->pilotService->getByVatsimId('1234567');
 
@@ -57,13 +59,26 @@ class BookingTest extends TenantTestCase
 
         $response->assertRedirect('events/the-event/flights/ABC123');
         $this->assertCount(1, $this->pilotService->getAll());
-        $this->assertTrue($this->bookingService->isFlightBooked($event, $flight));
+        $this->assertFalse($this->bookingService->isFlightBooked($event, $flight));
         $this->assertEquals('pilotemail@example.com', $pilot->email);
     }
 
     public function testAPilotCanConfirmARequestToBooking()
     {
-        $this->assertTrue(true);
+        $this->withoutExceptionHandling();
+        $this->createTenant();
+
+        $hostname = app(Environment::class)->hostname();
+        // Setup Phase
+        $event = factory(Event::class)->create(['slug' => 'the-event']);
+        $flight = factory(Flight::class)->state('unbooked')->create(['event_id' => $event->id, 'callsign' => 'ABC123']);
+        $pilot = factory(Pilot::class)->create(['vatsim_id' => '1234567']);
+
+        $url = $this->bookingService->getBookingConfirmationUrl($event->slug, $flight->callsign, $pilot->vatsim_id);
+
+        // Execution Phase
+        $response = $this->get($this->prepareTenantUrl('events/the-event/flights/ABC123/book/1234567'));
+        dd();
     }
 
     public function testAPilotCanRequestToCancelABooking()

@@ -3,18 +3,17 @@
 namespace Tests\Traits;
 
 use App\Models\Tenant;
-use App\Models\Tenants\User;
-use App\Services\TenantService;
-use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
-use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
-use Hyn\Tenancy\Database\Connection;
-use App\Models\Hostname;
 use App\Models\Website;
+use App\Models\Hostname;
+use Illuminate\Support\Arr;
+use App\Models\Tenants\User;
 use Hyn\Tenancy\Environment;
+use App\Services\TenantService;
+use Illuminate\Support\Facades\URL;
+use Hyn\Tenancy\Database\Connection;
 use Hyn\Tenancy\Traits\DispatchesEvents;
-use Illuminate\Config\Repository;
-use Illuminate\Routing\RouteCollection;
-use Illuminate\Routing\Router;
+use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
+use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
 
 trait InteractsWithTenancy
 {
@@ -24,20 +23,38 @@ trait InteractsWithTenancy
      * @var HostnameRepository
      */
     protected $hostnameRepository;
+
     /**
      * @var WebsiteRepository
      */
     protected $websiteRepository;
+
     /**
      * @var Connection
      */
     protected $connection;
+
     /**
      * Created tenants, so we can destroy databases after a test.
      *
-     * @var array|Tenant[]
+     * @var array|Website[]
      */
     protected $tenants = [];
+
+    /**
+     * @var Tenant
+     */
+    protected $tenant;
+
+    /**
+     * @var Hostname
+     */
+    protected $hostname;
+
+    /**
+     * @var Website
+     */
+    protected $website;
 
     /**
      * @var TenantService
@@ -54,115 +71,139 @@ trait InteractsWithTenancy
         $this->websiteRepository = app(WebsiteRepository::class);
         $this->hostnameRepository = app(HostnameRepository::class);
         $this->connection = app(Connection::class);
+
+        if ($this->connection->system()->getConfig('driver') !== 'pgsql') {
+            $this->connection->system()->beginTransaction();
+        }
+
         $this->tenantService = new TenantService();
 
         $this->handleTenantDestruction();
     }
 
-    protected function handleTenantDestruction()
-    {
-        Tenant::created(function (Tenant $tenant) {
-            $this->tenants[$tenant->identifier] = $tenant;
-        });
-
-        Tenant::updating(function (Tenant $tenant) {
-            if ($tenant->isDirty('identifier')) {
-                $this->tenants[$tenant->getOriginal('identifier')] = Tenant::unguarded(function () use ($tenant) {
-                    return new Tenant($tenant->getOriginal());
-                });
-            }
-        });
-
-        Tenant::deleted(function (Tenant $tenant) {
-            array_forget($this->tenants, $tenant->identifier);
-        });
-    }
-
-    protected function createTenant($identifier = 'tjzs', $name = 'San Juan CERAP', $email = 'tjzs@example.com')
-    {
-        $tenant = $this->tenantService->create(['identifier' => $identifier, 'name' => $name, 'email' => $email]);
-        $hostname = $this->handleHostname($tenant);
-        $website = $this->handleWebsite($hostname);
-        $this->activateWebsite($website);
-    }
-
-    private function handleHostname(Tenant $tenant)
-    {
-        $hostname = Hostname::unguarded(function () use ($tenant) {
-            return new Hostname([
-                    'fqdn' => $tenant->identifier . '.' . config('app.url_base'),
-                    'tenant_id' => $tenant->id
-                ]
-            );
-        });
-
-        return app(HostnameRepository::class)->create($hostname);
-    }
-
-    private function handleWebsite(Hostname $hostname)
-    {
-        $uuid = implode('_', [config('extras.tenancy_database'), $hostname->tenant->identifier, str_random(6)]);
-        $website = new Website(['uuid' => $uuid]);
-        $website = $this->websiteRepository->create($website);
-        $this->hostnameRepository->attach($hostname, $website);
-        return $website->fresh();
-    }
-
-    protected function activateTenant(Tenant $tenant)
-    {
-        $website = $tenant->hostname->website;
-        $this->activateWebsite($website);
-    }
-
-    protected function activateWebsite(Website $website)
-    {
-        $this->tenantUrl = $website->hostnames()->first()->fqdn;
-        app(Environment::class)->tenant($website);
-        $this->refreshTenantRoutes();
-    }
-
-    protected function prepareTenantUrl($uri = null)
-    {
-        return implode('/', ['http://' . $this->tenantUrl, $uri]);
-    }
-
     protected function cleanupTenancy()
     {
         $this->connection->purge();
+
         collect($this->tenants)
             ->filter()
-            ->each(function ($tenant) {
-                $website = $tenant->hostname->website;
-                $hostname = $tenant->hostname;
+            ->each(function ($website) {
                 $this->connection->set($website);
                 $this->connection->purge();
 
-                $this->tenantService->delete($tenant);
-                $this->hostnameRepository->delete($hostname, false);
-                $this->websiteRepository->delete($website, false);
+                $this->websiteRepository->delete($website, true);
             });
+
+        if ($this->connection->system()->getConfig('driver') !== 'pgsql') {
+            $this->connection->system()->rollback();
+        }
 
         $this->connection->system()->disconnect();
     }
 
-    private function refreshTenantRoutes()
+    protected function handleTenantDestruction()
     {
-        $config = $this->app->make(Repository::class);
-        $path = $config->get('tenancy.routes.path');
+        Website::created(function (Website $website) {
+            $this->tenants[$website->uuid] = $website;
+        });
 
-        /** @var Router $router */
-        $router = $this->app->make(Router::class);
-
-        if ($path && file_exists($path)) {
-            if ($config->get('tenancy.routes.replace-global')) {
-                $router->setRoutes(new RouteCollection());
+        Website::updating(function (Website $website) {
+            if ($website->isDirty('uuid')) {
+                $this->tenants[$website->getOriginal('uuid')] = Website::unguarded(function () use ($website) {
+                    return new Website($website->getOriginal());
+                });
             }
+        });
 
-            $router->middleware([])->group($path);
+        Website::deleted(function (Website $website) {
+            Arr::forget($this->tenants, $website->uuid);
+        });
+    }
+
+    public function setUpTenant(bool $save = false)
+    {
+        Tenant::unguard();
+        if ($this->tenant === null) {
+            $tenant = Tenant::firstOrNew([
+                'identifier' => 'tjzs',
+                'name' => 'San Juan CERAP',
+                'email' => 'tjzs@example.com',
+            ]);
+
+            $this->tenant = $tenant;
+        }
+        Tenant::reguard();
+
+        if ($save && $this->tenant->exists == false) {
+            $this->tenant = $this->tenant->create($this->tenant->attributesToArray());
         }
     }
 
-    protected function loggedInAdminUser() {
+    protected function setUpHostname(bool $save = false)
+    {
+        Hostname::unguard();
+        if ($this->hostname === null) {
+            $hostname = Hostname::firstOrNew([
+                'fqdn' => $this->tenant->identifier . '.' . config('app.url_base'),
+                'tenant_id' => $this->tenant->id,
+            ]);
+
+            $this->hostname = $hostname;
+        }
+        Hostname::reguard();
+
+        if ($save && $this->hostname->exists == false) {
+            $this->hostnameRepository->create($this->hostname);
+        }
+    }
+
+    protected function setUpWebsite(bool $save = false, bool $connect = false)
+    {
+        if (!$this->website) {
+            $uuid = implode('_',
+                [config('extras.database.tenancy_database'), $this->tenant->identifier, str_random(6)]);
+            $this->website = new Website(['uuid' => $uuid]);
+        }
+
+        if ($save && $this->website->exists == false) {
+            $this->websiteRepository->create($this->website);
+        }
+
+        if ($connect && $this->hostname->website_id !== $this->website->id) {
+            $this->hostnameRepository->attach($this->hostname, $this->website);
+        }
+    }
+
+    protected function activateTenant()
+    {
+        app(Environment::class)->tenant($this->website);
+        app(Environment::class)->hostname($this->hostname);
+
+        $this->setAppUrl();
+
+        // Start global tenant transaction.
+        $this->connection->get()->beginTransaction();
+    }
+
+    private function setAppUrl()
+    {
+        $scheme = parse_url(config('app.url'), PHP_URL_SCHEME);
+        $url = sprintf('%s://%s.%s', $scheme, $this->tenant->identifier, config('tenancy.hostname.default'));
+
+        config(['app.url' => $url]);
+        URL::forceRootUrl($url);
+    }
+
+    protected function setUpAndActivateTenant()
+    {
+        $this->setUpTenant(true);
+        $this->setUpHostname(true);
+        $this->setUpWebsite(true, true);
+        $this->activateTenant();
+    }
+
+    protected function loggedInAdminUser()
+    {
         $user = factory(User::class)->create();
         $user->assignRole('admin');
         $this->actingAs($user);

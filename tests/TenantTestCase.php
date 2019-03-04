@@ -34,12 +34,6 @@ abstract class TenantTestCase extends TestCase
         return $app;
     }
 
-    protected function refreshApplication()
-    {
-        parent::refreshApplication();
-        $this->artisan('migrate:fresh');
-    }
-
     protected function tearDown()
     {
         $this->cleanupTenancy();

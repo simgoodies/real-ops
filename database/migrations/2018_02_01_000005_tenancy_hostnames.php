@@ -26,7 +26,7 @@ class TenancyHostnames extends AbstractMigration
             $table->bigIncrements('id');
 
             $table->string('fqdn')->unique();
-            $table->string('tenant_id')->unique();
+            $table->string('tenant_id')->unique()->nullable();
             $table->string('redirect_to')->nullable();
             $table->boolean('force_https')->default(false);
             $table->timestamp('under_maintenance_since')->nullable();

@@ -164,20 +164,20 @@ return [
                 /*
                  * Action that asserts nginx is installed.
                  */
-                'exists' => '/etc/init.d/nginx',
+                'exists' => 'sudo /etc/init.d/nginx',
                 /*
                  * Action to run to test the nginx configuration.
                  *
                  * @info set to a boolean to force the response of the test command.
                  *  true succeeds, false fails
                  */
-                'test-config' => '/etc/init.d/nginx configtest',
+                'test-config' => 'sudo /etc/init.d/nginx configtest',
                 /*
                  * Action to run to reload the nginx service.
                  *
                  * @info set to null to disable reloading.
                  */
-                'reload' => '/etc/init.d/nginx reload',
+                'reload' => 'sudo /etc/init.d/nginx reload',
             ],
         ],
     ],

@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Tenant;
 
-use App\Mail\BookingForFlightRequested;
+use Tests\TenantTestCase;
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
-use App\Services\Tenants\BookingService;
-use App\Services\Tenants\PilotService;
 use Illuminate\Support\Facades\Mail;
-use Tests\TenantTestCase;
+use App\Services\Tenants\PilotService;
+use App\Mail\BookingForFlightRequested;
+use App\Services\Tenants\BookingService;
 
 class BookingTest extends TenantTestCase
 {
@@ -32,7 +32,7 @@ class BookingTest extends TenantTestCase
 
     public function testAPilotCanRequestToBookAFlight()
     {
-        $this->createTenant('tjzs', 'San Juan CERAP');
+        $this->setUpAndActivateTenant();
 
         Mail::fake();
 
@@ -41,7 +41,7 @@ class BookingTest extends TenantTestCase
 
         $this->assertCount(0, $this->pilotService->getAll());
 
-        $response = $this->post($this->prepareTenantUrl('events/the-event/flights/ABC123/book'), [
+        $response = $this->post('events/the-event/flights/ABC123/book', [
             'vatsim_id' => '1234567',
             'email' => 'pilotemail@example.com'
         ]);

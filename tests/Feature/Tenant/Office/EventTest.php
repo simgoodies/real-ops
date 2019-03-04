@@ -5,6 +5,7 @@ namespace Tests\Feature\Tenant\Office;
 use App\Models\Tenants\Event;
 use App\Services\Tenants\EventService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\URL;
 use Tests\TenantTestCase;
 
 class EventTest extends TenantTestCase
@@ -23,10 +24,11 @@ class EventTest extends TenantTestCase
 
     public function testItCanCreateNewEvent()
     {
-        $this->createTenant();
+        $this->withoutExceptionHandling();
+        $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
-        $response = $this->post($this->prepareTenantUrl('office/events'), [
+        $response = $this->post('office/events', [
             'title' => 'Hakuna Matata Real Ops 2018',
             'description' => 'Super awesome description as to why Hakuna Matata Real Ops 2018 will be the bomb!',
             'start_date' => Carbon::now()->addDays(3)->toDateTimeString(),
@@ -47,7 +49,8 @@ class EventTest extends TenantTestCase
 
     public function testItCanUpdateDetailsOfAnEvent()
     {
-        $this->createTenant();
+        $this->withoutExceptionHandling();
+        $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
         factory(Event::class)->create([
@@ -60,7 +63,7 @@ class EventTest extends TenantTestCase
             'banner_image_link' => 'https://www.exampple.com/image.jpeg'
         ]);
 
-        $response = $this->put($this->prepareTenantUrl('office/events/original-name/edit'), [
+        $response = $this->put('office/events/original-name/edit', [
             'title' => 'Changed Name',
             'description' => 'New Description',
             'start_date' => '2018-12-30',
@@ -84,7 +87,7 @@ class EventTest extends TenantTestCase
 
     function testItCanDeleteEvents()
     {
-        $this->createTenant();
+        $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
         factory(Event::class)->create([
@@ -94,7 +97,7 @@ class EventTest extends TenantTestCase
         $events = $this->eventService->getAll();
         $this->assertCount(1, $events);
 
-        $response =  $this->delete($this->prepareTenantUrl('office/events/to-be-deleted-event'));
+        $response =  $this->delete('office/events/to-be-deleted-event');
         $response->assertRedirect('office/events');
 
         $events = $this->eventService->getAll();

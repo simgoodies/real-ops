@@ -4,11 +4,14 @@ namespace Tests\Feature\Tenant;
 
 use Tests\TenantTestCase;
 use App\Models\Tenants\Event;
+use App\Models\Tenants\Pilot;
 use App\Models\Tenants\Flight;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
 use App\Services\Tenants\PilotService;
-use App\Mail\BookingForFlightRequested;
 use App\Services\Tenants\BookingService;
+use App\Mail\Tenants\Bookings\ConfirmedMailable;
+use App\Mail\Tenants\Bookings\RequestedMailable;
 
 class BookingTest extends TenantTestCase
 {
@@ -32,6 +35,7 @@ class BookingTest extends TenantTestCase
 
     public function testAPilotCanRequestToBookAFlight()
     {
+        $this->withoutExceptionHandling();
         $this->setUpAndActivateTenant();
 
         Mail::fake();
@@ -50,21 +54,53 @@ class BookingTest extends TenantTestCase
         $flight = $flight->fresh();
         $pilot = $this->pilotService->getByVatsimId('1234567');
 
-        Mail::assertSent(BookingForFlightRequested::class, function($mail) {
-            return $mail->build() &&
-                $mail->hasTo('pilotemail@example.com') &&
-                $mail->hasFrom('no-reply-tjzs@realops.test', 'San Juan CERAP Real Ops');
+        Mail::assertSent(RequestedMailable::class, function ($mail) {
+            $this->assertEquals('Confirm your requested flight ABC123', $mail->subject);
+            $this->assertEquals('pilotemail@example.com', $mail->to[0]['address']);
+            $this->assertEquals('no-reply-tjzs@realops.test', $mail->from[0]['address']);
+            $this->assertEquals('San Juan CERAP Real Ops', $mail->from[0]['name']);
+            return true;
         });
 
-        $response->assertRedirect('events/the-event/flights/ABC123');
+        $response->assertRedirect('events/the-event/flights');
         $this->assertCount(1, $this->pilotService->getAll());
-        $this->assertFalse($this->bookingService->isFlightBooked($event, $flight));
+        $this->assertFalse($this->bookingService->isFlightBooked($flight));
         $this->assertEquals('pilotemail@example.com', $pilot->email);
     }
 
-    public function testAPilotCanConfirmARequestToBooking()
+    public function testAPilotCanConfirmARequestToBookAFlight()
     {
-        $this->assertTrue(true);
+        $this->withoutExceptionHandling();
+        $this->setUpAndActivateTenant();
+
+        Mail::fake();
+        $event = factory(Event::class)->create(['slug' => 'the-event']);
+        $flight = factory(Flight::class)->state('unbooked')->create(['event_id' => $event->id, 'callsign' => 'ABC123']);
+        $pilot = factory(Pilot::class)->create(['vatsim_id' => '1234567', 'email' => 'pilotemail@example.com']);
+
+        $confirmationUrl = URL::signedRoute('tenants.events.bookings.store', [
+            'slug' => $event->slug,
+            'callsign' => $flight->callsign,
+            'vatsimId' => $pilot->vatsim_id,
+        ]);
+
+        $response = $this->get($confirmationUrl);
+
+        Mail::assertSent(ConfirmedMailable::class, function ($mail) {
+            $this->assertEquals('You are booked for flight ABC123', $mail->subject);
+            $this->assertEquals('pilotemail@example.com', $mail->to[0]['address']);
+            $this->assertEquals('no-reply-tjzs@realops.test', $mail->from[0]['address']);
+            $this->assertEquals('San Juan CERAP Real Ops', $mail->from[0]['name']);
+            return true;
+        });
+
+        $response->assertRedirect('events/the-event/flights');
+        $this->assertTrue($this->bookingService->isFlightBooked($flight));
+    }
+
+    public function testAPilotCannotConfirmABookingRequestThatWasConfirmedByAnotherPilot()
+    {
+
     }
 
     public function testAPilotCanRequestToCancelABooking()

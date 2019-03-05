@@ -32,6 +32,6 @@ class BookingRequestController extends Controller
     {
         $this->bookingService->storeBookingRequest($request, $slug, $callsign);
 
-        return redirect()->route('tenants.events.flights.show', ['slug' => $slug, 'callsign' => $callsign]);
+        return redirect()->route('tenants.events.flights.index', ['slug' => $slug]);
     }
 }

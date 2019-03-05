@@ -12,7 +12,6 @@ Please confirm your booking by pressing the button below
 
 We will send you a summary of your booking upon confirmation!
 
-Thanks,
-
+Thanks,  
 {{ $tenantName }}
 @endcomponent

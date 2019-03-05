@@ -8,6 +8,12 @@ class Pilot extends TenantModel
 {
 
     protected $fillable = ['vatsim_id', 'email'];
+    
+    public function getRouteKeyName()
+    {
+        return 'vatsim_id';
+    }
+
     /**
      * The bookings that the pilot has.
      *

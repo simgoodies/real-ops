@@ -48,9 +48,44 @@ class BookingService
                     'The flight has already been booked and confirmed by another pilot, try booking another flight.');
         }
 
-        $this->bookFlight($flight, $pilot);
+        $this->confirmBooking($flight, $pilot);
 
         Mail::to($pilot->email)->send(new BookingConfirmedMailable($event, $flight));
+
+        $successMessage = sprintf('You have successfully booked flight %s', $flight->callsign);
+        $request->session()->flash('success', $successMessage);
+
+        return true;
+    }
+
+    /**
+     * Method that handles the BookingController destroy action.
+     *
+     * @param Request $request
+     * @param Event $event
+     * @param Flight $flight
+     * @param Pilot $pilot
+     * @return bool|\Illuminate\Http\RedirectResponse
+     */
+    public function destroyBooking(Request $request, Event $event, Flight $flight, Pilot $pilot)
+    {
+        if ($request->hasValidSignature() === false) {
+            return redirect()->route('tenants.events.flights.index', ['slug' => $event->slug])
+                ->with('failure', 'The booking could not be cancelled due to a missing signature.');
+        }
+
+        if ($this->isFlightBooked($flight) === false) {
+            return redirect()->route('tenants.events.flights.index', ['slug' => $event->slug])
+                ->with('failure',
+                    'The flight you are trying to cancel, is not currently booked.');
+        }
+
+        $this->cancelBooking($flight);
+
+        $successMessage = sprintf('You have successfully cancelled your booking for flight %s', $flight->callsign);
+        $request->session()->flash('success', $successMessage);
+
+        return true;
     }
 
     /**
@@ -103,9 +138,20 @@ class BookingService
      * @param Flight $flight
      * @param Pilot $pilot
      */
-    public function bookFlight(Flight $flight, Pilot $pilot)
+    public function confirmBooking(Flight $flight, Pilot $pilot)
     {
         $flight->bookedBy()->associate($pilot);
+        $flight->save();
+    }
+
+    /**
+     * Cancel booking for the pilot on given flight.
+     *
+     * @param Flight $flight
+     */
+    public function cancelBooking(Flight $flight)
+    {
+        $flight->bookedBy()->dissociate();
         $flight->save();
     }
 
@@ -160,7 +206,7 @@ class BookingService
 
     /**
      * This will generate the cancellation URL for flight booking requests.
-     * 
+     *
      * @param string $slug
      * @param string $callsign
      * @param string $vatsimId

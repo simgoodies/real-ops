@@ -15,7 +15,7 @@ class BookingController extends Controller
      * @var BookingService
      */
     protected $bookingService;
-    
+
     public function __construct(BookingService $bookingService)
     {
         $this->bookingService = $bookingService;
@@ -33,6 +33,20 @@ class BookingController extends Controller
     public function store(Request $request, Event $slug, Flight $callsign, Pilot $vatsimId)
     {
         $this->bookingService->storeBooking($request, $slug, $callsign, $vatsimId);
+
+        return redirect()->route('tenants.events.flights.index', ['slug' => $slug]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Event $slug
+     * @param Flight $callsign
+     * @param Pilot $vatsimId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Request $request, Event $slug, Flight $callsign, Pilot $vatsimId)
+    {
+        $this->bookingService->destroyBooking($request, $slug, $callsign, $vatsimId);
 
         return redirect()->route('tenants.events.flights.index', ['slug' => $slug]);
     }

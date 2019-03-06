@@ -65,7 +65,7 @@ class BookingTest extends TenantTestCase
         $this->assertFalse($this->bookingService->isFlightBooked($flight));
         $this->assertEquals('pilotemail@example.com', $pilot->email);
     }
-    
+
     public function testAPilotCannotRequestToBookAFlightThatIsAlreadyBooked()
     {
         $this->setUpAndActivateTenant();
@@ -84,9 +84,9 @@ class BookingTest extends TenantTestCase
             'vatsim_id' => '7654321',
             'email' => 'canthaveit@example.com'
         ]);
-        
+
         $flight = $flight->fresh();
-        
+
         // Assertion Phase
         Mail::assertNothingSent();
 
@@ -122,6 +122,7 @@ class BookingTest extends TenantTestCase
         });
 
         $response->assertRedirect('events/the-event/flights');
+        $response->assertSessionHas('success', 'You have successfully booked flight ABC123');
         $this->assertTrue($this->bookingService->isFlightBooked($flight));
     }
 
@@ -166,7 +167,7 @@ class BookingTest extends TenantTestCase
         );
 
         $response = $this->get($confirmationUrlForPilotTwo);
-        
+
         $flight = $flight->fresh();
 
         $response->assertRedirect('events/the-event/flights');
@@ -182,12 +183,16 @@ class BookingTest extends TenantTestCase
         Mail::fake();
         $event = factory(Event::class)->create(['slug' => 'the-event']);
         $pilot = factory(Pilot::class)->create(['vatsim_id' => '1234567', 'email' => 'pilotemail@example.com']);
-        $flight = factory(Flight::class)->create(['event_id' => $event->id, 'pilot_id' => $pilot->id, 'callsign' => 'ABC123']);
-        
+        $flight = factory(Flight::class)->create([
+            'event_id' => $event->id,
+            'pilot_id' => $pilot->id,
+            'callsign' => 'ABC123'
+        ]);
+
         $response = $this->post('events/the-event/flights/ABC123/cancel', [
             'email' => 'pilotemail@example.com'
         ]);
-        
+
         Mail::assertSent(CancellationRequestedMailable::class, function ($mail) {
             $this->assertEquals('Confirm your cancellation for flight ABC123', $mail->subject);
             $this->assertEquals('pilotemail@example.com', $mail->to[0]['address']);
@@ -197,17 +202,36 @@ class BookingTest extends TenantTestCase
         });
 
         $response->assertRedirect('events/the-event/flights');
-        $response->assertSessionHas('success', 'If the provided e-mail address is correct, you will receive an e-mail to confirm the cancellation request.');
+        $response->assertSessionHas('success',
+            'If the provided e-mail address is correct, you will receive an e-mail to confirm the cancellation request.');
         $this->assertTrue($this->bookingService->isFlightBooked($flight));
     }
 
     public function testAPilotCanConfirmARequestToCancelABooking()
     {
-        $this->assertTrue(true);
-    }
+        $this->withoutExceptionHandling();
+        $this->setUpAndActivateTenant();
 
-    public function testAPilotCanOnlyCancelTheirOwnBooking()
-    {
-        $this->assertTrue(true);
+        Mail::fake();
+        $event = factory(Event::class)->create(['slug' => 'the-event']);
+        $pilot = factory(Pilot::class)->create(['vatsim_id' => '1234567', 'email' => 'pilotemail@example.com']);
+        $flight = factory(Flight::class)->create([
+            'event_id' => $event->id,
+            'pilot_id' => $pilot->id,
+            'callsign' => 'ABC123'
+        ]);
+
+        $cancellationUrl = $this->bookingService->getBookingCancellationUrl(
+            $event->slug,
+            $flight->callsign,
+            $pilot->vatsim_id
+        );
+
+        $response = $this->get($cancellationUrl);
+
+        Mail::assertNothingSent();
+        $response->assertRedirect('events/the-event/flights');
+        $response->assertSessionHas('success', 'You have successfully cancelled your booking for flight ABC123');
+        $this->assertFalse($this->bookingService->isFlightBooked($flight));
     }
 }

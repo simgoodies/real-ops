@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Tenants;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateFlight extends FormRequest
 {
@@ -55,7 +54,7 @@ class UpdateFlight extends FormRequest
             'departure_time.required' => 'The departure time is required',
             'arrival_time.required' => 'The arrival time is required',
             'aircraft_type_icao.max' => 'The aircraft type can have a maximum of four characters, for example B734',
-            'aircraft_type_icao.alpha_num' => 'The aircraft type may only consist of letters and digits, for example B734'
+            'aircraft_type_icao.alpha_num' => 'The aircraft type may only consist of letters and digits, for example B734',
         ];
     }
 }

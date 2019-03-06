@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Tenants\Permission;
 use App\Models\Tenants\Role;
+use App\Models\Tenants\Permission;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

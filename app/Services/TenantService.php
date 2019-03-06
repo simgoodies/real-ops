@@ -18,26 +18,22 @@ class TenantService
      * Does a tenant exist with given identifier.
      *
      * @param $identifier
-     * @return bool|mixed
+     * @return bool
      */
     public function identifierExists($identifier)
     {
-        $tenant = $this->findByIdentifier($identifier);
-
-        return is_null($tenant) ? false : true;
+        return Tenant::where('identifier', $identifier)->exists();
     }
 
     /**
      * Does a tenant exist with given email.
      *
      * @param $email
-     * @return bool|mixed
+     * @return bool
      */
     public function emailExists($email)
     {
-        $tenant = $this->findByEmail($email);
-
-        return is_null($tenant) ? false : true;
+        return Tenant::where('email', $email)->exists();
     }
 
     /**
@@ -49,11 +45,10 @@ class TenantService
      */
     public function tenantExists(string $identifier, string $email)
     {
-        if ($this->identifierExists($identifier) || $this->emailExists($email)) {
-            return true;
-        }
-
-        return false;
+        return Tenant::where([
+            'identifier' => $identifier,
+            'email' => $email,
+        ])->exists();
     }
 
     /**
@@ -109,7 +104,8 @@ class TenantService
     /**
      * @return Tenant[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getAll() {
+    public function getAll()
+    {
         return Tenant::all();
     }
 }

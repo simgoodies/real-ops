@@ -1,6 +1,6 @@
 <?php
 
-Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenants.')->group(function () {
+Route::namespace('App\Http\Controllers\Tenants')->middleware('web')->name('tenants.')->group(function () {
     Route::get('/')->uses('PageController@landing')->name('landing');
 
     // Authentication Routes...
@@ -30,7 +30,8 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
         Route::put('events/{slug}/edit', ['uses' => 'Office\EventController@update', 'as' => 'events.update']);
         Route::delete('events/{slug}', ['uses' => 'Office\EventController@destroy', 'as' => 'events.destroy']);
 
-        Route::name('events.flights.')->prefix('events/{slug}')->middleware(['permission:access-flights'])->group(function () {
+        Route::name('events.flights.')->prefix('events/{slug}')->middleware(['permission:access-flights'])->group(function (
+        ) {
             Route::get('flights')->uses('Office\FlightController@index')->name('index');
             Route::post('flights')->uses('Office\FlightController@store')->name('store');
             Route::get('flights/{callsign}/edit')->uses('Office\FlightController@edit')->name('edit');
@@ -41,7 +42,9 @@ Route::namespace('App\Http\Controllers\Tenant')->middleware('web')->name('tenant
 
     Route::get('events/{slug}/flights')->uses('FlightController@store')->name('events.flights.index');
     Route::get('events/{slug}/flights/{callsign}')->uses('FlightController@show')->name('events.flights.show');
+    Route::post('events/{slug}/flights/{callsign}/book')->uses('Bookings\BookingRequestController@store')->name('events.flights.bookings.booking-request.store');
+    Route::get('events/{slug}/flights/{callsign}/book/{vatsimId}')->uses('Bookings\BookingController@store')->name('events.flights.bookings.store');
+    Route::post('events/{slug}/flights/{callsign}/cancel')->uses('Bookings\CancellationRequestController@store')->name('events.flights.bookings.cancellation-request.store');
+    Route::get('events/{slug}/flights/{callsign}/cancel/{vatsimId}')->uses('Bookings\BookingController@destroy')->name('events.flights.bookings.destroy');
 
-    Route::post('events/{slug}/flights/{callsign}/book')->uses('BookingRequestController@store')->name('events.booking-requests.store');
-    Route::get('events/{slug}/flights/{callsign}/book/{vatsimId}')->uses('BookingController@store')->name('events.bookings.store')->middleware('signed');
 });

@@ -34,7 +34,7 @@ class MailService
     }
 
     /**
-     * Determine the no-reply name based on given tenant e.g. San Juan CERAP Real Ops
+     * Determine the no-reply name based on given tenant e.g. San Juan CERAP Real Ops.
      * 
      * @param Tenant|null $tenant
      * @return string

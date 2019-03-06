@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Tenant\Office;
+namespace App\Http\Controllers\Tenants\Office;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Tenants\StoreFlight;
-use App\Http\Requests\Tenants\UpdateFlight;
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
+use App\Http\Controllers\Controller;
 use App\Services\Tenants\FlightService;
+use App\Http\Requests\Tenants\StoreFlight;
+use App\Http\Requests\Tenants\UpdateFlight;
 
 class FlightController extends Controller
 {

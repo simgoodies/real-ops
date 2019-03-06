@@ -24,6 +24,15 @@ class PilotService
     }
 
     /**
+     * @param string $email
+     * @return mixed
+     */
+    public function getByEmail(string $email)
+    {
+        return Pilot::where('email', $email)->first();
+    }
+
+    /**
      * Too determine whether a pilot with given vatsim id exists.
      *
      * @param string $vatsimId

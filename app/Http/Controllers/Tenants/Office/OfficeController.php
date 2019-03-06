@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tenant\Office;
+namespace App\Http\Controllers\Tenants\Office;
 
 use App\Http\Controllers\Controller;
 

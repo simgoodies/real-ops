@@ -2,7 +2,6 @@
 
 namespace App\Services\Tenants;
 
-use Illuminate\Http\Request;
 use App\Models\Tenants\Event;
 use App\Http\Requests\StoreEvent;
 use App\Http\Requests\UpdateEvent;
@@ -83,11 +82,11 @@ class EventService
      */
     public function getBySlug($slug)
     {
-        return Event::whereSlug($slug)->first();
+        return Event::where('slug', $slug)->first();
     }
 
     /**
-     * This is used to grab an event based on id
+     * This is used to grab an event based on id.
      *
      * @param $id
      * @return mixed

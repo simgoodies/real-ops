@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tenant;
+namespace App\Http\Controllers\Tenants;
 
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;

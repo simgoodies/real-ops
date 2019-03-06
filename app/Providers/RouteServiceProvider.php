@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot();
 
-        /**
+        /*
          * When there is a callsign in a route it is always in relation to an event, therefore when a callsign is
          * in a route make sure that it is for the correct event.
          */
@@ -48,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider
             $event_id = $this->eventService->getBySlug($slug)->id;
             return Flight::where([
                     ['callsign', $value],
-                    ['event_id', $event_id]
+                    ['event_id', $event_id],
                 ])->first() ?? abort(404);
         });
     }

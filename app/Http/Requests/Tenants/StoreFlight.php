@@ -32,14 +32,14 @@ class StoreFlight extends FormRequest
                 'max:10',
                 Rule::unique('tenant.flights')->where(function ($query) {
                     return $query->where('event_id', request()->get('event_id'));
-                })
+                }),
             ],
             'pilot_id' => 'exists:pilots,id',
             'origin_airport_icao' => 'required|max:4|alpha',
             'destination_airport_icao' => 'required|max:4|alpha',
             'departure_time' => 'required',
             'arrival_time' => 'required',
-            'aircraft_type_icao' => 'nullable|max:4|alpha_num'
+            'aircraft_type_icao' => 'nullable|max:4|alpha_num',
         ];
     }
 
@@ -67,7 +67,7 @@ class StoreFlight extends FormRequest
             'departure_time.required' => 'The departure time is required',
             'arrival_time.required' => 'The arrival time is required',
             'aircraft_type_icao.max' => 'The aircraft type can have a maximum of four characters, for example B734',
-            'aircraft_type_icao.alpha_num' => 'The aircraft type may only consist of letters and digits, for example B734'
+            'aircraft_type_icao.alpha_num' => 'The aircraft type may only consist of letters and digits, for example B734',
         ];
     }
 }

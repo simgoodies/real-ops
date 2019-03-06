@@ -2,33 +2,37 @@
 
 namespace App\Mail\Tenants\Bookings;
 
+use App\Models\Tenants\Event;
 use Illuminate\Bus\Queueable;
 use App\Models\Tenants\Flight;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\Tenants\AbstractTenantMailable;
 
-class RequestedMailable extends AbstractTenantMailable
+class BookingConfirmedMailable extends AbstractTenantMailable
 {
     use Queueable, SerializesModels;
 
     /**
      * @var Flight
      */
-    private $flight;
+    protected $flight;
 
     /**
-     * This will contain the url to confirm the booking that was requested
-     *
-     * @var string
+     * @var Event
      */
-    private $url;
+    protected $event;
 
-    public function __construct(Flight $flight, string $url)
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct(Event $event, Flight $flight)
     {
         parent::__construct();
 
+        $this->event = $event;
         $this->flight = $flight;
-        $this->url = $url;
 
         $this->populateMail();
     }
@@ -36,12 +40,12 @@ class RequestedMailable extends AbstractTenantMailable
     private function populateMail()
     {
         $this->from($this->noReplyFromAddress, $this->noReplyFromName);
-        $this->subject(sprintf('Confirm your requested flight %s', $this->flight->callsign));
-        $this->markdown('tenants.email.booking.requested');
+        $this->subject(sprintf('You are booked for flight %s', $this->flight->callsign));
+        $this->markdown('tenants.email.bookings.booking-confirmed');
         $this->with([
             'tenantName' => $this->tenant->name,
+            'event' => $this->event,
             'flight' => $this->flight,
-            'url' => $this->url,
         ]);
     }
 

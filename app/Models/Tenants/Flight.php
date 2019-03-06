@@ -13,7 +13,7 @@ class Flight extends TenantModel
     }
 
     /**
-     * Sets the callsign to uppercase
+     * Sets the callsign to uppercase.
      *
      * @param $value
      */
@@ -23,7 +23,7 @@ class Flight extends TenantModel
     }
 
     /**
-     * Sets the origin airport icao to uppercase
+     * Sets the origin airport icao to uppercase.
      *
      * @param $value
      */
@@ -33,7 +33,7 @@ class Flight extends TenantModel
     }
 
     /**
-     * Sets the destination airport icao to uppercase
+     * Sets the destination airport icao to uppercase.
      *
      * @param $value
      */
@@ -43,7 +43,7 @@ class Flight extends TenantModel
     }
 
     /**
-     * Sets the route to uppercase
+     * Sets the route to uppercase.
      *
      * @param $value
      */
@@ -68,7 +68,7 @@ class Flight extends TenantModel
     }
 
     /**
-     * Scope to determine all flights that are booked
+     * Scope to determine all flights that are booked.
      *
      * @param $query
      * @return mixed

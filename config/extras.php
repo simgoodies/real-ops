@@ -10,7 +10,7 @@ return [
         'events' => [
             'flights' => [
                 'per_page' => 12
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
 ];

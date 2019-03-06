@@ -1,6 +1,6 @@
 @component('vendor.mail.markdown.message')
 # {{ $tenantName }} presents
-## {{ $flight->event->title }}
+## {{ $event->title }}
 
 Thanks for your booking request of flight {{ $flight->callsign }}.
 

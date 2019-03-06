@@ -3,8 +3,8 @@
 namespace App\Services\Command;
 
 use App\Models\Tenant;
-use App\Models\Tenants\User;
 use App\Models\Website;
+use App\Models\Tenants\User;
 use Hyn\Tenancy\Environment;
 use App\Services\TenantService;
 use Hyn\Tenancy\Models\Hostname;

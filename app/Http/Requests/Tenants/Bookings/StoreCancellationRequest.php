@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Tenants;
+namespace App\Http\Requests\Tenants\Bookings;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBookingRequest extends FormRequest
+class StoreCancellationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class StoreBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'vatsim_id' => 'required|digits_between:6,7',
             'email' => 'required|email'
         ];
     }
@@ -37,8 +36,6 @@ class StoreBookingRequest extends FormRequest
     public function messages()
     {
         return [
-            'vatsim_id.required' => 'A VATSIM ID is required',
-            'vatsim_id.digits_between' => 'A VATSIM ID can only have a length of 6 to 7 digits',
             'email.required' => 'An email address is required',
             'email.email' => 'A valid email address has to be provided'
         ];

@@ -6,7 +6,6 @@ use Hyn\Tenancy\Abstracts\TenantModel;
 
 class Pilot extends TenantModel
 {
-
     protected $fillable = ['vatsim_id', 'email'];
     
     public function getRouteKeyName()

@@ -2,11 +2,11 @@
 
 namespace App\Services\Tenants;
 
-use App\Http\Requests\Tenants\StoreFlight;
-use App\Http\Requests\Tenants\UpdateFlight;
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\Tenants\StoreFlight;
+use App\Http\Requests\Tenants\UpdateFlight;
 
 class FlightService
 {

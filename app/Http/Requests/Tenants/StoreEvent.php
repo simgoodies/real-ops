@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tenants;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEvent extends FormRequest
+class StoreEvent extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateEvent extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'title' => 'required|max:100',
             'description' => 'required',
             'start_date' => 'required|date',
             'start_time' => 'required',
@@ -42,6 +42,8 @@ class UpdateEvent extends FormRequest
     public function messages()
     {
         return [
+            'name.required' => 'A name for the event is required',
+            'name.max' => 'A name can consist of a maximum of 100 characters',
             'description.required' => 'A description for the event is required',
             'start_date.required' => 'Please enter the start date of the event!',
             'start_date.date' => 'Please enter a valid event start date',

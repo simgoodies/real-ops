@@ -1,5 +1,6 @@
 [![StyleCI](https://github.styleci.io/repos/116734296/shield?branch=develop)](https://github.styleci.io/repos/116734296)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/dc2fcabc4f5f4539811a68487ce72ae4)](https://www.codacy.com/app/roelgonzalez/vatsim-real-ops?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vatsimgoodies/vatsim-real-ops&amp;utm_campaign=Badge_Grade)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6ab5debc888db6e71d03/maintainability)](https://codeclimate.com/github/vatsimgoodies/vatsim-real-ops/maintainability)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Discord](https://img.shields.io/discord/545254906257342493.svg?color=7289DA&label=Discord&style=popout)](https://discord.gg/aQkKcf5)
 

@@ -1,2 +1,2 @@
-@include('partials.nav._nav')
+@include('tenants.office.partials.nav._nav')
 @yield('nav')

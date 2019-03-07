@@ -5,10 +5,10 @@
 @section('main-content')
     <div class="office">
 
-        @include('tenants.partials._nav')
+        @include('tenants.office.partials._nav')
 
         @component('tenants.office.components._office-title')
-            <i class="fas fa-plane mr-3 d-none d-sm-inline"></i>{{ $office_title }} - Office
+            <i class="fas fa-plane mr-3 d-none d-sm-inline"></i>{{ $tenant->name }} - Office
         @endcomponent
 
     <!-- AREA SELECTOR SECTION -->

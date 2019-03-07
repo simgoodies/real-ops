@@ -68,7 +68,7 @@ class Flight extends TenantModel
     }
 
     /**
-     * Scope to determine all flights that are booked.
+     * Scope to select flights that are booked.
      *
      * @param $query
      * @return mixed
@@ -76,5 +76,15 @@ class Flight extends TenantModel
     public function scopeBooked($query)
     {
         return $query->whereNotNull('pilot_id');
+    }
+
+    /**
+     * Determine if the flight is booked.
+     *
+     * @return bool
+     */
+    public function isBooked()
+    {
+        return (bool)$this->pilot_id;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use App\Http\View\Composers\Tenants\OfficeComposer;
+use App\Http\View\Composers\Tenants\TenantComposer;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -15,7 +15,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('tenants.office.*', OfficeComposer::class);
+        View::composer('tenants.*', TenantComposer::class);
     }
 
     /**

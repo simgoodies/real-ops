@@ -40,6 +40,8 @@ Route::namespace('App\Http\Controllers\Tenants')->middleware('web')->name('tenan
         });
     });
 
+    Route::get('events/{slug}')->uses('EventLandingPageController@show')->name('events.show');
+    
     Route::get('events/{slug}/flights')->uses('FlightController@store')->name('events.flights.index');
     Route::get('events/{slug}/flights/{callsign}')->uses('FlightController@show')->name('events.flights.show');
     Route::post('events/{slug}/flights/{callsign}/book')->uses('Bookings\BookingRequestController@store')->name('events.flights.bookings.booking-request.store');

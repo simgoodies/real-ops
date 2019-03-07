@@ -3,11 +3,21 @@
 namespace App\Services\Tenants;
 
 use App\Models\Tenants\Event;
-use App\Http\Requests\StoreEvent;
-use App\Http\Requests\UpdateEvent;
+use App\Http\Requests\Tenants\StoreEvent;
+use App\Http\Requests\Tenants\UpdateEvent;
 
 class EventService
 {
+    /**
+     * @var FlightService
+     */
+    protected $flightService;
+
+    public function __construct()
+    {
+        $this->flightService = new FlightService();
+    }
+
     /**
      * This is used during the creation of a new event.
      *
@@ -62,6 +72,20 @@ class EventService
     public function destroyEvent(Event $event)
     {
         $this->delete($event);
+    }
+
+    /**
+     * This is used during the showing of the event landing page.
+     *
+     * @param Event $slug
+     * @return mixed
+     */
+    public function showEventLandingPage(Event $slug)
+    {
+        $viewData['flights'] = $this->flightService->getAllForEvent($slug);
+        $viewData['event'] = $slug;
+
+        return $viewData;
     }
 
     /**

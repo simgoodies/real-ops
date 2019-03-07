@@ -11,16 +11,6 @@ use App\Http\Requests\Tenants\UpdateFlight;
 class FlightService
 {
     /**
-     * @var EventService
-     */
-    protected $eventService;
-
-    public function __construct()
-    {
-        $this->eventService = new EventService();
-    }
-
-    /**
      * @param Event $event
      * @return mixed
      */
@@ -29,6 +19,12 @@ class FlightService
         return $event->flights->all();
     }
 
+    /**
+     * This is used during the index of flights.
+     *
+     * @param Event $event
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function indexFlight(Event $event)
     {
         return $event->flights()->paginate(config('extras.office.events.flights.per_page', 12));

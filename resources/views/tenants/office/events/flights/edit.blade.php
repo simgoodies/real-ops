@@ -7,7 +7,7 @@
     @include('tenants.partials._nav')
 
     @component('tenants.office.components._office-title')
-        {{ $office_title }} - {{ $event->title }} - {{ $flight->callsign }}
+        {{ $tenant->name }} - {{ $event->title }} - {{ $flight->callsign }}
     @endcomponent
 
     <div class="container">

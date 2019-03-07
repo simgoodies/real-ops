@@ -7,7 +7,7 @@
     @include('tenants.partials._nav')
 
     @component('tenants.office.components._office-title')
-        {{ $office_title }} - Event Management
+        {{ $tenant->name }} - Event Management
     @endcomponent
 
     <div class="container">

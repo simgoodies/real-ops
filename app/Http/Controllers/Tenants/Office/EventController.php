@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Tenants\Office;
 
 use App\Models\Tenants\Event;
-use App\Http\Requests\StoreEvent;
-use App\Http\Requests\UpdateEvent;
 use App\Http\Controllers\Controller;
 use App\Services\Tenants\EventService;
+use App\Http\Requests\Tenants\StoreEvent;
+use App\Http\Requests\Tenants\UpdateEvent;
 
 class EventController extends Controller
 {

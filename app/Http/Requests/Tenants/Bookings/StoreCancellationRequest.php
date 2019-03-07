@@ -24,12 +24,12 @@ class StoreCancellationRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email'
+            'email' => 'required|email',
         ];
     }
 
     /**
-     * Error messages for the validator
+     * Error messages for the validator.
      *
      * @return array
      */
@@ -37,7 +37,7 @@ class StoreCancellationRequest extends FormRequest
     {
         return [
             'email.required' => 'An email address is required',
-            'email.email' => 'A valid email address has to be provided'
+            'email.email' => 'A valid email address has to be provided',
         ];
     }
 }

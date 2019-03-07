@@ -97,6 +97,7 @@ class BookingService
      * @param StoreBookingRequest $request
      * @param Event $event
      * @param Flight $flight
+     * @return bool
      */
     public function storeBookingRequest(StoreBookingRequest $request, Event $event, Flight $flight)
     {
@@ -108,7 +109,7 @@ class BookingService
         if ($this->isFlightBooked($flight, $event) === true) {
             $failureMessage = sprintf('The flight %s is already booked.', $flight->callsign);
             $request->session()->flash('failure', $failureMessage);
-            return;
+            return false;
         }
 
         $url = $this->getBookingConfirmationUrl($event->slug, $flight->callsign, $pilot->vatsim_id);
@@ -116,6 +117,8 @@ class BookingService
         Mail::to($pilot->email)->send(new BookingRequestedMailable($event, $flight, $url));
         
         $request->session()->flash('success', 'You have requested to book this flight, check your e-mail to confirm this.');
+        
+        return true;
     }
 
     /**
@@ -124,7 +127,7 @@ class BookingService
      * @param StoreCancellationRequest $request
      * @param Event $event
      * @param Flight $flight
-     * @return \Illuminate\Http\RedirectResponse
+     * @return bool|\Illuminate\Http\RedirectResponse
      */
     public function storeCancellationRequest(StoreCancellationRequest $request, Event $event, Flight $flight)
     {
@@ -145,6 +148,8 @@ class BookingService
         $url = $this->getBookingCancellationUrl($event->slug, $flight->callsign, $pilot->vatsim_id);
 
         Mail::to($pilot->email)->send(new CancellationRequestedMailable($event, $flight, $url));
+        
+        return true;
     }
 
     /**

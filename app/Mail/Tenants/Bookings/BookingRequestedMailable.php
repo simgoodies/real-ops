@@ -18,7 +18,7 @@ class BookingRequestedMailable extends AbstractTenantMailable
     private $flight;
 
     /**
-     * @var Event 
+     * @var Event
      */
     private $event;
 

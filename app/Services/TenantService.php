@@ -98,6 +98,7 @@ class TenantService
     public function getCurrentTenant()
     {
         $website = $this->tenancy->tenant();
+
         return $website->hostnames()->firstOrFail()->tenant;
     }
 

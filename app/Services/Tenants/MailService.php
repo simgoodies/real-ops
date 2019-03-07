@@ -2,7 +2,6 @@
 
 namespace App\Services\Tenants;
 
-
 use App\Models\Tenant;
 use App\Services\TenantService;
 
@@ -17,7 +16,7 @@ class MailService
 
     /**
      * Determine the no-reply email address based on given tenant e.g. no-reply-tjzs@ ....
-     * 
+     *
      * @param Tenant|null $tenant
      * @return string
      */
@@ -35,7 +34,7 @@ class MailService
 
     /**
      * Determine the no-reply name based on given tenant e.g. San Juan CERAP Real Ops.
-     * 
+     *
      * @param Tenant|null $tenant
      * @return string
      */

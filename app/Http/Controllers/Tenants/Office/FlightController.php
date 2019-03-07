@@ -35,7 +35,7 @@ class FlightController extends Controller
     {
         return view('tenants.office.events.flights.edit', [
             'event' => $slug,
-            'flight' => $callsign
+            'flight' => $callsign,
         ]);
     }
 

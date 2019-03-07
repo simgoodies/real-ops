@@ -18,12 +18,12 @@ class CancellationRequestedMailable extends AbstractTenantMailable
     private $flight;
 
     /**
-     * @var Event 
+     * @var Event
      */
     private $event;
 
     /**
-     * This will contain the url to confirm the cancellation of the booking that was requested
+     * This will contain the url to confirm the cancellation of the booking that was requested.
      *
      * @var string
      */

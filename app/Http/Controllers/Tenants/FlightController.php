@@ -15,6 +15,9 @@ class FlightController extends Controller
 
     public function show(Event $slug, Flight $callsign)
     {
-        return 'show';
+        return view('tenants.events.flights.show')->with([
+            'event' => $slug,
+            'flight' => $callsign,
+        ]);
     }
 }

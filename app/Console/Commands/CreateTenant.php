@@ -69,9 +69,9 @@ class CreateTenant extends Command
         $password = str_random(16);
         $this->tenantCommandService->addAdminForTenant($tenant, $password);
 
-        $hostname_fqdn = $tenant->hostname->fqdn;
+        $hostnameFqdn = $tenant->hostname->fqdn;
 
-        $this->info("Tenant '{$name}' is created and is now accessible at {$hostname_fqdn}");
+        $this->info("Tenant '{$name}' is created and is now accessible at {$hostnameFqdn}");
         $this->info("Admin {$email} can log in using password {$password}");
     }
 }

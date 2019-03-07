@@ -32,6 +32,6 @@ class CancellationRequestController extends Controller
     {
         $this->bookingService->storeCancellationRequest($request, $slug, $callsign);
 
-        return redirect()->route('tenants.events.flights.index', ['slug' => $slug]);
+        return redirect()->route('tenants.events.flights.show', ['slug' => $slug, 'callsign' => $callsign]);
     }
 }

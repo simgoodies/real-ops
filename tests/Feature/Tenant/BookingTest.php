@@ -60,7 +60,8 @@ class BookingTest extends TenantTestCase
             return true;
         });
 
-        $response->assertRedirect('events/the-event/flights');
+        $response->assertRedirect('events/the-event/flights/ABC123');
+        $response->assertSessionHas('success', 'You have requested to book this flight, check your e-mail to confirm this.');
         $this->assertCount(1, $this->pilotService->getAll());
         $this->assertFalse($this->bookingService->isFlightBooked($flight));
         $this->assertEquals('pilotemail@example.com', $pilot->email);
@@ -90,9 +91,9 @@ class BookingTest extends TenantTestCase
         // Assertion Phase
         Mail::assertNothingSent();
 
-        $response->assertRedirect('events/the-event/flights');
+        $response->assertRedirect('events/the-event/flights/ABC123');
         $response->assertSessionHas('failure', 'The flight ABC123 is already booked.');
-        $this->assertTrue($this->bookingService->isFlightBookedByPilot($flight, $pilot));
+        $this->assertTrue($this->bookingService->isFlightBookedBy($flight, $pilot));
         $this->assertEquals('pilotemail@example.com', $flight->bookedBy->email);
     }
 
@@ -121,13 +122,14 @@ class BookingTest extends TenantTestCase
             return true;
         });
 
-        $response->assertRedirect('events/the-event/flights');
+        $response->assertRedirect('events/the-event/flights/ABC123');
         $response->assertSessionHas('success', 'You have successfully booked flight ABC123');
         $this->assertTrue($this->bookingService->isFlightBooked($flight));
     }
 
     public function testAPilotCannotConfirmARequestToBookAFlightWithoutASignature()
     {
+        $this->withoutExceptionHandling();
         $this->setUpAndActivateTenant();
 
         $event = factory(Event::class)->create(['slug' => 'the-event']);
@@ -142,7 +144,7 @@ class BookingTest extends TenantTestCase
 
         $response = $this->get($unsignedConfirmationUrl);
 
-        $response->assertRedirect('events/the-event/flights');
+        $response->assertRedirect('events/the-event/flights/ABC123');
         $response->assertSessionHas('failure', 'The booking could not be confirmed due to a missing signature.');
         $this->assertFalse($this->bookingService->isFlightBooked($flight));
     }
@@ -170,9 +172,11 @@ class BookingTest extends TenantTestCase
 
         $flight = $flight->fresh();
 
-        $response->assertRedirect('events/the-event/flights');
-        $response->assertSessionHas('failure',
-            'The flight has already been booked and confirmed by another pilot, try booking another flight.');
+        $response->assertRedirect('events/the-event/flights/ABC123');
+        $response->assertSessionHas(
+            'failure',
+            'The flight has already been booked and confirmed by another pilot, try booking another flight.'
+        );
         $this->assertEquals('1111111', $flight->bookedBy->vatsim_id);
     }
 
@@ -201,15 +205,16 @@ class BookingTest extends TenantTestCase
             return true;
         });
 
-        $response->assertRedirect('events/the-event/flights');
-        $response->assertSessionHas('success',
-            'If the provided e-mail address is correct, you will receive an e-mail to confirm the cancellation request.');
+        $response->assertRedirect('events/the-event/flights/ABC123');
+        $response->assertSessionHas(
+            'success',
+            'If the provided e-mail address is correct, you will receive an e-mail to confirm the cancellation request.'
+        );
         $this->assertTrue($this->bookingService->isFlightBooked($flight));
     }
 
     public function testAPilotCanConfirmARequestToCancelABooking()
     {
-        $this->withoutExceptionHandling();
         $this->setUpAndActivateTenant();
 
         Mail::fake();
@@ -230,7 +235,7 @@ class BookingTest extends TenantTestCase
         $response = $this->get($cancellationUrl);
 
         Mail::assertNothingSent();
-        $response->assertRedirect('events/the-event/flights');
+        $response->assertRedirect('events/the-event/flights/ABC123');
         $response->assertSessionHas('success', 'You have successfully cancelled your booking for flight ABC123');
         $this->assertFalse($this->bookingService->isFlightBooked($flight));
     }

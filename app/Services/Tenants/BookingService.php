@@ -38,14 +38,16 @@ class BookingService
     public function storeBooking(Request $request, Event $event, Flight $flight, Pilot $pilot)
     {
         if ($request->hasValidSignature() === false) {
-            return redirect()->route('tenants.events.flights.index', ['slug' => $event->slug])
+            return redirect()->route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign])
                 ->with('failure', 'The booking could not be confirmed due to a missing signature.');
         }
 
         if ($this->isFlightBooked($flight) === true) {
-            return redirect()->route('tenants.events.flights.index', ['slug' => $event->slug])
-                ->with('failure',
-                    'The flight has already been booked and confirmed by another pilot, try booking another flight.');
+            return redirect()->route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign])
+                ->with(
+                    'failure',
+                    'The flight has already been booked and confirmed by another pilot, try booking another flight.'
+                );
         }
 
         $this->confirmBooking($flight, $pilot);
@@ -64,20 +66,21 @@ class BookingService
      * @param Request $request
      * @param Event $event
      * @param Flight $flight
-     * @param Pilot $pilot
      * @return bool|\Illuminate\Http\RedirectResponse
      */
-    public function destroyBooking(Request $request, Event $event, Flight $flight, Pilot $pilot)
+    public function destroyBooking(Request $request, Event $event, Flight $flight)
     {
         if ($request->hasValidSignature() === false) {
-            return redirect()->route('tenants.events.flights.index', ['slug' => $event->slug])
+            return redirect()->route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign])
                 ->with('failure', 'The booking could not be cancelled due to a missing signature.');
         }
 
         if ($this->isFlightBooked($flight) === false) {
-            return redirect()->route('tenants.events.flights.index', ['slug' => $event->slug])
-                ->with('failure',
-                    'The flight you are trying to cancel, is not currently booked.');
+            return redirect()->route('tenants.events.flights.show', ['slug' => $event->slug, $flight->callsign])
+                ->with(
+                    'failure',
+                    'The flight you are trying to cancel, is not currently booked.'
+                );
         }
 
         $this->cancelBooking($flight);
@@ -111,20 +114,32 @@ class BookingService
         $url = $this->getBookingConfirmationUrl($event->slug, $flight->callsign, $pilot->vatsim_id);
 
         Mail::to($pilot->email)->send(new BookingRequestedMailable($event, $flight, $url));
+        
+        $request->session()->flash('success', 'You have requested to book this flight, check your e-mail to confirm this.');
     }
 
+    /**
+     * Method that handles the CancellationRequestController store action.
+     *
+     * @param StoreCancellationRequest $request
+     * @param Event $event
+     * @param Flight $flight
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storeCancellationRequest(StoreCancellationRequest $request, Event $event, Flight $flight)
     {
-        $request->session()->flash('success',
-            'If the provided e-mail address is correct, you will receive an e-mail to confirm the cancellation request.');
+        $request->session()->flash(
+            'success',
+            'If the provided e-mail address is correct, you will receive an e-mail to confirm the cancellation request.'
+        );
         $pilot = $this->pilotService->getByEmail($request->email);
 
         if ($pilot === null) {
-            return redirect()->route('tenants.events.flights.index', ['slug' => $event->slug]);
+            return redirect()->route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign]);
         }
 
-        if ($this->isFlightBookedByPilot($flight, $pilot) === false) {
-            return redirect()->route('tenants.events.flights.index', ['slug' => $event->slug]);
+        if ($this->isFlightBookedBy($flight, $pilot) === false) {
+            return redirect()->route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign]);
         }
 
         $url = $this->getBookingCancellationUrl($event->slug, $flight->callsign, $pilot->vatsim_id);
@@ -174,7 +189,15 @@ class BookingService
         ])->exists();
     }
 
-    public function isFlightBookedByPilot(Flight $flight, Pilot $pilot, Event $event = null)
+    /**
+     * Determine whether a flight is booked for given pilot and event.
+     *
+     * @param Flight $flight
+     * @param Pilot $pilot
+     * @param Event|null $event
+     * @return mixed
+     */
+    public function isFlightBookedBy(Flight $flight, Pilot $pilot, Event $event = null)
     {
         if ($event === null) {
             $event = $flight->event;

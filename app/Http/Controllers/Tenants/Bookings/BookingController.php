@@ -34,20 +34,19 @@ class BookingController extends Controller
     {
         $this->bookingService->storeBooking($request, $slug, $callsign, $vatsimId);
 
-        return redirect()->route('tenants.events.flights.index', ['slug' => $slug]);
+        return redirect()->route('tenants.events.flights.show', ['slug' => $slug, 'callsign' => $callsign]);
     }
 
     /**
      * @param Request $request
      * @param Event $slug
      * @param Flight $callsign
-     * @param Pilot $vatsimId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, Event $slug, Flight $callsign, Pilot $vatsimId)
+    public function destroy(Request $request, Event $slug, Flight $callsign)
     {
-        $this->bookingService->destroyBooking($request, $slug, $callsign, $vatsimId);
+        $this->bookingService->destroyBooking($request, $slug, $callsign);
 
-        return redirect()->route('tenants.events.flights.index', ['slug' => $slug]);
+        return redirect()->route('tenants.events.flights.show', ['slug' => $slug, 'callsign' => $callsign]);
     }
 }

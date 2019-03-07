@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Tenants\Flight;
-use App\Services\Tenants\EventService;
 use Illuminate\Support\Facades\Route;
+use App\Services\Tenants\EventService;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -45,10 +45,10 @@ class RouteServiceProvider extends ServiceProvider
          */
         Route::bind('callsign', function ($value) {
             $slug = Route::current()->parameter('slug');
-            $event_id = $this->eventService->getBySlug($slug)->id;
+            $eventId = $this->eventService->getBySlug($slug)->id;
             return Flight::where([
                     ['callsign', $value],
-                    ['event_id', $event_id],
+                    ['event_id', $eventId],
                 ])->first() ?? abort(404);
         });
     }

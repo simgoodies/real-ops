@@ -23,7 +23,7 @@ class FlightController extends Controller
 
     public function index(Event $slug)
     {
-        $flights = $this->flightService->indexFlight($slug);
+        $flights = $this->flightService->indexOfficeFlight($slug);
 
         return view('tenants.office.events.flights.index', [
             'event' => $slug,
@@ -41,19 +41,19 @@ class FlightController extends Controller
 
     public function update(UpdateFlight $request, Event $slug, Flight $callsign)
     {
-        $this->flightService->updateFlight($request, $callsign);
+        $this->flightService->updateOfficeFlight($request, $callsign);
         return redirect()->route('tenants.office.events.flights.index', $slug);
     }
 
     public function store(StoreFlight $request, Event $slug)
     {
-        $this->flightService->storeFlight($request);
+        $this->flightService->storeOfficeFlight($request);
         return redirect()->route('tenants.office.events.flights.index', $slug);
     }
 
     public function destroy(Event $slug, Flight $callsign)
     {
-        $this->flightService->destroyFlight($callsign);
+        $this->flightService->destroyOfficeFlight($callsign);
         return redirect()->route('tenants.office.events.flights.index', $slug);
     }
 }

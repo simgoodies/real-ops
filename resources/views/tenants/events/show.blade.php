@@ -64,9 +64,11 @@
                                     <td class="align-middle">{{ $flight->destination_airport_icao }}</td>
                                     <td class="align-middle">
                                         @if ($flight->isBooked())
-                                            <a href="#" class="btn btn-danger btn-block btn-sm">BOOKED (cancel booking?)</a>
+                                            <a href="{{ route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign]) }}"
+                                               class="btn btn-danger btn-block btn-sm">BOOKED (cancel booking?)</a>
                                         @else
-                                            <a href="#" class="btn btn-info btn-block btn-sm">Book flight...</a>
+                                            <a href="{{ route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign]) }}"
+                                               class="btn btn-info btn-block btn-sm">Book flight...</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -89,20 +91,27 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <p class="my-0"><strong>Callsign:</strong> {{ $flight->callsign }}</p>
+                                                    <p class="my-0"><strong>Callsign:</strong> {{ $flight->callsign }}
+                                                    </p>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <p class="my-0"><strong>Departure From:</strong> {{ $flight->origin_airport_icao }} at {{ date('Hi', strtotime($flight->departure_time)) }}Z</p>
+                                                    <p class="my-0"><strong>Departure
+                                                            From:</strong> {{ $flight->origin_airport_icao }}
+                                                        at {{ date('Hi', strtotime($flight->departure_time)) }}Z</p>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <p class="my-0"><strong>Arriving At:</strong> {{ $flight->destination_airport_icao }} at {{ date('Hi', strtotime($flight->arrival_time)) }}Z</p>
+                                                    <p class="my-0"><strong>Arriving
+                                                            At:</strong> {{ $flight->destination_airport_icao }}
+                                                        at {{ date('Hi', strtotime($flight->arrival_time)) }}Z</p>
                                                 </div>
                                                 <div class="col-md-12 mt-2">
-                                                        @if ($flight->isBooked())
-                                                            <a href="#" class="btn btn-danger btn-block btn-sm">BOOKED (cancel booking?)</a>
-                                                        @else
-                                                            <a href="#" class="btn btn-info btn-block btn-sm">Book flight...</a>
-                                                        @endif
+                                                    @if ($flight->isBooked())
+                                                        <a href="#" class="btn btn-danger btn-block btn-sm">BOOKED
+                                                            (cancel booking?)</a>
+                                                    @else
+                                                        <a href="#" class="btn btn-info btn-block btn-sm">Book
+                                                            flight...</a>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

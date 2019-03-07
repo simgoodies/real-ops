@@ -11,8 +11,10 @@ Route::namespace('App\Http\Controllers\Tenants')->middleware('web')->name('tenan
         Route::get('logout', 'LoginController@logout')->name('logout');
 
         // Password Reset Routes...
-        Route::get('password/reset',
-            'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::get(
+            'password/reset',
+            'ForgotPasswordController@showLinkRequestForm'
+        )->name('password.request');
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
         Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
         Route::post('password/reset', 'ResetPasswordController@reset');
@@ -41,12 +43,10 @@ Route::namespace('App\Http\Controllers\Tenants')->middleware('web')->name('tenan
     });
 
     Route::get('events/{slug}')->uses('EventLandingPageController@show')->name('events.show');
-    
-    Route::get('events/{slug}/flights')->uses('FlightController@store')->name('events.flights.index');
     Route::get('events/{slug}/flights/{callsign}')->uses('FlightController@show')->name('events.flights.show');
+
     Route::post('events/{slug}/flights/{callsign}/book')->uses('Bookings\BookingRequestController@store')->name('events.flights.bookings.booking-request.store');
     Route::get('events/{slug}/flights/{callsign}/book/{vatsimId}')->uses('Bookings\BookingController@store')->name('events.flights.bookings.store');
     Route::post('events/{slug}/flights/{callsign}/cancel')->uses('Bookings\CancellationRequestController@store')->name('events.flights.bookings.cancellation-request.store');
     Route::get('events/{slug}/flights/{callsign}/cancel/{vatsimId}')->uses('Bookings\BookingController@destroy')->name('events.flights.bookings.destroy');
-
 });

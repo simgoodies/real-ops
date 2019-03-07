@@ -6,7 +6,6 @@ use Hyn\Tenancy\Abstracts\TenantModel;
 
 class Flight extends TenantModel
 {
-
     public function getRouteKeyName()
     {
         return 'callsign';
@@ -62,6 +61,11 @@ class Flight extends TenantModel
         return $this->belongsTo(Pilot::class, 'pilot_id');
     }
 
+    /**
+     * The event that this flight belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function event()
     {
         return $this->belongsTo(Event::class);

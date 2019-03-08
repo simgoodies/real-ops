@@ -1,8 +1,4 @@
 preset: laravel
 
-finder:
-  exclude:
-    - "tests"
-    - "node_modules"
-    - "storage"
-    - "vendor"
+disabled:
+  - no_whitespace_in_blank_line

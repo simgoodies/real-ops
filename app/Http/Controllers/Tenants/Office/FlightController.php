@@ -42,18 +42,21 @@ class FlightController extends Controller
     public function update(UpdateFlight $request, Event $slug, Flight $callsign)
     {
         $this->flightService->updateOfficeFlight($request, $callsign);
+        
         return redirect()->route('tenants.office.events.flights.index', $slug);
     }
 
     public function store(StoreFlight $request, Event $slug)
     {
         $this->flightService->storeOfficeFlight($request);
+        
         return redirect()->route('tenants.office.events.flights.index', $slug);
     }
 
     public function destroy(Event $slug, Flight $callsign)
     {
         $this->flightService->destroyOfficeFlight($callsign);
+        
         return redirect()->route('tenants.office.events.flights.index', $slug);
     }
 }

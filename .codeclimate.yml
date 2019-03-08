@@ -1,4 +1,4 @@
-engines:
+plugins:
   phpmd:
     enabled: true
     checks:

@@ -106,10 +106,10 @@
                                                 </div>
                                                 <div class="col-md-12 mt-2">
                                                     @if ($flight->isBooked())
-                                                        <a href="#" class="btn btn-danger btn-block btn-sm">BOOKED
+                                                        <a href="{{ route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign]) }}" class="btn btn-danger btn-block btn-sm">BOOKED
                                                             (cancel booking?)</a>
                                                     @else
-                                                        <a href="#" class="btn btn-info btn-block btn-sm">Book
+                                                        <a href="{{ route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign]) }}" class="btn btn-info btn-block btn-sm">Book
                                                             flight...</a>
                                                     @endif
                                                 </div>

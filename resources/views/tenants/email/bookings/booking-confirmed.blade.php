@@ -11,7 +11,7 @@ Event date: {{ date('Y-m-d', strtotime($event->start_date)) }} at {{ date('Hi', 
 **Summary of booking for {{ $flight->callsign }}**
 
 Departing from: {{ $flight->origin_airport_icao }} at {{ date('Hi', strtotime($flight->departure_time)) }}Z  
-Arriving at: {{ $flight->origin_airport_icao }}  
+Arriving at: {{ $flight->destination_airport_icao }}  
 @if ($flight->aircraft_type_icao)
 Aircraft: {{ $flight->aircraft_type_icao }}
 @endif

@@ -5,6 +5,7 @@ namespace Tests\Traits;
 use App\Models\Tenant;
 use App\Models\Website;
 use App\Models\Hostname;
+use Hyn\Tenancy\Providers\Tenants\RouteProvider;
 use Illuminate\Support\Arr;
 use App\Models\Tenants\User;
 use Hyn\Tenancy\Environment;
@@ -160,8 +161,10 @@ trait InteractsWithTenancy
     protected function setUpWebsite(bool $save = false, bool $connect = false)
     {
         if ($this->website === null) {
-            $uuid = implode('_',
-                [config('extras.database.tenancy_database'), $this->tenant->identifier, str_random(6)]);
+            $uuid = implode(
+                '_',
+                [config('extras.database.tenancy_database'), $this->tenant->identifier, str_random(6)]
+            );
             $this->website = new Website(['uuid' => $uuid]);
         }
 
@@ -180,6 +183,8 @@ trait InteractsWithTenancy
         app(Environment::class)->hostname($this->hostname);
 
         $this->setAppUrl();
+
+        (new RouteProvider(app()))->boot();
 
         // Start global tenant transaction.
         $this->connection->get()->beginTransaction();

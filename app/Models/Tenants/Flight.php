@@ -52,6 +52,16 @@ class Flight extends TenantModel
     }
 
     /**
+     * Sets the aircraft type icao to uppercase.
+     *
+     * @param $value
+     */
+    public function setAircraftTypeIcaoAttribute($value)
+    {
+        $this->attributes['aircraft_type_icao'] = strtoupper($value);
+    }
+
+    /**
      * The pilot that is associated with the flight.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

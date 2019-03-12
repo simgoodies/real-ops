@@ -1,8 +1,7 @@
-[![StyleCI](https://github.styleci.io/repos/116734296/shield?branch=develop)](https://github.styleci.io/repos/116734296)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dc2fcabc4f5f4539811a68487ce72ae4)](https://www.codacy.com/app/roelgonzalez/vatsim-real-ops?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vatsimgoodies/vatsim-real-ops&amp;utm_campaign=Badge_Grade)
+[![StyleCI](https://github.styleci.io/repos/116734296/shield?branch=master)](https://github.styleci.io/repos/116734296)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6ab5debc888db6e71d03/maintainability)](https://codeclimate.com/github/vatsimgoodies/vatsim-real-ops/maintainability)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Discord](https://img.shields.io/discord/545254906257342493.svg?color=7289DA&label=Discord&style=popout)](https://discord.gg/aQkKcf5)
+[![Discord](https://img.shields.io/discord/545254906257342493.svg?color=7289DA&label=Discord&style=popout)](https://vatgoodies.com/discord)
 
 ## Real Ops by VATGoodies
 With Real Ops by VATGoodies, your flight information region will finally be able to organize the real ops event that you have been wanting to do.
@@ -28,4 +27,4 @@ This project is part of the goodies of VATGoodies
 [Contact us](https://rolgonzalez.typeform.com/to/CjREly) if you have any questions or suggestions feel free to contact.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details

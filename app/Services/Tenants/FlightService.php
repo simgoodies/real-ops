@@ -18,7 +18,9 @@ class FlightService
      */
     public function indexOfficeFlight(Event $event)
     {
-        return $event->flights()->paginate(config('extras.office.events.flights.per_page', 12));
+        return $event->flights()
+            ->orderBy('departure_time')
+            ->paginate(config('extras.office.events.flights.per_page', 12));
     }
 
     /**
@@ -81,6 +83,17 @@ class FlightService
         $this->delete($flight);
 
         Session::flash('success', 'The flight has been deleted successfully!');
+    }
+
+    /**
+     * Method that will display flighs for given event for event landing page.
+     *
+     * @param Event $event
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAllForEventLandingPage(Event $event)
+    {
+        return $event->flights()->orderBy('departure_time')->get();
     }
 
     /**

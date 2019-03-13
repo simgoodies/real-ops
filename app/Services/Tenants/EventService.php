@@ -82,7 +82,7 @@ class EventService
      */
     public function showEventLandingPage(Event $slug)
     {
-        $viewData['flights'] = $this->flightService->getAllForEvent($slug);
+        $viewData['flights'] = $this->flightService->getAllForEventLandingPage($slug);
         $viewData['event'] = $slug;
 
         return $viewData;

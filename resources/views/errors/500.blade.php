@@ -1,9 +1,9 @@
 @extends('main')
 
-@section('title', '404')
+@section('title', '500')
 
 @section('main-content')
-    <div class="503">
+    <div class="500">
         
         <div class="container">
             <div class="row">

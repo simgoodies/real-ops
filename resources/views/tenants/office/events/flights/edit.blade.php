@@ -11,6 +11,13 @@
     @endcomponent
 
     <div class="container">
+        <div class="row my-3">
+            <div class="offset-md-2 col-md-8">
+                <a href="{{ route('tenants.office.events.flights.index', ['slug' => $event->slug]) }}" class="btn btn-danger btn-block">
+                    Return to flights of {{ $event->title }}
+                </a>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <h3>Edit flight...</h3>

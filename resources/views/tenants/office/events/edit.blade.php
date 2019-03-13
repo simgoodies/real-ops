@@ -13,8 +13,8 @@
     <div class="container">
         <div class="row my-3">
             <div class="offset-md-2 col-md-8">
-                <a href="{{ route('tenants.office.events.index') }}" class="btn btn-danger btn-block">
-                    Return to event management
+                <a href="{{ route('tenants.office.events.show', ['slug' => $event->slug]) }}" class="btn btn-danger btn-block">
+                    Return to management of {{ $event->title }}
                 </a>
             </div>
         </div>

@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', '404')
+@section('title', '503')
 
 @section('main-content')
     <div class="503">

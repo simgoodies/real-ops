@@ -8,6 +8,13 @@
         @include('tenants.partials._nav')
 
         <div class="container">
+            <div class="row my-3">
+                <div class="offset-md-2 col-md-8">
+                    <a href="{{ route('tenants.office.events.flights.index', ['slug' => $event->slug]) }}" class="btn btn-danger btn-block">
+                        Return to main event page
+                    </a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <h1>{{ $tenant->name }} presents</h1>

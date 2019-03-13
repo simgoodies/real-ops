@@ -41,8 +41,7 @@
         </div>
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
-                <form action="{{ route('tenants.office.events.destroy', $event->slug) }}" method="post"
-                      onsubmit="return confirm('Are you sure you want to permanently delete this event? This action cannot be undone.')">
+                <form class="delete" action="{{ route('tenants.office.events.destroy', $event->slug) }}" method="post" data-confirm="Are you sure you want to permanently delete this event? This action cannot be undone. Type the words: I UNDERSTAND">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <button class="btn btn-danger btn-block" type="submit">Permanently cancel / Delete event (THIS
@@ -51,4 +50,25 @@
                 </form>
             </div>
         </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        var deleteLinks = document.querySelectorAll('.delete');
+
+        for (var i = 0; i < deleteLinks.length; i++) {
+            deleteLinks[i].addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                var choice = prompt(this.getAttribute('data-confirm'));
+                if (choice == 'I UNDERSTAND') {
+                    document.forms[0].submit();
+                    return;
+                }
+                
+                alert('The event has not been deleted as you have not correctly typed: I UNDERSTAND')
+            });
+        }
+    </script>
 @endsection

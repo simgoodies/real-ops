@@ -213,4 +213,11 @@ trait InteractsWithTenancy
         $user->assignRole('admin');
         $this->actingAs($user);
     }
+
+    protected function loggedInStaffUser()
+    {
+        $user = factory(User::class)->create();
+        $user->assignRole('staff');
+        $this->actingAs($user);
+    }
 }

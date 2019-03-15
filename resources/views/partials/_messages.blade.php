@@ -1,6 +1,6 @@
 @if (Session::has('success'))
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
             <div class="alert alert-success">
                 <strong>Success:</strong> {{ Session::get('success') }}
             </div>
@@ -10,7 +10,7 @@
 
 @if (Session::has('failure'))
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
             <div class="alert alert-danger">
                 <strong>Failure:</strong> {{ Session::get('failure') }}
             </div>

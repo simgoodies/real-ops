@@ -44,24 +44,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    @can('access-staff-management')
+                        <div class="col-md-4">
                         <div class="card-staff card bg-light">
                             <img class="area-selector__card_size card-img-top img-fluid"
                                  src="{{ asset('images/tenants/office/area-selector-staff-members.jpeg') }}"
                                  alt="Staff">
                             <div class="card-body">
-                                <h5 class="card-title">Staff Members</h5>
+                                <h5 class="card-title">Staff Management</h5>
                                 <p>Manage the event staff members!</p>
                             </div>
                             <div class="card-footer text-center">
-                                <a class="btn btn-outline-primary" href="#">Visit <i
+                                <a class="btn btn-outline-primary" href="{{ route('tenants.office.staff-management.index') }}">Visit <i
                                             class="fas fa-arrow-alt-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
+                    @endcan
                 </div>
-
-
             </div>
         </section>
 

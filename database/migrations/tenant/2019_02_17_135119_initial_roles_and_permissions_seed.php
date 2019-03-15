@@ -17,17 +17,15 @@ class InitialRolesAndPermissionsSeed extends Migration
     {
         // Create roles
         $roleAdmin = Role::create(['name' => 'admin']);
-        $roleStaffMember = Role::create(['name' => 'staff-member']);
+        $roleStaff = Role::create(['name' => 'staff']);
 
         // Create permissions
         $permissionAccessOffice = Permission::create(['name' => 'access-office']);
-        $permissionsAccessEvents = Permission::create(['name' => 'access-events']);
-        $permissionAccessStaffMembers = Permission::create(['name' => 'access-staff-members']);
+        $permissionAccessStaffManagement = Permission::create(['name' => 'access-staff-management']);
 
         // Assign roles with their respective permissions
-        $roleStaffMember->givePermissionTo(
-            $permissionAccessOffice,
-            $permissionsAccessEvents
+        $roleStaff->givePermissionTo(
+            $permissionAccessOffice
         );
     }
 

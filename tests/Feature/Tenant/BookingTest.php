@@ -29,8 +29,8 @@ class BookingTest extends TenantTestCase
     {
         parent::setUp();
 
-        $this->bookingService = new BookingService();
-        $this->pilotService = new PilotService();
+        $this->bookingService = $this->app->make(BookingService::class);
+        $this->pilotService = $this->app->make(PilotService::class);
     }
 
     public function testAPilotCanRequestToBookAFlight()

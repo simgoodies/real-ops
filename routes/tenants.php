@@ -21,24 +21,30 @@ Route::namespace('App\Http\Controllers\Tenants')->middleware('web')->name('tenan
     });
 
     // Office Routes...
-    Route::name('office.')->prefix('office')->middleware(['auth', 'permission:access-office'])->group(function () {
-        Route::get('/', ['uses' => 'Office\OfficeController@index', 'as' => 'index']);
+    Route::name('office.')->prefix('office')->namespace('Office')->middleware(['auth', 'permission:access-office'])->group(function () {
+        Route::get('/', ['uses' => 'OfficeController@index', 'as' => 'index']);
+        
+        Route::middleware('permission:access-staff-management')->group(function () {
+            Route::get('staff-management')->uses('StaffManagementController@index')->name('staff-management.index');
+            Route::post('staff-management/assign-role')->uses('StaffManagementRoleController@store')->name('staff-management-roles.store');
+            Route::delete('staff-management/remove-role')->uses('StaffManagementRoleController@destroy')->name('staff-management-roles.destroy');
+            Route::post('staff-management/create-user')->uses('StaffManagementUserController@store')->name('staff-management-users.store');
+        });
 
-        Route::get('events', ['uses' => 'Office\EventController@index', 'as' => 'events.index']);
-        Route::post('events', ['uses' => 'Office\EventController@store', 'as' => 'events.store']);
-        Route::get('events/create', ['uses' => 'Office\EventController@create', 'as' => 'events.create']);
-        Route::get('events/{slug}', ['uses' => 'Office\EventController@show', 'as' => 'events.show']);
-        Route::get('events/{slug}/edit', ['uses' => 'Office\EventController@edit', 'as' => 'events.edit']);
-        Route::put('events/{slug}/edit', ['uses' => 'Office\EventController@update', 'as' => 'events.update']);
-        Route::delete('events/{slug}', ['uses' => 'Office\EventController@destroy', 'as' => 'events.destroy']);
+        Route::get('events', ['uses' => 'EventController@index', 'as' => 'events.index']);
+        Route::post('events', ['uses' => 'EventController@store', 'as' => 'events.store']);
+        Route::get('events/create', ['uses' => 'EventController@create', 'as' => 'events.create']);
+        Route::get('events/{slug}', ['uses' => 'EventController@show', 'as' => 'events.show']);
+        Route::get('events/{slug}/edit', ['uses' => 'EventController@edit', 'as' => 'events.edit']);
+        Route::put('events/{slug}/edit', ['uses' => 'EventController@update', 'as' => 'events.update']);
+        Route::delete('events/{slug}', ['uses' => 'EventController@destroy', 'as' => 'events.destroy']);
 
-        Route::name('events.flights.')->prefix('events/{slug}')->middleware(['permission:access-flights'])->group(function (
-        ) {
-            Route::get('flights')->uses('Office\FlightController@index')->name('index');
-            Route::post('flights')->uses('Office\FlightController@store')->name('store');
-            Route::get('flights/{callsign}/edit')->uses('Office\FlightController@edit')->name('edit');
-            Route::patch('flights/{callsign}')->uses('Office\FlightController@update')->name('update');
-            Route::delete('flights/{callsign}')->uses('Office\FlightController@destroy')->name('destroy');
+        Route::name('events.flights.')->prefix('events/{slug}')->group(function () {
+            Route::get('flights')->uses('FlightController@index')->name('index');
+            Route::post('flights')->uses('FlightController@store')->name('store');
+            Route::get('flights/{callsign}/edit')->uses('FlightController@edit')->name('edit');
+            Route::patch('flights/{callsign}')->uses('FlightController@update')->name('update');
+            Route::delete('flights/{callsign}')->uses('FlightController@destroy')->name('destroy');
         });
     });
 

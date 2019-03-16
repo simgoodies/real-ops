@@ -38,7 +38,7 @@ class NewUserInvitationMailable extends AbstractTenantMailable
     private function populateMail()
     {
         $this->from($this->noReplyFromAddress, $this->noReplyFromName);
-        $this->subject('You have been invited to be staff for San Juan CERAP Real Ops');
+        $this->subject(sprintf('You have been invited to be staff for %s Real Ops', $this->tenant->name));
         $this->markdown('tenants.email.new-user-invitation');
         $this->with([
             'tenantName' => $this->tenant->name,

@@ -11,23 +11,14 @@
     @endcomponent
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row my-3">
-                    <div class="col-md-6">
-                        <a href="{{ route('tenants.office.index') }}" class="btn btn-danger btn-block">
-                            Return to office
-                        </a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="{{ route('tenants.office.events.create') }}" class="btn btn-success btn-block">
-                            Add new staff member
-                        </a>
-                    </div>
-                </div>
+        <div class="row my-3 justify-content-center">
+            <div class="col-md-8">
+                <a href="{{ route('tenants.office.index') }}" class="btn btn-danger btn-block">
+                    Return to office
+                </a>
             </div>
         </div>
-        
+
         @include('partials._messages')
 
         <div class="row">
@@ -52,7 +43,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Email:</span>
                                     </div>
-                                    <input type="email" class="form-control" name="email" placeholder="e.g. johndoe@example.com">
+                                    <input type="email" class="form-control" name="email"
+                                           placeholder="e.g. johndoe@example.com">
                                 </div>
                             </div>
                         </div>
@@ -76,7 +68,8 @@
                         <div class="card-body">
                             @foreach($roles as $role)
                                 @if ($user->hasRole($role->name))
-                                    <form action="{{ route('tenants.office.staff-management-roles.destroy') }}" method="post">
+                                    <form action="{{ route('tenants.office.staff-management-roles.destroy') }}"
+                                          method="post">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
                                         <div class="form-group">
@@ -84,18 +77,21 @@
                                             <input type="hidden" name="user_id" value="{{ $user->id }}">
                                             <label for="role_id" class="sr-only">role_id</label>
                                             <input type="hidden" name="role_id" value="{{ $role->id }}">
-                                            <input type="submit" class="btn btn-sm btn-danger btn-block" value="Remove Role: {{ $role->name }}">
+                                            <input type="submit" class="btn btn-sm btn-danger btn-block"
+                                                   value="Remove Role: {{ $role->name }}">
                                         </div>
                                     </form>
                                 @else
-                                    <form action="{{ route('tenants.office.staff-management-roles.store') }}" method="post">
+                                    <form action="{{ route('tenants.office.staff-management-roles.store') }}"
+                                          method="post">
                                         {{ csrf_field() }}
                                         <div class="form-group">
                                             <label for="user_id" class="sr-only">user_id</label>
                                             <input type="hidden" name="user_id" value="{{ $user->id }}">
                                             <label for="role_id" class="sr-only">role_id</label>
                                             <input type="hidden" name="role_id" value="{{ $role->id }}">
-                                            <input type="submit" class="btn btn-sm btn-success btn-block" value="Assign Role: {{ $role->name }}">
+                                            <input type="submit" class="btn btn-sm btn-success btn-block"
+                                                   value="Assign Role: {{ $role->name }}">
                                         </div>
                                     </form>
                                 @endif

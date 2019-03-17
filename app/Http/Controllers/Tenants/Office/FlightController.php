@@ -6,8 +6,8 @@ use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
 use App\Http\Controllers\Controller;
 use App\Services\Tenants\FlightService;
-use App\Http\Requests\Tenants\StoreFlight;
-use App\Http\Requests\Tenants\UpdateFlight;
+use App\Http\Requests\Tenants\Office\StoreFlight;
+use App\Http\Requests\Tenants\Office\UpdateFlight;
 
 class FlightController extends Controller
 {

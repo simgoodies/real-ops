@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Tenants\Office;
 use App\Models\Tenants\Event;
 use App\Http\Controllers\Controller;
 use App\Services\Tenants\EventService;
-use App\Http\Requests\Tenants\StoreEvent;
-use App\Http\Requests\Tenants\UpdateEvent;
+use App\Http\Requests\Tenants\Office\StoreEvent;
+use App\Http\Requests\Tenants\Office\UpdateEvent;
 
 class EventController extends Controller
 {

@@ -3,8 +3,8 @@
 namespace App\Services\Tenants;
 
 use App\Models\Tenants\Event;
-use App\Http\Requests\Tenants\StoreEvent;
-use App\Http\Requests\Tenants\UpdateEvent;
+use App\Http\Requests\Tenants\Office\StoreEvent;
+use App\Http\Requests\Tenants\Office\UpdateEvent;
 
 class EventService
 {

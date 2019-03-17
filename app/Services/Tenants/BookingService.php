@@ -51,7 +51,8 @@ class BookingService
         }
 
         $this->confirmBooking($flight, $pilot);
-
+        
+        $flight = $flight->load(['originAirport', 'destinationAirport']);
         Mail::to($pilot->email)->send(new BookingConfirmedMailable($event, $flight));
 
         $successMessage = sprintf('You have successfully booked flight %s', $flight->callsign);

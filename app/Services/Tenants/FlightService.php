@@ -10,6 +10,13 @@ use App\Http\Requests\Tenants\Office\UpdateFlight;
 
 class FlightService
 {
+    protected $airportService;
+    
+    public function __construct(AirportService $airportService)
+    {
+        $this->airportService = $airportService;
+    }
+
     /**
      * This is used during the index of flights.
      *
@@ -20,6 +27,7 @@ class FlightService
     {
         return $event->flights()
             ->orderBy('departure_time')
+            ->with(['originAirport', 'destinationAirport'])
             ->paginate(config('extras.office.events.flights.per_page', 12));
     }
 
@@ -31,12 +39,15 @@ class FlightService
      */
     public function storeOfficeFlight(StoreFlight $request)
     {
+        $originAirportId = $this->airportService->getByIcao($request->origin_airport_icao)->id;
+        $destinationAirportId = $this->airportService->getByIcao($request->destination_airport_icao)->id;
+            
         $flight = new Flight();
         $flight->event_id = $request->event_id;
         $flight->pilot_id = $request->pilot_id;
         $flight->callsign = $request->callsign;
-        $flight->origin_airport_icao = $request->origin_airport_icao;
-        $flight->destination_airport_icao = $request->destination_airport_icao;
+        $flight->origin_airport_id = $originAirportId;
+        $flight->destination_airport_id = $destinationAirportId;
         $flight->departure_time = $request->departure_time;
         $flight->arrival_time = $request->arrival_time;
         $flight->route = $request->route;
@@ -58,10 +69,13 @@ class FlightService
      */
     public function updateOfficeFlight(UpdateFlight $request, Flight $flight)
     {
+        $originAirportId = $this->airportService->getByIcao($request->origin_airport_icao)->id;
+        $destinationAirportId = $this->airportService->getByIcao($request->destination_airport_icao)->id;
+        
         $flight->event_id = $request->event_id;
         $flight->pilot_id = $request->pilot_id;
-        $flight->origin_airport_icao = $request->origin_airport_icao;
-        $flight->destination_airport_icao = $request->destination_airport_icao;
+        $flight->origin_airport_id = $originAirportId;
+        $flight->destination_airport_id = $destinationAirportId;
         $flight->departure_time = $request->departure_time;
         $flight->arrival_time = $request->arrival_time;
         $flight->route = $request->route;
@@ -102,7 +116,7 @@ class FlightService
      */
     public function getAllForEvent(Event $event)
     {
-        return $event->flights->all();
+        return $event->flights->with(['originAirport', 'destinationAirport'])->all();
     }
 
     /**

@@ -7,6 +7,7 @@ use Tests\TenantTestCase;
 use App\Models\Tenants\Event;
 use App\Models\Tenants\Flight;
 use App\Services\Tenants\FlightService;
+use App\Services\Tenants\AirportService;
 
 class FlightTest extends TenantTestCase
 {
@@ -15,17 +16,23 @@ class FlightTest extends TenantTestCase
      */
     protected $flightService;
 
+    /**
+     * @var AirportService
+     */
+    protected $airportService;
+
     protected function setUp()
     {
         parent::setUp();
 
-        $this->flightService = new FlightService();
+        $this->flightService = $this->app->make(FlightService::class);
+        $this->airportService = $this->app->make(AirportService::class);
     }
 
     public function testItCanCreateAFlight()
     {
-        $this->withoutExceptionHandling();
         $this->setUpAndActivateTenant();
+        $this->withDummyAirports();
         $this->loggedInAdminUser();
 
         $event = factory(Event::class)->create([
@@ -38,8 +45,8 @@ class FlightTest extends TenantTestCase
         $response = $this->post('office/events/event-one/flights', [
             'event_id' => $event->id,
             'callsign' => 'ABC123',
-            'origin_airport_icao' => 'ABCD',
-            'destination_airport_icao' => 'EFGH',
+            'origin_airport_icao' => 'TJSJ',
+            'destination_airport_icao' => 'TNCM',
             'departure_time' => Carbon::now()->toTimeString(),
             'arrival_time' => Carbon::now()->addHours(2)->toTimeString(),
             'route' => 'ABCDE1 ABC ABC ABC ABCDE2',
@@ -54,7 +61,6 @@ class FlightTest extends TenantTestCase
 
     public function testItCanDeleteAFlight()
     {
-        $this->withoutExceptionHandling();
         $this->setUpAndActivateTenant();
         $this->loggedInAdminUser();
 
@@ -79,8 +85,8 @@ class FlightTest extends TenantTestCase
 
     public function testItCanUpdateAFlight()
     {
-        $this->withoutExceptionHandling();
         $this->setUpAndActivateTenant();
+        $this->withDummyAirports();
         $this->loggedInAdminUser();
 
         $event = factory(Event::class)->create([
@@ -90,8 +96,8 @@ class FlightTest extends TenantTestCase
         $flight = factory(Flight::class)->create([
             'event_id' => $event->id,
             'callsign' => 'ABC123',
-            'origin_airport_icao' => 'QWER',
-            'destination_airport_icao' => 'TYUI',
+            'origin_airport_id' => $this->airportService->getByIcao('TJSJ')->id,
+            'destination_airport_id' => $this->airportService->getByIcao('TNCM')->id,
             'departure_time' => '14:00:00',
             'arrival_time' => '16:00:00',
             'route' => 'QWER QEWR QERT',
@@ -102,8 +108,8 @@ class FlightTest extends TenantTestCase
 
         $response = $this->patch('office/events/event-one/flights/ABC123', [
             'event_id' => $event->id,
-            'origin_airport_icao' => 'AAAA',
-            'destination_airport_icao' => 'BBBB',
+            'origin_airport_icao' => 'TNCM',
+            'destination_airport_icao' => 'TTPP',
             'departure_time' => '15:00:00',
             'arrival_time' => '17:00:00',
             'route' => 'TROLI5 NOT TROLLING5',
@@ -112,8 +118,8 @@ class FlightTest extends TenantTestCase
 
         $flight = $flight->fresh();
 
-        $this->assertEquals('AAAA', $flight->origin_airport_icao);
-        $this->assertEquals('BBBB', $flight->destination_airport_icao);
+        $this->assertEquals('TNCM', $flight->originAirport->icao);
+        $this->assertEquals('TTPP', $flight->destinationAirport->icao);
         $this->assertEquals('15:00:00', $flight->departure_time);
         $this->assertEquals('17:00:00', $flight->arrival_time);
         $this->assertEquals('TROLI5 NOT TROLLING5', $flight->route);
@@ -124,6 +130,7 @@ class FlightTest extends TenantTestCase
     public function testItCanAddTheSameCallsignForTwoDifferentEvents()
     {
         $this->setUpAndActivateTenant();
+        $this->withDummyAirports();
         $this->loggedInAdminUser();
 
         $eventOne = factory(Event::class)->create(['slug' => 'event-one']);
@@ -132,8 +139,8 @@ class FlightTest extends TenantTestCase
         $this->post('office/events/event-one/flights', [
             'event_id' => $eventOne->id,
             'callsign' => 'ABC123',
-            'origin_airport_icao' => 'AAAA',
-            'destination_airport_icao' => 'BBBB',
+            'origin_airport_icao' => 'TJSJ',
+            'destination_airport_icao' => 'TNCM',
             'departure_time' => '10:00:00',
             'arrival_time' => '11:00:00',
             'route' => 'I WANT TO IDENTIFY FLIGHT ONE'
@@ -142,8 +149,8 @@ class FlightTest extends TenantTestCase
         $this->post('office/events/event-two/flights', [
             'event_id' => $eventTwo->id,
             'callsign' => 'ABC123',
-            'origin_airport_icao' => 'AAAA',
-            'destination_airport_icao' => 'BBBB',
+            'origin_airport_icao' => 'TJSJ',
+            'destination_airport_icao' => 'TNCM',
             'departure_time' => '10:00:00',
             'arrival_time' => '11:00:00',
             'route' => 'I WANT TO IDENTIFY FLIGHT TWO'
@@ -161,6 +168,7 @@ class FlightTest extends TenantTestCase
     public function testItCannotAddTheSameCallsignWithinSameEvent()
     {
         $this->setUpAndActivateTenant();
+        $this->withDummyAirports();
         $this->loggedInAdminUser();
 
         $event = factory(Event::class)->create(['slug' => 'event-one']);
@@ -168,8 +176,8 @@ class FlightTest extends TenantTestCase
         $responseOne = $this->post('office/events/event-one/flights', [
             'event_id' => $event->id,
             'callsign' => 'ABC123',
-            'origin_airport_icao' => 'AAAA',
-            'destination_airport_icao' => 'BBBB',
+            'origin_airport_icao' => 'TJSJ',
+            'destination_airport_icao' => 'TNCM',
             'departure_time' => '10:00:00',
             'arrival_time' => '11:00:00',
             'route' => 'I WANT TO IDENTIFY FLIGHT ONE'

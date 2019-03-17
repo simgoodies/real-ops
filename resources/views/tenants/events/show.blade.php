@@ -60,8 +60,8 @@
                                 <tr>
                                     <td class="align-middle">{{ $flight->callsign }}</td>
                                     <td class="align-middle">{{ date('Hi', strtotime($flight->departure_time)) }}Z</td>
-                                    <td class="align-middle">{{ $flight->origin_airport_icao }}</td>
-                                    <td class="align-middle">{{ $flight->destination_airport_icao }}</td>
+                                    <td class="align-middle">{{ $flight->originAirport->icao }}</td>
+                                    <td class="align-middle">{{ $flight->destinationAirport->icao }}</td>
                                     <td class="align-middle">
                                         @if ($flight->isBooked())
                                             <a href="{{ route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign]) }}"
@@ -96,12 +96,12 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <p class="my-0"><strong>Departure
-                                                            From:</strong> {{ $flight->origin_airport_icao }}
+                                                            From:</strong> {{ $flight->originAirport->icao }}
                                                         at {{ date('Hi', strtotime($flight->departure_time)) }}Z</p>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <p class="my-0"><strong>Arriving
-                                                            At:</strong> {{ $flight->destination_airport_icao }}
+                                                            At:</strong> {{ $flight->destinationAirport->icao }}
                                                         at {{ date('Hi', strtotime($flight->arrival_time)) }}Z</p>
                                                 </div>
                                                 <div class="col-md-12 mt-2">

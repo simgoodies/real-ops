@@ -26,8 +26,8 @@ class UpdateFlight extends FormRequest
         return [
             'event_id' => 'required|exists:tenant.events,id',
             'pilot_id' => 'exists:pilots,id',
-            'origin_airport_icao' => 'required|max:4|alpha',
-            'destination_airport_icao' => 'required|max:4|alpha',
+            'origin_airport_icao' => 'required|exists:system.airports,icao',
+            'destination_airport_icao' => 'required|exists:system.airports,icao',
             'departure_time' => 'required',
             'arrival_time' => 'required',
             'aircraft_type_icao' => 'nullable|max:4|alpha_num',

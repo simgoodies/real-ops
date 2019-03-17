@@ -18,8 +18,8 @@ class CreateFlightsTable extends Migration
             $table->unsignedInteger('event_id');
             $table->unsignedInteger('pilot_id')->nullable();
             $table->string('callsign', 10);
-            $table->string('origin_airport_icao', 4);
-            $table->string('destination_airport_icao', 4);
+            $table->unsignedInteger('origin_airport_id');
+            $table->unsignedInteger('destination_airport_id');
             $table->time('departure_time');
             $table->time('arrival_time');
             $table->text('route')->nullable();

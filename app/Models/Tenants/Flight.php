@@ -2,6 +2,7 @@
 
 namespace App\Models\Tenants;
 
+use App\Models\Airport;
 use Hyn\Tenancy\Abstracts\TenantModel;
 
 class Flight extends TenantModel
@@ -79,6 +80,16 @@ class Flight extends TenantModel
     public function event()
     {
         return $this->belongsTo(Event::class);
+    }
+
+    public function originAirport()
+    {
+        return $this->belongsTo(Airport::class);
+    }
+
+    public function destinationAirport()
+    {
+        return $this->belongsTo(Airport::class);
     }
 
     /**

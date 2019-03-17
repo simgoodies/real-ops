@@ -26,10 +26,10 @@
                             <p><strong>Status:</strong> {{ $flight->isBooked() ? 'Booked' : 'Available for booking' }}
                             </p>
                             <p>
-                                <strong>Departing from:</strong> {{ $flight->origin_airport_icao }} leaving
+                                <strong>Departing from:</strong> {{ $flight->originAirport->icao }} ({{ $flight->originAirport->name }}) leaving
                                 at {{ date('Hi', strtotime($flight->departure_time)) }} ZULU
                                 <br>
-                                <strong>Arriving at:</strong> {{ $flight->destination_airport_icao }}
+                                <strong>Arriving at:</strong> {{ $flight->destinationAirport->icao }} ({{ $flight->destinationAirport->name }})
                                 @if ($flight->aircraft_type_icao)
                                     <br>
                                     <strong>Aircraft:</strong> {{ $flight->aircraft_type_icao }}

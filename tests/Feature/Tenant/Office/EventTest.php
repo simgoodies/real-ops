@@ -18,7 +18,7 @@ class EventTest extends TenantTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->eventService = new EventService();
+        $this->eventService = $this->app->make(EventService::class);
     }
 
     public function testItCanCreateNewEvent()

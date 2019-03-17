@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Airport;
+use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 /*
@@ -16,13 +17,14 @@ use Faker\Generator as Faker;
 
 $factory->define(Airport::class, function (Faker $faker) {
     return [
-        'iata_code' => 'ABC',
-        'icao_code' => 'ABCD',
-        'latitude' => $faker->latitude,
-        'longitude' => $faker->longitude,
-        'city' => $faker->city,
-        'state' => $faker->city,
-        'country' => $faker->country,
-        'elevation' => $faker->numberBetween(0, 3000),
+        'icao' => Str::upper(Str::random(4)),
+        'iata' => 'SJU',
+        'name' => 'Luis Munoz Marin International Airport',
+        'elevation_feet' => '9',
+        'continent' => 'NA',
+        'iso_country' => 'PR',
+        'iso_region' => 'PR-U-A',
+        'municipality' => 'San Juan',
+        'coordinates' => '-66.0018005371, 18.4393997192',
     ];
 });

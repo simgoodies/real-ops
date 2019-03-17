@@ -22,7 +22,6 @@
             <div class="col-md-12">
                 <h3>Add a flight...</h3>
 
-                @include('partials._errors')
                 @include('partials._messages')
 
                 <form action="{{ route('tenants.office.events.flights.store', ['slug' => $event->slug]) }}" method="post">
@@ -87,10 +86,10 @@
                                                 <p class="my-1"><strong>Callsign:</strong> {{ $flight->callsign }}</p>
                                             </div>
                                             <div class="col-md-12">
-                                                <p class="my-1"><strong>From:</strong> {{ $flight->origin_airport_icao }} at {{ date('Hi', strtotime($flight->departure_time)) }}Z</p>
+                                                <p class="my-1"><strong>From:</strong> {{ $flight->originAirport->icao }} at {{ date('Hi', strtotime($flight->departure_time)) }}Z</p>
                                             </div>
                                             <div class="col-md-12">
-                                                <p class="my-1"><strong>To:</strong> {{ $flight->destination_airport_icao }} at {{ date('Hi', strtotime($flight->arrival_time)) }}Z</p>
+                                                <p class="my-1"><strong>To:</strong> {{ $flight->destinationAirport->icao }} at {{ date('Hi', strtotime($flight->arrival_time)) }}Z</p>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="row">

@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use App\Models\Airport;
 use App\Models\Tenant;
 use App\Models\Website;
 use App\Models\Hostname;
@@ -219,5 +220,14 @@ trait InteractsWithTenancy
         $user = factory(User::class)->create();
         $user->assignRole('staff');
         $this->actingAs($user);
+    }
+
+    public function withDummyAirports()
+    {
+        factory(Airport::class)->create(['icao' => 'TJSJ']);
+        factory(Airport::class)->create(['icao' => 'TNCM']);
+        factory(Airport::class)->create(['icao' => 'TTPP']);
+        factory(Airport::class)->create(['icao' => 'KMIA']);
+        factory(Airport::class)->create(['icao' => 'TNCC']);
     }
 }

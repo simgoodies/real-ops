@@ -13,9 +13,9 @@ class EventService
      */
     protected $flightService;
 
-    public function __construct()
+    public function __construct(FlightService $flightService)
     {
-        $this->flightService = new FlightService();
+        $this->flightService = $flightService;
     }
 
     /**

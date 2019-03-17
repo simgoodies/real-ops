@@ -18,14 +18,16 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
 
+    /**
+     * @var EventService 
+     */
     protected $eventService;
-
 
     public function __construct(\Illuminate\Contracts\Foundation\Application $app)
     {
         parent::__construct($app);
 
-        $this->eventService = new EventService();
+        $this->eventService = $this->app->make(EventService::class);
     }
 
     /**

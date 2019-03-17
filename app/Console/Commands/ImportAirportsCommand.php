@@ -39,6 +39,6 @@ class ImportAirportsCommand extends Command
      */
     public function handle()
     {
-        Excel::import(new AirportsImport, 'airports/airports-2019-03-16.csv');
+        Excel::import(new AirportsImport, resource_path('airports/airports-2019-03-16.csv'));
     }
 }

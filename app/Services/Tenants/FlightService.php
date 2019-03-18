@@ -27,6 +27,7 @@ class FlightService
     {
         return $event->flights()
             ->orderBy('departure_time')
+            ->orderBy('callsign')
             ->with(['originAirport', 'destinationAirport'])
             ->paginate(config('extras.office.events.flights.per_page', 12));
     }
@@ -107,7 +108,10 @@ class FlightService
      */
     public function getAllForEventLandingPage(Event $event)
     {
-        return $event->flights()->orderBy('departure_time')->get();
+        return $event->flights()
+            ->orderBy('departure_time')
+            ->orderBy('callsign')
+            ->get();
     }
 
     /**

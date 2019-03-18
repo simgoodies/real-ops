@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Organize event')
+@section('title', $event->title)
 
 @section('main-content')
 

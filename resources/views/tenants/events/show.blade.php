@@ -1,9 +1,9 @@
 @extends('main')
 
-@section('title', 'Office')
+@section('title', $event->title)
 
 @section('main-content')
-    <div class="office">
+    <div class="event-landing">
 
         @include('tenants.partials._nav')
 

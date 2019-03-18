@@ -116,7 +116,7 @@ class FlightService
      */
     public function getAllForEvent(Event $event)
     {
-        return $event->flights->with(['originAirport', 'destinationAirport'])->all();
+        return $event->flights->all();
     }
 
     /**

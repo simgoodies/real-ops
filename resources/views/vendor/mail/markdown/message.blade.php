@@ -21,7 +21,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            Powered with <a href="https://realops.vatgoodies.com/" target="_blank">Real Ops by VATGoodies</a>
+            Powered with <a href="https://realops.vatgoodies.com/" target="_blank">Real Ops by VATGoodies</a> / version {{ config('app.version') }}
         @endcomponent
     @endslot
 @endcomponent

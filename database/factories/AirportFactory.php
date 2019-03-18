@@ -18,7 +18,7 @@ use Faker\Generator as Faker;
 $factory->define(Airport::class, function (Faker $faker) {
     return [
         'icao' => Str::upper(Str::random(4)),
-        'iata' => 'SJU',
+        'iata' => Str::upper(Str::random(3)),
         'name' => 'Luis Munoz Marin International Airport',
         'elevation_feet' => '9',
         'continent' => 'NA',

@@ -2,7 +2,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>Real Ops by VATGoodies - @yield('title')</title> <!-- CHANGE THIS TITTLE FOR EACH PAGE -->
+<title>
+    Real Ops by VATGoodies
+    @hasSection('title')
+        - @yield('title')
+    @endIf
+</title> <!-- CHANGE THIS TITTLE FOR EACH PAGE -->
 
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
@@ -26,7 +31,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134452334-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-134452334-2');
@@ -34,10 +43,11 @@
 @endif
 
 
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<link rel="stylesheet" type="text/css"
+      href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
 <script>
-    window.addEventListener("load", function(){
+    window.addEventListener("load", function () {
         window.cookieconsent.initialise({
             "palette": {
                 "popup": {
@@ -50,5 +60,6 @@
             },
             "theme": "classic",
             "position": "bottom-right"
-        })});
+        })
+    });
 </script>

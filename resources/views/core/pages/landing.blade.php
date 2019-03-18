@@ -1,7 +1,5 @@
 @extends('main')
 
-@section('title')
-
 @section('main-content')
     @include('partials._nav')
 

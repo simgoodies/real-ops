@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title')
+@section('title', 'Contact')
 
 @section('main-content')
     @include('partials._nav')

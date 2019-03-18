@@ -4,7 +4,7 @@
 
 @section('main-content')
 
-    @include('tenants.partials._nav')
+    @include('tenants.office.partials._nav')
 
     @component('tenants.office.components._office-title')
         {{ $tenant->name }} - Organize new event!

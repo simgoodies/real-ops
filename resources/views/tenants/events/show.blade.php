@@ -8,7 +8,7 @@
         @include('tenants.partials._nav')
 
         <div class="container">
-            <div class="row">
+            <div id="event" class="row">
                 <div class="col-md-12">
                     <h1>{{ $tenant->name }} presents</h1>
                     <h2>{{ $event->title }}</h2>
@@ -136,6 +136,9 @@
                     @empty
                         <p>There are no flights for this event yet.</p>
                     @endforelse
+                </div>
+                <div class="col-md-12 my-2">
+                    <a href="#event" class="btn btn-info btn-block">Back to top</a>
                 </div>
             </div>
         </div>

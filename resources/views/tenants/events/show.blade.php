@@ -52,6 +52,7 @@
                                     <th scope="col">Departure Time:</th>
                                     <th scope="col">Departing From:</th>
                                     <th scope="col">Arriving At:</th>
+                                    <th scope="col">Aircraft:</th>
                                     <th scope="col">Book:</th>
                                 </tr>
                                 </thead>
@@ -62,6 +63,13 @@
                                     <td class="align-middle">{{ date('Hi', strtotime($flight->departure_time)) }}Z</td>
                                     <td class="align-middle">{{ $flight->originAirport->icao }}</td>
                                     <td class="align-middle">{{ $flight->destinationAirport->icao }}</td>
+                                    <td class="align-middle">
+                                        @if (empty($flight->aircraft_type_icao) == false)
+                                            {{ $flight->aircraft_type_icao }}
+                                        @else
+                                            Any
+                                        @endif
+                                    </td>
                                     <td class="align-middle">
                                         @if ($flight->isBooked())
                                             <a href="{{ route('tenants.events.flights.show', ['slug' => $event->slug, 'callsign' => $flight->callsign]) }}"
@@ -101,8 +109,13 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <p class="my-0"><strong>Arriving
-                                                            At:</strong> {{ $flight->destinationAirport->icao }}
-                                                        at {{ date('Hi', strtotime($flight->arrival_time)) }}Z</p>
+                                                            At:</strong> {{ $flight->destinationAirport->icao }}</p>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p class="my-0">
+                                                        @if(empty($flight->aircraft_type_icao) == false)
+                                                            <strong>A/C:</strong> {{ $flight->aircraft_type_icao }}</p>
+                                                        @endif
                                                 </div>
                                                 <div class="col-md-12 mt-2">
                                                     @if ($flight->isBooked())

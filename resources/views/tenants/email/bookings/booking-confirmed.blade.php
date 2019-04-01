@@ -6,7 +6,7 @@
 
 Event date: {{ date('Y-m-d', strtotime($event->start_date)) }} at {{ date('Hi', strtotime($event->start_time)) }}Z until {{ date('Hi', strtotime($event->end_time)) }}Z
 
-{{ $event->description }}
+{!! nl2br(e($event->description)) !!}
 <hr>
 **Summary of booking for {{ $flight->callsign }}**
 

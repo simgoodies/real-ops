@@ -34,7 +34,7 @@
                             @if ($event->description)
                                 <p class="m-0">
                                     <strong>Description:</strong><br>
-                                    {{ $event->description }}
+                                    {!! nl2br(e($event->description)) !!}
                                 </p>
                             @endif
                         </div>

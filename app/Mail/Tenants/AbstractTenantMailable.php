@@ -40,7 +40,7 @@ abstract class AbstractTenantMailable extends Mailable
 
         $this->tenant = $this->tenantService->getCurrentTenant();
 
-        $this->noReplyFromAddress = $this->mailService->getNoReplyFromAddress($this->tenant);
+        $this->noReplyFromAddress = $this->mailService->getNoReplyFromAddress();
         $this->noReplyFromName = $this->mailService->getNoReplyFromName($this->tenant);
     }
 }

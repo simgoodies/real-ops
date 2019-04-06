@@ -55,7 +55,7 @@ class BookingTest extends TenantTestCase
         Mail::assertSent(BookingRequestedMailable::class, function ($mail) {
             $this->assertEquals('Confirm your requested flight ABC123', $mail->subject);
             $this->assertEquals('pilotemail@example.com', $mail->to[0]['address']);
-            $this->assertEquals('no-reply-tjzs@realops.test', $mail->from[0]['address']);
+            $this->assertEquals('app@realops.test', $mail->from[0]['address']);
             $this->assertEquals('San Juan CERAP Real Ops', $mail->from[0]['name']);
             return true;
         });
@@ -117,7 +117,7 @@ class BookingTest extends TenantTestCase
         Mail::assertSent(BookingConfirmedMailable::class, function ($mail) {
             $this->assertEquals('You are booked for flight ABC123', $mail->subject);
             $this->assertEquals('pilotemail@example.com', $mail->to[0]['address']);
-            $this->assertEquals('no-reply-tjzs@realops.test', $mail->from[0]['address']);
+            $this->assertEquals('app@realops.test', $mail->from[0]['address']);
             $this->assertEquals('San Juan CERAP Real Ops', $mail->from[0]['name']);
             return true;
         });
@@ -200,7 +200,7 @@ class BookingTest extends TenantTestCase
         Mail::assertSent(CancellationRequestedMailable::class, function ($mail) {
             $this->assertEquals('Confirm your cancellation for flight ABC123', $mail->subject);
             $this->assertEquals('pilotemail@example.com', $mail->to[0]['address']);
-            $this->assertEquals('no-reply-tjzs@realops.test', $mail->from[0]['address']);
+            $this->assertEquals('app@realops.test', $mail->from[0]['address']);
             $this->assertEquals('San Juan CERAP Real Ops', $mail->from[0]['name']);
             return true;
         });

@@ -20,16 +20,11 @@ class MailService
      * @param Tenant|null $tenant
      * @return string
      */
-    public function getNoReplyFromAddress(Tenant $tenant = null)
+    public function getNoReplyFromAddress()
     {
-        if ($tenant === null) {
-            $tenant = $this->tenantService->getCurrentTenant();
-        }
-
-        $identifier = $tenant->identifier;
         $appUrlBase = config('app.url_base');
 
-        return sprintf('no-reply-%s@%s', $identifier, $appUrlBase);
+        return sprintf('app@%s', $appUrlBase);
     }
 
     /**

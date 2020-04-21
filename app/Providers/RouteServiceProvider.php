@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Tenants\Flight;
-use Illuminate\Support\Facades\Route;
-use App\Services\Tenants\EventService;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -19,16 +17,11 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * @var EventService 
+     * The path to the "home" route for your application.
+     *
+     * @var string
      */
-    protected $eventService;
-
-    public function __construct(\Illuminate\Contracts\Foundation\Application $app)
-    {
-        parent::__construct($app);
-
-        $this->eventService = $this->app->make(EventService::class);
-    }
+    public const HOME = '/home';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -40,19 +33,6 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
-
-        /*
-         * When there is a callsign in a route it is always in relation to an event, therefore when a callsign is
-         * in a route make sure that it is for the correct event.
-         */
-        Route::bind('callsign', function ($value) {
-            $slug = Route::current()->parameter('slug');
-            $eventId = $this->eventService->getBySlug($slug)->id;
-            return Flight::where([
-                    ['callsign', $value],
-                    ['event_id', $eventId],
-                ])->first() ?? abort(404);
-        });
     }
 
     /**
@@ -65,6 +45,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+
+        //
     }
 
     /**
@@ -78,7 +60,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->domain(config('app.url_base'))
             ->group(base_path('routes/web.php'));
     }
 

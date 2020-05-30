@@ -13,6 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('office/events/{slug}/bookables/flight')->uses(BookableFlightController::class . '@store')->name('bookable-flight.store');
+Route::post('office/events/{slug}/bookables')->uses(BookableController::class . '@store')->name('bookable.index');

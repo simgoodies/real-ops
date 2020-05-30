@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOfficeEvent;
 use App\Models\Event;
-use Illuminate\Http\Request;
 
 class OfficeEventController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreOfficeEvent $request)
     {
         $event = new Event([
             'title' => $request->title,

@@ -2,13 +2,11 @@
 
 namespace Tests\Feature;
 
-use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BookableTest extends TestCase
 {
@@ -23,7 +21,7 @@ class BookableTest extends TestCase
             'slug' => 'event-one',
         ]);
 
-        Carbon::setTestNow(now());
+        Travel::to(now());
 
         $response = $this->post('office/events/event-one/bookables/flight', [
             'origin_airport_icao' => 'TJSJ',
@@ -45,6 +43,6 @@ class BookableTest extends TestCase
 
         $response->assertRedirect('office/events/event-one/bookables');
 
-        Carbon::setTestNow();
+        Travel::back();
     }
 }

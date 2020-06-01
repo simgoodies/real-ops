@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookableFlight;
 use App\Models\Event;
-use Illuminate\Http\Request;
 use App\Models\BookableFlight;
 
 class BookableFlightController extends Controller
 {
-    public function store(Request $request, Event $slug)
+    public function store(StoreBookableFlight $request, Event $slug)
     {
         $bookableFlight = new BookableFlight([
             'event_id' => $slug->id,

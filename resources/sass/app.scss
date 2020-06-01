@@ -1,1 +1,21 @@
-//
+@import "~tailwindcss/base.css";
+
+@import "~tailwindcss/components.css";
+
+@import "~tailwindcss/utilities.css";
+
+.input {
+    @apply px-2 py-1 border shadow rounded;
+}
+
+.btn {
+    @apply px-6 py-2 rounded cursor-pointer;
+}
+
+.btn-blue {
+    @apply bg-blue-500 text-gray-200;
+}
+
+.btn-blue:hover {
+    @apply bg-blue-400 text-gray-100;
+}

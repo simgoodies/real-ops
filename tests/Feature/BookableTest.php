@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\BookableFlightController;
+use App\Http\Requests\StoreBookableFlight;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -15,8 +17,6 @@ class BookableTest extends TestCase
     /** @test */
     public function it_can_create_a_flight_booking()
     {
-        $this->withoutExceptionHandling();
-
         $event = factory(Event::class)->create([
             'slug' => 'event-one',
         ]);
@@ -44,5 +44,26 @@ class BookableTest extends TestCase
         $response->assertRedirect('office/events/event-one/bookables');
 
         Travel::back();
+    }
+
+    /** @test */
+    public function store_validates_using_a_form_request()
+    {
+        $formRequest = new StoreBookableFlight();
+
+        $this->assertActionUsesFormRequest(
+            BookableFlightController::class,
+            'store',
+            StoreBookableFlight::class
+        );
+
+        $this->assertEquals([
+            'origin_airport_icao' => 'required|alpha_num|between:3,4',
+            'destination_airport_icao' => 'required|alpha_num|between:3,4',
+            'departure_time' => 'required|date',
+            'arrival_time' => 'required|date',
+        ],
+            $formRequest->rules()
+        );
     }
 }

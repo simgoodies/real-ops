@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-event.create');
 Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-event.store');
-Route::get('office/events/{slug}')->uses(OfficeEventController::class . '@store')->name('office-event.show');
+Route::get('office/events/{slug}')->uses(OfficeEventController::class . '@show')->name('office-event.show');
 Route::post('office/events/{slug}/bookables/flight')->uses(BookableFlightController::class . '@store')->name('bookable-flight.store');
 Route::post('office/events/{slug}/bookables')->uses(BookableController::class . '@store')->name('bookable.index');

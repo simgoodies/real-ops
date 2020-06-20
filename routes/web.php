@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-event.create');
-Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-event.store');
-Route::get('office/events/{slug}')->uses(OfficeEventController::class . '@show')->name('office-event.show');
-Route::post('office/events/{slug}/bookables/flight')->uses(BookableFlightController::class . '@store')->name('bookable-flight.store');
-Route::post('office/events/{slug}/bookables')->uses(BookableController::class . '@store')->name('bookable.index');
+Route::get('office')->uses(OfficeController::class. '@index')->name('office.index');
+Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');
+Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-events.store');
+Route::get('office/events/{slug}')->uses(OfficeEventController::class . '@show')->name('office-events.show');
+Route::post('office/events/{slug}/bookables/flight')->uses(BookableFlightController::class . '@store')->name('bookable-flights.store');
+Route::post('office/events/{slug}/bookables')->uses(BookableController::class . '@store')->name('bookables.store');
+Route::get('office/events/{slug}/bookables')->uses(BookableController::class . '@index')->name('bookables.index');

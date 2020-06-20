@@ -19,3 +19,35 @@
 .btn-blue:hover {
     @apply bg-blue-400 text-gray-100;
 }
+
+.btn-blue-secondary {
+    @apply border border-blue-500 bg-white;
+}
+
+.btn-blue-secondary:hover {
+    @apply bg-blue-50;
+}
+
+.btn-red {
+    @apply bg-red-400 text-gray-100;
+}
+
+.btn-red:hover {
+    @apply bg-red-300 text-gray-50;
+}
+
+.btn-red-secondary {
+    @apply border border-red-500 bg-white;
+}
+
+.btn-red-secondary:hover {
+    @apply bg-red-50;
+}
+
+.btn-red-tertiary {
+    @apply border border-gray-100;
+}
+
+.btn-red-tertiary:hover {
+    @apply bg-red-50;
+}

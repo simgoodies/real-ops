@@ -22,7 +22,7 @@ class BookableFlightController extends Controller
 
         $bookableFlight->save();
 
-        return redirect()->route('bookable.index', [
+        return redirect()->route('bookables.index', [
             'slug' => $slug,
         ]);
     }

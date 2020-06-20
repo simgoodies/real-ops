@@ -9,7 +9,7 @@ class OfficeEventController extends Controller
 {
     public function create()
     {
-        return view('office-event.create');
+        return view('office-events.create');
     }
 
     public function store(StoreOfficeEvent $request)
@@ -25,12 +25,12 @@ class OfficeEventController extends Controller
 
         $event->save();
 
-        return redirect()->route('office-event.show', ['slug' => $event])
+        return redirect()->route('office-events.show', ['slug' => $event])
             ->with('success', 'The event was created successfully');
     }
 
     public function show(Event $slug)
     {
-        return view('office-event.show')->with(['event' => $slug]);
+        return view('office-events.show')->with(['event' => $slug]);
     }
 }

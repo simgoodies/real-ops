@@ -9,7 +9,7 @@
         </div>
         <div id="page-content" class="mt-4 px-2">
             @include('partials._errors')
-            <form class="mt-8" action="{{ route('office-event.store') }}" method="post">
+            <form class="mt-8" action="{{ route('office-events.store') }}" method="post">
                 @csrf
                 <div>
                     <label for="title">Title the event</label>

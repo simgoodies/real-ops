@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('office')->uses(OfficeController::class. '@index')->name('office.index');
 Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');
+Route::get('office/events')->uses(OfficeEventController::class . '@index')->name('office-events.index');
 Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-events.store');
 Route::get('office/events/{slug}')->uses(OfficeEventController::class . '@show')->name('office-events.show');
 Route::post('office/events/{slug}/bookables/flight')->uses(BookableFlightController::class . '@store')->name('bookable-flights.store');

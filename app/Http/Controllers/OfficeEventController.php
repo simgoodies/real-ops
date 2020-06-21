@@ -7,6 +7,15 @@ use App\Models\Event;
 
 class OfficeEventController extends Controller
 {
+    public function index()
+    {
+        $events = Event::all();
+
+        return view('office-events.index', [
+            'events' => $events,
+        ]);
+    }
+
     public function create()
     {
         return view('office-events.create');

@@ -4,9 +4,7 @@
 
 @section('main-content')
     <div class="container mx-auto">
-        <div id="page-heading" class="py-4 px-6 border-b-2 border-gray-100 bg-white">
-            <h1 class="text-3xl">Create an event</h1>
-        </div>
+        @include('partials._page-heading', ['title' => 'Create an event'])
         <div id="page-content" class="mt-4 px-2">
             @include('partials._errors')
             <form class="mt-8" action="{{ route('office-events.store') }}" method="post">

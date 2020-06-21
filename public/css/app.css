@@ -87749,3 +87749,17 @@ video {
   background-color: #ffe3e3;
   background-color: rgba(255, 227, 227, var(--bg-opacity));
 }
+
+.page-heading {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-bottom-width: 2px;
+  --border-opacity: 1;
+  border-color: #e4e7eb;
+  border-color: rgba(228, 231, 235, var(--border-opacity));
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+}

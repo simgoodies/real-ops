@@ -51,3 +51,7 @@
 .btn-red-tertiary:hover {
     @apply bg-red-50;
 }
+
+.page-heading {
+    @apply py-4 px-6 border-b-2 border-gray-100 bg-white;
+}

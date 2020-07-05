@@ -12,9 +12,8 @@
 <!-- YIELD FOR MAIN-CONTENT -->
 @yield('main-content')
 
-<!-- INCLUDE REQUIRED JAVASCRIPT -->
-@include('partials._javascript')
-
+<script src="{{ asset('js/app.js') }}"></script>
+@livewireScripts
 <script>
     // Get the current year for the copyright
     $('#year').text(new Date().getFullYear());

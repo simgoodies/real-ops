@@ -12,6 +12,9 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.4.1/dist/alpine.min.js" defer></script>
+@livewireStyles
+
 @yield('stylesheets')
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

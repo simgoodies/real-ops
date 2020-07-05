@@ -37,5 +37,8 @@
                 </div>
             </div>
         </div>
+        <div class="mt-4 px-4">
+            @livewire('display-bookables', ['event' => $event])
+        </div>
     </div>
 @endsection

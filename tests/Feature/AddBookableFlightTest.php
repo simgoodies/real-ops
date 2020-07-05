@@ -31,7 +31,7 @@ class AddBookableFlightTest extends TestCase
         $event = factory(Event::class)->create();
 
         Travel::to(now());
-        Livewire::test(AddBookableFlight::class, ['event' => $event])
+        $addBookableFlightComponent = Livewire::test(AddBookableFlight::class, ['event' => $event])
             ->set('callsign', 'FOO123')
             ->set('originAirportIcao', 'FOO1')
             ->set('destinationAirportIcao', 'BAR1')
@@ -39,8 +39,10 @@ class AddBookableFlightTest extends TestCase
             ->set('departureTime', $departureTime = now()->format('H:i:s'))
             ->set('arrivalDate', $arrivalDate = now()->format('Y-m-d'))
             ->set('arrivalTime', $arrivalTime = now()->addHour()->format('H:i:s'))
-            ->call('save')
-            ->assertHasNoErrors();
+            ->call('save');
+
+        $addBookableFlightComponent->assertHasNoErrors();
+        $addBookableFlightComponent->assertEmitted('bookableAdded');
 
         $this->assertDatabaseHas('bookables', [
             'event_id' => $event->id,

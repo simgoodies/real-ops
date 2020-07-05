@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\AddBookableFlight;
+use App\Models\BookableFlight;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -42,13 +43,15 @@ class AddBookableFlightTest extends TestCase
             ->assertHasNoErrors();
 
         $this->assertDatabaseHas('bookables', [
+            'event_id' => $event->id,
+            'type' => BookableFlight::TYPE,
+            'begin_date' => $departureDate,
+            'begin_time' => $departureTime,
+            'end_date' => $arrivalDate,
+            'end_time' => $arrivalTime,
             'data->callsign' => 'FOO123',
             'data->origin_airport_icao' => 'FOO1',
             'data->destination_airport_icao' => 'BAR1',
-            'data->departure_date' => $departureDate,
-            'data->departure_time' => $departureTime,
-            'data->arrival_date' => $arrivalDate,
-            'data->arrival_time' => $arrivalTime,
         ]);
 
         Travel::back();

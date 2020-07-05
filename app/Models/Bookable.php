@@ -9,7 +9,15 @@ class Bookable extends Model
 {
     use HasChildren;
 
-    protected $fillable = ['event_id', 'type', 'data'];
+    protected $fillable = [
+        'event_id',
+        'type',
+        'begin_date',
+        'begin_time',
+        'end_date',
+        'end_time',
+        'data'
+    ];
 
     protected $casts = [
         'data' => 'array',

@@ -59,14 +59,14 @@ class AddBookableFlight extends Component
 
         $flight = new BookableFlight([
             'event_id' => $this->event->id,
+            'begin_date' => $this->departureDate,
+            'begin_time' => $this->departureTime,
+            'end_date' => $this->arrivalDate,
+            'end_time' => $this->arrivalTime,
             'data' => [
                 'callsign' => $this->callsign,
                 'origin_airport_icao' => $this->originAirportIcao,
                 'destination_airport_icao' => $this->destinationAirportIcao,
-                'departure_date' => $this->departureDate,
-                'departure_time' => $this->departureTime,
-                'arrival_date' => $this->arrivalDate,
-                'arrival_time' => $this->arrivalTime,
             ],
         ]);
 

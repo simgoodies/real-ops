@@ -19,6 +19,10 @@ class CreateBookablesTable extends Migration
             $table->string('type');
             $table->dateTime('booked_at')->nullable();
             $table->foreignId('booked_by_id')->nullable();
+            $table->date('begin_date');
+            $table->time('begin_time');
+            $table->date('end_date');
+            $table->time('end_time');
             $table->json('data');
             $table->timestamps();
 

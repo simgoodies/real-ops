@@ -10,6 +10,7 @@ class Event extends Model
     use Sluggable;
 
     protected $fillable = ['title', 'description', 'slug', 'start_date', 'start_time', 'end_date', 'end_time'];
+    protected $dates = ['start_date', 'start_time', 'end_date', 'end_time'];
 
     public function getRouteKeyName()
     {

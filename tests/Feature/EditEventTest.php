@@ -22,9 +22,9 @@ class EditEventTest extends TestCase
             'title' => 'The Event Title',
             'description' => 'Description Here',
             'start_date' => $startDate = now()->format('Y-m-d'),
-            'start_time' => $startTime = now()->format('H:i:s'),
+            'start_time' => $startTime = now()->format('H:i'),
             'end_date' => $endDate = now()->format('Y-m-d'),
-            'end_time' => $endTime = now()->addHour()->format('H:i:s'),
+            'end_time' => $endTime = now()->addHour()->format('H:i'),
         ]);
 
         Livewire::test('edit-event', ['event' => $event])
@@ -47,15 +47,15 @@ class EditEventTest extends TestCase
             'title' => 'The Event Title',
             'description' => 'Description Here',
             'start_date' => $startDate = now()->format('Y-m-d'),
-            'start_time' => $startTime = now()->format('H:i:s'),
+            'start_time' => $startTime = now()->format('H:i'),
             'end_date' => $endDate = now()->format('Y-m-d'),
-            'end_time' => $endTime = now()->addHour()->format('H:i:s'),
+            'end_time' => $endTime = now()->addHour()->format('H:i'),
         ]);
 
         Livewire::test('edit-event', ['event' => $event])
             ->set('title', 'The Changed Event Title')
             ->set('endDate', $newEndDate = now()->addDay()->format('Y-m-d'))
-            ->set('endTime', $newEndTime = now()->addDay()->addHour()->format('H:i:s'))
+            ->set('endTime', $newEndTime = now()->addDay()->addHour()->format('H:i'))
             ->call('save');
 
         $this->assertDatabaseHas('events', [
@@ -68,5 +68,13 @@ class EditEventTest extends TestCase
         ]);
 
         Travel::back();
+    }
+
+    /** @test */
+    public function it_dispatches_browser_event_after_save()
+    {
+        $event = factory(Event::class)->create();
+
+        Livewire::test('edit-event', ['event' => $event])-> call('save')->assertDispatchedBrowserEvent('event-saved');
     }
 }

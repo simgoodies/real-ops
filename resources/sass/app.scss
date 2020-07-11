@@ -9,11 +9,11 @@
 }
 
 .btn {
-    @apply px-6 py-2 rounded cursor-pointer;
+    @apply px-6 py-2 text-center rounded cursor-pointer;
 }
 
 .btn-blue {
-    @apply bg-blue-500 text-gray-200;
+    @apply bg-blue-500 text-gray-100;
 }
 
 .btn-blue:hover {

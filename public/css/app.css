@@ -87665,6 +87665,7 @@ video {
   padding-right: 1.5rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  text-align: center;
   border-radius: 0.25rem;
   cursor: pointer;
 }
@@ -87674,8 +87675,8 @@ video {
   background-color: #0967d2;
   background-color: rgba(9, 103, 210, var(--bg-opacity));
   --text-opacity: 1;
-  color: #cbd2d9;
-  color: rgba(203, 210, 217, var(--text-opacity));
+  color: #e4e7eb;
+  color: rgba(228, 231, 235, var(--text-opacity));
 }
 
 .btn-blue:hover {

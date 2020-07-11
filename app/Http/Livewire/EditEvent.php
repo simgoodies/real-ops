@@ -21,10 +21,10 @@ class EditEvent extends Component
         $this->event = $event;
         $this->title = $event->title;
         $this->description = $event->description;
-        $this->startDate = $event->start_date;
-        $this->startTime = $event->start_time;
-        $this->endDate = $event->end_date;
-        $this->endTime = $event->end_time;
+        $this->startDate = $event->start_date->format('Y-m-d');
+        $this->startTime = $event->start_time->format('H:i');
+        $this->endDate = $event->end_date->format('Y-m-d');
+        $this->endTime = $event->end_time->format('H:i');
     }
 
     public function save()
@@ -32,9 +32,9 @@ class EditEvent extends Component
         $validated = $this->validate([
             'title' => 'required',
             'startDate' => 'required|date',
-            'startTime' => 'required|date_format:H:i:s',
+            'startTime' => 'required|date_format:H:i',
             'endDate' => 'required|date',
-            'endTime' => 'required|date_format:H:i:s',
+            'endTime' => 'required|date_format:H:i',
         ]);
 
         $this->event->fill([
@@ -47,6 +47,8 @@ class EditEvent extends Component
         ]);
 
         $this->event->save();
+
+        $this->dispatchBrowserEvent('event-saved');
     }
 
     public function render()

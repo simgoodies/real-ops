@@ -12,6 +12,10 @@
     @apply px-6 py-2 text-center rounded cursor-pointer;
 }
 
+.btn-sm {
+    @apply px-3 py-1 text-sm text-center rounded cursor-pointer;
+}
+
 .btn-blue {
     @apply bg-blue-500 text-gray-100;
 }

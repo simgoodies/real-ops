@@ -87670,6 +87670,17 @@ video {
   cursor: pointer;
 }
 
+.btn-sm {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.875rem;
+  text-align: center;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
 .btn-blue {
   --bg-opacity: 1;
   background-color: #0967d2;

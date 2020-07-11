@@ -18,10 +18,8 @@ class Bookable extends Model
         'end_time',
         'data'
     ];
-
-    protected $casts = [
-        'data' => 'array',
-    ];
+    protected $dates = ['begin_date', 'begin_time', 'end_date', 'end_time'];
+    protected $casts = ['data' => 'array'];
 
     protected $childTypes = [
         'flight' => BookableFlight::class,

@@ -14,7 +14,13 @@
         </div>
         <div class="md:flex">
             <div class="mt-4 px-4 md:px-4 md:w-1/2">
-                <a class="btn btn-blue-secondary block w-full " href="#">Edit event details</a>
+                <div x-data="{ editOpen: true }">
+                    <button x-show="!editOpen" class="btn btn-blue-secondary block w-full" @click="editOpen = true">Edit event details</button>
+                    <div x-show="editOpen">
+                        <button @click="editOpen = false">close</button>
+                        @livewire('edit-event', ['event' => $event])
+                    </div>
+                </div>
             </div>
         </div>
         <div class="mt-4 px-4">

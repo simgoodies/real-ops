@@ -83,6 +83,8 @@ class AddBookableFlight extends Component
             'arrivalDate',
             'arrivalTime',
         ]);
+
+        $this->emit('bookableAdded');
     }
 
     public function render()

@@ -25,8 +25,13 @@
                 <div class="mt-4 md:px-2 md:w-1/2">
                     <button class="btn btn-blue w-full" @click="editOpen = true">Edit event details</button>
                 </div>
-                <div class="mt-4 md:px-2 md:w-1/2">
-                    <a class="btn btn-red-secondary block w-full" href="#">Delete event (this action is permanent)</a>
+                <div x-data="{ showDeleteConfirm: false }" class="mt-4 md:px-2 md:w-1/2">
+                    <button x-show="!showDeleteConfirm" @click="showDeleteConfirm = true" class="btn btn-red-secondary block w-full" href="#">Delete event (this action is permanent)</button>
+                    <button x-show="showDeleteConfirm" @click="showDeleteConfirm = false" class="btn btn-blue-secondary w-full">Cancel (keep event)</button>
+                    <form x-show="showDeleteConfirm" class="mt-4">
+                        <input type="text" class="input w-full" placeholder="type this sentence, 'this is intentional!'">
+                        <button type="submit" class="mt-4 btn btn-red w-full">I am sure!</button>
+                    </form>
                 </div>
             </div>
             <div class="mt-4 w-full">

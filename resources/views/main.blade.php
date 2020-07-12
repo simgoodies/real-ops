@@ -14,13 +14,9 @@
 
 <script src="{{ asset('js/app.js') }}"></script>
 @livewireScripts
-<script>
-    // Get the current year for the copyright
-    $('#year').text(new Date().getFullYear());
-</script>
 
 <!-- YIELD FOR CUSTOM SCRIPTS  -->
-@yield('scripts')
+@stack('scripts')
 
 </body>
 </html>

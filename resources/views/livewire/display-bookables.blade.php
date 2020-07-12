@@ -24,8 +24,9 @@
                         {{ $bookable->end_time->format('H:i') }}z)
                     @endisset
                 </div>
-                <div class="px-1 w-1/4 flex justify-center items-center">
-                    <button wire:click="deleteBookable({{$bookable->id}})" class="btn-sm btn-red-secondary">Delete</button>
+                <div x-data="{showConfirm: false}" class="px-1 w-1/4 flex justify-center items-center">
+                    <button x-show="!showConfirm" @click="showConfirm = true" class="btn-sm btn-red-secondary">Delete</button>
+                    <button x-show="showConfirm" @click.away="showConfirm = false" wire:click="deleteBookable({{$bookable->id}})" class="btn-sm btn-red">Confirm?</button>
                 </div>
             </div>
         @endif

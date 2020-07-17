@@ -19,3 +19,4 @@ Route::get('office/events')->uses(OfficeEventController::class . '@index')->name
 Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-events.store');
 Route::get('office/events/{slug}')->uses(OfficeEventController::class . '@show')->name('office-events.show');
 Route::delete('office/events/{slug}')->uses(OfficeEventController::class . '@destroy')->name('office-events.destroy');
+Route::get('events/{slug}')->uses(EventController::class . '@show')->name('events.show');

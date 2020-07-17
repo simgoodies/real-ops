@@ -25,4 +25,9 @@ class Event extends Model
             ],
         ];
     }
+
+    public function bookables()
+    {
+        return $this->hasMany(Bookable::class);
+    }
 }

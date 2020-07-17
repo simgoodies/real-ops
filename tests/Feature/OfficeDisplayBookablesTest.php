@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class DisplayBookablesTest extends TestCase
+class OfficeDisplayBookablesTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -21,9 +21,9 @@ class DisplayBookablesTest extends TestCase
             'event_id' => $event->id,
         ]);
 
-        $displayBookablesComponent = Livewire::test('display-bookables', ['event' => $event]);
+        $officeDisplayBookablesComponent = Livewire::test('office-display-bookables', ['event' => $event]);
 
-        $bookables = $displayBookablesComponent->viewData('bookables');
+        $bookables = $officeDisplayBookablesComponent->viewData('bookables');
 
         $flights->assertEquals($bookables);
     }

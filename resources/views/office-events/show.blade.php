@@ -26,10 +26,17 @@
                     <button class="btn btn-blue w-full" @click="editOpen = true">Edit event details</button>
                 </div>
                 <div x-data="{ showDeleteConfirm: false }" class="mt-4 md:px-2 md:w-1/2">
+                    @if(session()->has('event-delete-failure'))
+                        <div class="mb-4 p-2 bg-red-200 text-red-800 border-2 border-red-700">
+                            {{ session()->get('event-delete-failure') }}
+                        </div>
+                    @endif
                     <button x-show="!showDeleteConfirm" @click="showDeleteConfirm = true" class="btn btn-red-secondary block w-full" href="#">Delete event (this action is permanent)</button>
                     <button x-show="showDeleteConfirm" @click="showDeleteConfirm = false" class="btn btn-blue-secondary w-full">Cancel (keep event)</button>
-                    <form x-show="showDeleteConfirm" class="mt-4">
-                        <input type="text" class="input w-full" placeholder="type this sentence, 'this is intentional!'">
+                    <form x-show="showDeleteConfirm" class="mt-4" action="{{ route('office-events.destroy', ['slug' => $event]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="text" class="input w-full" name="confirmText" placeholder="type this sentence, 'this is intentional!'" required>
                         <button type="submit" class="mt-4 btn btn-red w-full">I am sure!</button>
                     </form>
                 </div>

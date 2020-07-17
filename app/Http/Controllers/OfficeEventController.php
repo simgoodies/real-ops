@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOfficeEvent;
 use App\Models\Event;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OfficeEventController extends Controller
 {
@@ -41,5 +43,21 @@ class OfficeEventController extends Controller
     public function show(Event $slug)
     {
         return view('office-events.show')->with(['event' => $slug]);
+    }
+
+    public function destroy(Request $request, Event $slug)
+    {
+        $confirmText = $request->input('confirmText');
+        $confirmText = Str::lower($confirmText);
+
+        if (!Str::contains($confirmText, 'this is intentional')) {
+            session()->flash('event-delete-failure', 'Confirmation was filled incorrectly!');
+            return redirect()->route('office-events.show', ['slug' => $slug]);
+        }
+
+        $slug->delete();
+        session()->flash('success', 'Event was deleted successfully!');
+
+        return redirect()->route('office-events.index');
     }
 }

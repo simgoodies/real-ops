@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\OfficeEventController;
 use App\Http\Requests\StoreOfficeEvent;
+use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use RachidLaasri\Travel\Travel;
@@ -62,5 +63,37 @@ class OfficeEventTest extends TestCase
         ],
             $formRequest->rules()
         );
+    }
+
+    /** @test */
+    public function it_can_delete_an_event()
+    {
+        factory(Event::class)->create([
+            'slug' => 'delete-me',
+        ]);
+
+        $this->delete('office/events/delete-me', [
+            'confirmText' => 'this is intentional',
+        ])->assertRedirect('office/events');
+
+        $this->assertDatabaseMissing('events', [
+            'slug' => 'delete-me',
+        ]);
+    }
+
+    /** @test */
+    public function it_does_not_delete_with_incorrect_confirmation()
+    {
+        factory(Event::class)->create([
+            'slug' => 'keep-me',
+        ]);
+
+        $this->delete('office/events/keep-me', [
+            'confirmText' => 'wrong',
+        ])->assertRedirect('office/events/keep-me');
+
+        $this->assertDatabaseHas('events', [
+            'slug' => 'keep-me',
+        ]);
     }
 }

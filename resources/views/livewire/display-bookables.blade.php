@@ -34,7 +34,7 @@
                         <input wire:model.lazy="email" class="input w-full" type="email" placeholder="Enter your e-mail" required>
                     </div>
                     <div class="px-1 w-1/4 flex justify-center items-center">
-                        <button class="btn-sm btn-blue w-full" type="submit">Confirm!</button>
+                        <button wire:click="bookBookable({{ $bookable->id }})" class="btn-sm btn-blue w-full" type="submit">Confirm!</button>
                     </div>
                 </div>
             </div>

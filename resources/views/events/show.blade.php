@@ -12,7 +12,7 @@
             {{ $event->description }}
         </div>
         <div class="mt-4 px-4">
-            @livewire('display-bookables', ['bookables' => $event->bookables])
+            @livewire('display-bookables', ['event' => $event])
         </div>
     </div>
 @endsection

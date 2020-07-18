@@ -31,6 +31,17 @@ class OfficeDisplayBookablesTest extends TestCase
     /** @test */
     public function a_bookable_can_be_deleted()
     {
-        $this->assertTrue(false);
+        $event = factory(Event::class)->create();
+        $flight = factory(BookableFlight::class)->create([
+            'event_id' => $event->id,
+            'data->callsign' => 'DELETE'
+        ]);
+
+        Livewire::test('office-display-bookables', ['event' => $event])
+            ->call('deleteBookable', $flight->id);
+
+        $this->assertDatabaseMissing('bookables', [
+            'data->callsign' => 'DELETE',
+        ]);
     }
 }

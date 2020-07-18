@@ -25,5 +25,13 @@ class Bookable extends Model
         'flight' => BookableFlight::class,
     ];
 
+    public function booked_by()
+    {
+        return $this->belongsTo(Booker::class);
+    }
 
+    public function isBooked()
+    {
+        return (boolean)$this->booked_by_id || (boolean)$this->booked_at;
+    }
 }

@@ -3,27 +3,39 @@
 namespace App\Http\Livewire;
 
 use App\Models\Bookable;
+use App\Models\Booker;
 use App\Models\Event;
 use Livewire\Component;
 
 class DisplayBookables extends Component
 {
-    protected $listeners = [
-        'bookableAdded' => '$refresh',
-        'bookableDeleted' => '$refresh',
-    ];
-
     public $event = null;
     public $bookables = null;
+    public $email = null;
 
     public function mount(Event $event) {
         $this->event = $event;
         $this->bookables = [];
     }
 
-    public function deleteBookable($bookableId)
+    public function bookBookable($bookableId)
     {
-        $this->bookables->find($bookableId)->delete();
+        $this->validate([
+            'email' => 'required|email',
+        ]);
+
+        $bookable = Bookable::find($bookableId);
+        $booker = Booker::firstWhere('email', $this->email);
+
+        if ($bookable->isBooked()) {
+            $this->render();
+            return;
+        }
+
+        $bookable->booked_by()->associate($booker);
+        $bookable->booked_at = now();
+        $bookable->save();
+
         $this->render();
     }
 

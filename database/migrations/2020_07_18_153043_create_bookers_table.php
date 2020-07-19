@@ -10,7 +10,7 @@ class CreateBookersTable extends Migration
     {
         Schema::create('bookers', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

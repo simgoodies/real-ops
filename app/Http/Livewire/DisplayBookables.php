@@ -25,11 +25,16 @@ class DisplayBookables extends Component
         ]);
 
         $bookable = Bookable::find($bookableId);
-        $booker = Booker::firstWhere('email', $this->email);
 
         if ($bookable->isBooked()) {
             $this->render();
             return;
+        }
+
+        if (!$booker = Booker::firstWhere('email', $this->email)) {
+           $booker = (new Booker([
+               'email' => $this->email,
+           ]))->save();
         }
 
         $bookable->booked_by()->associate($booker);

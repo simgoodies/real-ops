@@ -77,6 +77,19 @@ class DisplayBookablesTest extends TestCase
     /** @test */
     public function it_creates_a_booker_record_for_new_bookers()
     {
-        $this->assertTrue(false);
+        $event = factory(Event::class)->create([
+            'slug' => 'foo-event',
+        ]);
+        $flight = factory(BookableFlight::class)->create([
+            'event_id' => $event->id,
+        ]);
+
+        Livewire::test('display-bookables', ['event' => $event])
+            ->set('email', 'foo@example.org')
+            ->call('bookBookable', $flight->id);
+
+        $this->assertDatabaseHas('bookers', [
+            'email' => 'foo@example.org',
+        ]);
     }
 }

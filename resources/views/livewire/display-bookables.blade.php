@@ -25,18 +25,26 @@
                             {{ $bookable->end_time->format('H:i') }}z)
                         @endisset
                     </div>
-                    <div x-show="!showConfirm" class="px-1 w-1/4 flex justify-center items-center">
-                        <button @click="showConfirm = true" class="btn-sm btn-blue-secondary">Book this!</button>
-                    </div>
+                    @if (!$bookable->isBooked())
+                        <div x-show="!showConfirm" class="px-1 w-1/4 flex justify-center items-center">
+                            <button @click="showConfirm = true" class="btn-sm btn-blue-secondary">Book this!</button>
+                        </div>
+                    @else
+                        <div class="px-1 w-1/4 flex justify-center items-center">
+                            <span class="py-2 px-1 rounded-tl-lg rounded-br-lg bg-blue-200">BOOKED!</span>
+                        </div>
+                    @endif
                 </div>
-                <div x-show="showConfirm" @click.away="showConfirm = false" class="-mx-1 flex font-light rounded bg-blue-100 mt-4 mb-12 py-2">
-                    <div class="px-1 w-3/4">
-                        <input wire:model.lazy="email" class="input w-full" type="email" placeholder="Enter your e-mail" required>
+                @if (!$bookable->isBooked())
+                    <div x-show="showConfirm" @click.away="showConfirm = false" class="-mx-1 flex font-light rounded bg-blue-100 mt-4 mb-12 py-2">
+                        <div class="px-1 w-3/4">
+                            <input wire:model.lazy="email" class="input w-full" type="email" placeholder="Enter your e-mail" required>
+                        </div>
+                        <div class="px-1 w-1/4 flex justify-center items-center">
+                            <button wire:click="bookBookable({{ $bookable->id }})" class="btn-sm btn-blue w-full" type="submit">Confirm!</button>
+                        </div>
                     </div>
-                    <div class="px-1 w-1/4 flex justify-center items-center">
-                        <button wire:click="bookBookable({{ $bookable->id }})" class="btn-sm btn-blue w-full" type="submit">Confirm!</button>
-                    </div>
-                </div>
+                @endif
             </div>
         @endif
     @empty

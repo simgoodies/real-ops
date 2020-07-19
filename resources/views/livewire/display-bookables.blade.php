@@ -31,17 +31,24 @@
                         </div>
                     @else
                         <div class="px-1 w-1/4 flex justify-center items-center">
-                            <span class="py-2 px-1 rounded-tl-lg rounded-br-lg bg-blue-200">BOOKED!</span>
+                            <span class="py-2 px-1 text-xs rounded-tl-lg rounded-br-lg bg-blue-200">BOOKED!</span>
                         </div>
                     @endif
                 </div>
                 @if (!$bookable->isBooked())
-                    <div x-show="showConfirm" @click.away="showConfirm = false" class="-mx-1 flex font-light rounded bg-blue-100 mt-4 mb-12 py-2">
-                        <div class="px-1 w-3/4">
-                            <input wire:model.lazy="email" class="input w-full" type="email" placeholder="Enter your e-mail" required>
-                        </div>
-                        <div class="px-1 w-1/4 flex justify-center items-center">
-                            <button wire:click="bookBookable({{ $bookable->id }})" class="btn-sm btn-blue w-full" type="submit">Confirm!</button>
+                    <div x-show="showConfirm" @click.away="showConfirm = false" class="mt-4">
+                        @error('email')
+                            <div class="mb-2 p-2 bg-red-200 text-red-800 border-2 border-red-700">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        <div class="-mx-1 flex font-light rounded bg-blue-100 mb-12 py-2">
+                            <div class="px-1 w-3/4">
+                                <input wire:model.lazy="email" class="input w-full" type="email" placeholder="Enter your e-mail" required>
+                            </div>
+                            <div class="px-1 w-1/4 flex justify-center items-center">
+                                <button wire:click="bookBookable({{ $bookable->id }})" class="btn-sm btn-blue w-full" type="submit">Confirm!</button>
+                            </div>
                         </div>
                     </div>
                 @endif

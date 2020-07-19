@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\BookingRequestedMailable;
 use App\Models\Bookable;
 use App\Models\Booker;
 use App\Models\Event;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class DisplayBookables extends Component
@@ -40,6 +42,8 @@ class DisplayBookables extends Component
         $bookable->booked_by()->associate($booker);
         $bookable->booked_at = now();
         $bookable->save();
+
+        Mail::to($this->email)->send(new BookingRequestedMailable($this->event, $bookable));
 
         $this->render();
     }

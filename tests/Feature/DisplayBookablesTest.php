@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Mail\BookingRequestedMailable;
 use App\Models\BookableFlight;
 use App\Models\Booker;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Livewire;
 use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
@@ -77,9 +79,7 @@ class DisplayBookablesTest extends TestCase
     /** @test */
     public function it_creates_a_booker_record_for_new_bookers()
     {
-        $event = factory(Event::class)->create([
-            'slug' => 'foo-event',
-        ]);
+        $event = factory(Event::class)->create();
         $flight = factory(BookableFlight::class)->create([
             'event_id' => $event->id,
         ]);
@@ -91,5 +91,34 @@ class DisplayBookablesTest extends TestCase
         $this->assertDatabaseHas('bookers', [
             'email' => 'foo@example.org',
         ]);
+    }
+
+    /** @test */
+    public function it_sends_a_confirmation_mail_to_booker()
+    {
+        $this->withoutExceptionHandling();
+        $event = factory(Event::class)->create([
+            'title' => 'Foo Bar Event'
+        ]);
+        $flight = factory(BookableFlight::class)->create(['event_id' => $event->id]);
+
+        Mail::fake();
+
+        Livewire::test('display-bookables', ['event' => $event])
+            ->set('email', 'foo@example.org')
+            ->call('bookBookable', $flight->id);
+
+        Mail::assertSent(BookingRequestedMailable::class, function ($mail) {
+            $this->assertEquals('Confirm your requested booking', $mail->subject);
+            $this->assertEquals('foo@example.org', $mail->to[0]['address']);
+            $this->assertEquals('info@realops.test', $mail->from[0]['address']);
+            $this->assertEquals('Foo Bar Event', $mail->from[0]['name']);
+            return true;
+        });
+    }
+
+    public function it_isnt_booked_unless_confirmed()
+    {
+        $this->assertTrue(false);
     }
 }

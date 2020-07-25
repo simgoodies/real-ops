@@ -20,6 +20,7 @@
         "livewire/livewire": "^1.2"
     },
     "require-dev": {
+        "deployer/deployer": "^6.8",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "jasonmccreary/laravel-test-assertions": "^1.0",

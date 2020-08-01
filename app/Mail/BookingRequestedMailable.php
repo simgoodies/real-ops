@@ -41,6 +41,7 @@ class BookingRequestedMailable extends Mailable
         $this->subject('Confirm your requested booking');
         $this->markdown('emails.booking-requested');
         $this->with([
+            'event' => $this->event,
             'confirmationUrl' => $confirmationUrl,
         ]);
     }

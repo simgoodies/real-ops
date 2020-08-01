@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48cdcfbaa2908c6ebcfd9a5de6a4dd79",
+    "content-hash": "43a2ba803904e92fefdad54e55d52b8c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6867,6 +6867,69 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2016-10-03T07:35:21+00:00"
+        },
+        {
+            "name": "spatie/laravel-mailable-test",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-mailable-test.git",
+                "reference": "bf1353588fb526cf2a45d4151e3f18cc2c5d764b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-mailable-test/zipball/bf1353588fb526cf2a45d4151e3f18cc2c5d764b",
+                "reference": "bf1353588fb526cf2a45d4151e3f18cc2c5d764b",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "^1.9",
+                "illuminate/contracts": "~5.8.0|^6.0|^7.0",
+                "illuminate/database": "~5.8.0|^6.0|^7.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "~3.8.0|^4.0|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\MailableTest\\MailableTestServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\MailableTest\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An artisan command to easily test a mailable",
+            "homepage": "https://github.com/spatie/laravel-mailable-test",
+            "keywords": [
+                "laravel-mailable-test",
+                "spatie"
+            ],
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-03-03T14:38:31+00:00"
         },
         {
             "name": "symfony/yaml",

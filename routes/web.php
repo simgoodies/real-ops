@@ -20,4 +20,4 @@ Route::post('office/events')->uses(OfficeEventController::class . '@store')->nam
 Route::get('office/events/{slug}')->uses(OfficeEventController::class . '@show')->name('office-events.show');
 Route::delete('office/events/{slug}')->uses(OfficeEventController::class . '@destroy')->name('office-events.destroy');
 Route::get('events/{slug}')->uses(EventController::class . '@show')->name('events.show');
-//Route::get('events/{slug}/bookings/{bookingId}')->name('bookings.store');
+Route::get('events/{slug}/bookings/{bookingId}')->name('bookings.store');

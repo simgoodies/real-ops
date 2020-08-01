@@ -20,6 +20,8 @@ class DisplayBookablesTest extends TestCase
     /** @test */
     public function it_can_book_a_bookable()
     {
+        Travel::to(now());
+
         $event = factory(Event::class)->create([
             'slug' => 'foo-event',
         ]);
@@ -40,6 +42,8 @@ class DisplayBookablesTest extends TestCase
             'booked_by_id' => $booker->id,
             'booked_at' => now()->format('Y-m-d H:i:s'),
         ]);
+
+        Travel::back();
     }
 
     /** @test */

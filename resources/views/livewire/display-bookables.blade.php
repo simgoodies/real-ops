@@ -1,4 +1,14 @@
 <div>
+    @if(session()->has('booking-requested'))
+        <div class="p-2 bg-green-200 text-green-800 border-2 border-green-700">
+            {{ session()->get('booking-requested') }}
+        </div>
+    @endif
+    @if(session()->has('booking-confirmed'))
+        <div class="p-2 bg-green-200 text-green-800 border-2 border-green-700">
+            {{ session()->get('booking-confirmed') }} &#128747;
+        </div>
+    @endif
     @forelse($bookables as $bookable)
         @if($bookable->type == 'flight')
             <div x-data="{showConfirm: false}">

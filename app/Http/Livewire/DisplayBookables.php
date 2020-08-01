@@ -34,16 +34,17 @@ class DisplayBookables extends Component
         }
 
         if (!$booker = Booker::firstWhere('email', $this->email)) {
-           $booker = (new Booker([
+           $booker = new Booker([
                'email' => $this->email,
-           ]))->save();
+           ]);
+           $booker->save();
         }
 
-        $bookable->booked_by()->associate($booker);
-        $bookable->booked_at = now();
-        $bookable->save();
+        Mail::to($this->email)->send(new BookingRequestedMailable($booker, $bookable));
 
-        Mail::to($this->email)->send(new BookingRequestedMailable($this->event, $bookable));
+        $this->reset(['email']);
+
+        session()->flash('booking-requested', "Booking requested! Check your e-mail to confirm!");
 
         $this->render();
     }

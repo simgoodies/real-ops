@@ -3,12 +3,11 @@
 namespace App\Mail;
 
 use App\Models\Bookable;
-use App\Models\Event;
+use App\Models\Booker;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\URL;
 
 class BookingRequestedMailable extends Mailable
 {
@@ -17,13 +16,14 @@ class BookingRequestedMailable extends Mailable
     /** @var Bookable  */
     private $bookable;
 
-    /** @var Event  */
-    private $event;
+    /** @var Booker  */
+    private $booker;
 
-    public function __construct(Event $event, Bookable $bookable)
+    public function __construct(Booker $booker, Bookable $bookable)
     {
-        $this->event = $event;
+        $this->booker = $booker;
         $this->bookable = $bookable;
+        $this->bookable->loadMissing('event');
 
         $this->populateMail();
     }
@@ -32,16 +32,12 @@ class BookingRequestedMailable extends Mailable
     {
         $appUrlBase = config('app.url_base');
         $fromEmail = 'info@' . $appUrlBase;
-        $confirmationUrl = URL::signedRoute('bookings.store', [
-            'slug' => $this->event->slug,
-            'bookingId' => $this->bookable->id,
-        ]);
-
-        $this->from($fromEmail, $this->event->title);
+        $confirmationUrl = $this->bookable->getConfirmationUrl($this->booker);
+        $this->from($fromEmail, $this->bookable->event->title);
         $this->subject('Confirm your requested booking');
         $this->markdown('emails.booking-requested');
         $this->with([
-            'event' => $this->event,
+            'event' => $this->bookable->event,
             'confirmationUrl' => $confirmationUrl,
         ]);
     }

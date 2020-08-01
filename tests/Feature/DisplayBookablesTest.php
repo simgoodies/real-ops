@@ -18,7 +18,7 @@ class DisplayBookablesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_book_a_bookable()
+    public function it_does_not_immediately_book()
     {
         Travel::to(now());
 
@@ -36,7 +36,7 @@ class DisplayBookablesTest extends TestCase
             ->set('email', $booker->email)
             ->call('bookBookable', $flight->id);
 
-        $this->assertDatabaseHas('bookables', [
+        $this->assertDatabaseMissing('bookables', [
             'id' => $flight->id,
             'event_id' => $event->id,
             'booked_by_id' => $booker->id,
@@ -100,7 +100,6 @@ class DisplayBookablesTest extends TestCase
     /** @test */
     public function it_sends_a_confirmation_mail_to_booker()
     {
-        $this->withoutExceptionHandling();
         $event = factory(Event::class)->create([
             'title' => 'Foo Bar Event'
         ]);
@@ -119,10 +118,5 @@ class DisplayBookablesTest extends TestCase
             $this->assertEquals('Foo Bar Event', $mail->from[0]['name']);
             return true;
         });
-    }
-
-    public function it_isnt_booked_unless_confirmed()
-    {
-        $this->assertTrue(false);
     }
 }

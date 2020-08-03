@@ -10,7 +10,7 @@
             <div class="mt-4 px-4">
                 <div class="text-xl">{{ $event->title }}</div>
                 <div class="block py-4">
-                    <a class="btn btn-blue" href="{{ route('office-events.show', $event) }}">Manage...</a>
+                    <a class="btn btn-blue" href="{{ tenant_path_route('office-events.show', ['event' => $event]) }}">Manage...</a>
                 </div>
             </div>
         @endforeach

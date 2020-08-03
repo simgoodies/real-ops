@@ -33,7 +33,7 @@
                     @endif
                     <button x-show="!showDeleteConfirm" @click="showDeleteConfirm = true" class="btn btn-red-secondary block w-full" href="#">Delete event (this action is permanent)</button>
                     <button x-show="showDeleteConfirm" @click="showDeleteConfirm = false" class="btn btn-blue-secondary w-full">Cancel (keep event)</button>
-                    <form x-show="showDeleteConfirm" class="mt-4" action="{{ route('office-events.destroy', ['slug' => $event]) }}" method="POST">
+                    <form x-show="showDeleteConfirm" class="mt-4" action="{{ tenant_path_route('office-events.destroy', ['event' => $event]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="text" class="input w-full" name="confirmText" placeholder="type this sentence, 'this is intentional!'" required>

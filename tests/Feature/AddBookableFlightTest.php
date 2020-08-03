@@ -15,14 +15,16 @@ class AddBookableFlightTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $tenancy = true;
+
     /** @test */
     public function is_shown_on_office_event_show_page()
     {
-        $event = factory(Event::class)->create([
+        factory(Event::class)->create([
             'slug' => 'foo',
         ]);
 
-        $this->get('office/events/foo')->assertSee('add-bookable-flight');
+        $this->get('tenant/office/events/foo')->assertSee('add-bookable-flight');
     }
 
     /** @test */

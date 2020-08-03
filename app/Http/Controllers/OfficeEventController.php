@@ -36,28 +36,28 @@ class OfficeEventController extends Controller
 
         $event->save();
 
-        return redirect()->route('office-events.show', ['slug' => $event])
+        return redirect()->to(tenant_path_route('office-events.show', ['event' => $event]))
             ->with('success', 'The event was created successfully');
     }
 
-    public function show(Event $slug)
+    public function show(Event $event)
     {
-        return view('office-events.show')->with(['event' => $slug]);
+        return view('office-events.show')->with(['event' => $event]);
     }
 
-    public function destroy(Request $request, Event $slug)
+    public function destroy(Request $request, Event $event)
     {
         $confirmText = $request->input('confirmText');
         $confirmText = Str::lower($confirmText);
 
         if (!Str::contains($confirmText, 'this is intentional')) {
             session()->flash('event-delete-failure', 'Confirmation was filled incorrectly!');
-            return redirect()->route('office-events.show', ['slug' => $slug]);
+            return redirect()->to(tenant_path_route('office-events.show', ['event' => $event]));
         }
 
-        $slug->delete();
+        $event->delete();
         session()->flash('success', 'Event was deleted successfully!');
 
-        return redirect()->route('office-events.index');
+        return redirect()->to(tenant_path_route('office-events.index'));
     }
 }

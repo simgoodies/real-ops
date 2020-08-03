@@ -13,6 +13,8 @@ class EditEventTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $tenancy = true;
+
     /** @test */
     public function it_has_existing_data_in_form_preloaded()
     {

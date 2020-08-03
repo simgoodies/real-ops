@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Support\Facades\URL;
 use Parental\HasChildren;
 use Illuminate\Database\Eloquent\Model;
+use Stancl\Tenancy\Database\Concerns\BelongsToPrimaryModel;
 
 class Bookable extends Model
 {
-    use HasChildren;
+    use HasChildren, BelongsToPrimaryModel;
 
     protected $fillable = [
         'event_id',
@@ -26,7 +27,12 @@ class Bookable extends Model
         'flight' => BookableFlight::class,
     ];
 
-    public function booked_by()
+    public function getRelationshipToPrimaryModel(): string
+    {
+        return 'event';
+    }
+
+    public function bookedBy()
     {
         return $this->belongsTo(Booker::class);
     }
@@ -43,6 +49,7 @@ class Bookable extends Model
 
     public function getConfirmationUrl(Booker $booker)    {
         return URL::signedRoute('bookings.store', [
+            'tenant' => tenant('code'),
             'booker' => $booker,
             'bookable' => $this,
         ]);

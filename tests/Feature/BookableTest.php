@@ -7,6 +7,7 @@ use App\Models\Booker;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
 
@@ -14,6 +15,7 @@ class BookableTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $tenancy = true;
     /** @test */
     public function it_can_confirm_a_booking_request()
     {
@@ -28,7 +30,7 @@ class BookableTest extends TestCase
         /** @var BookableFlight $bookableFlight */
         $bookableFlight = factory(BookableFlight::class)->create(['event_id' => $event]);
 
-        $this->get($bookableFlight->getConfirmationUrl($booker))->assertRedirect('events/foo-bar')->assertSessionHas([
+        $this->get($bookableFlight->getConfirmationUrl($booker))->assertRedirect('tenant/events/foo-bar')->assertSessionHas([
             'booking-confirmed' => "You're booking is confirmed!",
         ]);
 

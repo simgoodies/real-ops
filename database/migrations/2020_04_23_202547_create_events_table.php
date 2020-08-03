@@ -15,6 +15,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('tenant_id')->unsigned();
             $table->string('title');
             $table->string('slug');
             $table->text('description');
@@ -23,6 +24,8 @@ class CreateEventsTable extends Migration
             $table->date('end_date');
             $table->time('end_time');
             $table->timestamps();
+
+            $table->unique(['tenant_id', 'slug']);
         });
     }
 

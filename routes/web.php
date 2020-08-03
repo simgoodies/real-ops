@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('office')->uses(OfficeController::class. '@index')->name('office.index');
-Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');
-Route::get('office/events')->uses(OfficeEventController::class . '@index')->name('office-events.index');
-Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-events.store');
-Route::get('office/events/{slug}')->uses(OfficeEventController::class . '@show')->name('office-events.show');
-Route::delete('office/events/{slug}')->uses(OfficeEventController::class . '@destroy')->name('office-events.destroy');
-Route::get('events/{slug}')->uses(EventController::class . '@show')->name('events.show');
-Route::get('booker/{booker}/booking/{bookable}/confirm')->uses(BookableController::class . '@confirm')->name('bookings.store');
+Route::get('create-tenant', function () {
+    \App\Models\Tenant::create([
+        'code' => uniqid(),
+    ]);
+});
+
+Route::group([
+    'prefix' => '/{tenant}',
+    'middleware' => ['web', InitializeTenancyByPath::class],
+], function () {
+    Route::get('office')->uses(OfficeController::class. '@index')->name('office.index');
+    Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');
+    Route::get('office/events')->uses(OfficeEventController::class . '@index')->name('office-events.index');
+    Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-events.store');
+    Route::get('office/events/{event}')->uses(OfficeEventController::class . '@show')->name('office-events.show');
+    Route::delete('office/events/{event}')->uses(OfficeEventController::class . '@destroy')->name('office-events.destroy');
+    Route::get('events/{event}')->uses(EventController::class . '@show')->name('events.show');
+    Route::get('booker/{booker}/booking/{bookable}/confirm')->uses(BookableController::class . '@confirm')->name('bookings.store');
+});
+

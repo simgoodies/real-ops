@@ -15,6 +15,6 @@ class BookableController extends Controller
 
         session()->flash('booking-confirmed', "You're booking is confirmed!");
 
-        return redirect()->route('events.show', ['slug' => $bookable->event]);
+        return redirect()->to(tenant_path_route('events.show', ['event' => $bookable->event]));
     }
 }

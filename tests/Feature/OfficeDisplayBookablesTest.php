@@ -13,6 +13,8 @@ class OfficeDisplayBookablesTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $tenancy = true;
+
     /** @test */
     public function show_all_bookables()
     {

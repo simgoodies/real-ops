@@ -10,7 +10,7 @@
 </title> <!-- CHANGE THIS TITTLE FOR EACH PAGE -->
 
 <!-- Bootstrap -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ global_asset('css/app.css') }}">
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.4.1/dist/alpine.min.js" defer></script>
 @livewireStyles

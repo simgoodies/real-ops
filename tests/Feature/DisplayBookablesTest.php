@@ -17,6 +17,8 @@ class DisplayBookablesTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $tenancy = true;
+
     /** @test */
     public function it_does_not_immediately_book()
     {

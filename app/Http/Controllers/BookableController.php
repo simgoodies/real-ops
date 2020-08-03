@@ -16,6 +16,12 @@ class BookableController extends Controller
             return redirect()->route('events.show', ['event' => $bookable->event]);
         }
 
+        if ($bookable->isBooked() && !$bookable->bookedBy->is($booker)) {
+            session()->flash('booking-confirmation-failed', "This booking was confirmed by someone else! Try an alternative.");
+
+            return redirect()->route('events.show', ['event' => $bookable->event]);
+        }
+
         $bookable->bookedBy()->associate($booker);
         $bookable->booked_at = now();
         $bookable->save();

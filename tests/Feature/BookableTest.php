@@ -16,6 +16,7 @@ class BookableTest extends TestCase
     use RefreshDatabase;
 
     protected $tenancy = true;
+
     /** @test */
     public function it_can_confirm_a_booking_request()
     {
@@ -76,6 +77,39 @@ class BookableTest extends TestCase
     /** @test */
     public function it_cannot_confirm_if_already_confirmed_by_other()
     {
-        $this->assertTrue(false);
+        Travel::to(now());
+
+        /** @var Event $event */
+        $event = factory(Event::class)->create(['slug' => 'foo-bar']);
+
+        /** @var Booker $bookerOne */
+        $bookerOne = factory(Booker::class)->create();
+
+        /** @var Booker $bookerTwo */
+        $bookerTwo = factory(Booker::class)->create();
+
+        /** @var BookableFlight $bookableFlight */
+        $bookableFlight = factory(BookableFlight::class)->create([
+            'event_id' => $event,
+            'booked_by_id' => $bookerOne,
+        ]);
+
+        $confirmationUrl = $bookableFlight->getConfirmationUrl($bookerTwo);
+
+        $this->get($confirmationUrl)
+            ->assertRedirect('events/foo-bar')
+            ->assertSessionHas('booking-confirmation-failed', 'This booking was confirmed by someone else! Try an alternative.');
+
+        $this->assertDatabaseMissing('bookables', [
+            'id' => $bookableFlight->id,
+            'booked_by_id' => $bookerTwo->id,
+        ]);
+
+        $this->assertDatabaseHas('bookables', [
+            'id' => $bookableFlight->id,
+            'booked_by_id' => $bookerOne->id,
+        ]);
+
+        Travel::back();
     }
 }

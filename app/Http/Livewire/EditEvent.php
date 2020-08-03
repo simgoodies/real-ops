@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Event;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Livewire\Component;
 
 class EditEvent extends Component
@@ -39,6 +40,7 @@ class EditEvent extends Component
 
         $this->event->fill([
             'title' => $this->title,
+            'slug' => SlugService::createSlug(Event::class, 'slug', $this->title),
             'description' => $this->description,
             'start_date' => $this->startDate,
             'start_time' => $this->startTime,
@@ -48,7 +50,10 @@ class EditEvent extends Component
 
         $this->event->save();
 
-        $this->dispatchBrowserEvent('event-saved');
+        session()->flash('success', 'Event was successfully saved!');
+
+        $this->redirect(route('office-events.show', ['event' => $this->event]));
+
     }
 
     public function render()

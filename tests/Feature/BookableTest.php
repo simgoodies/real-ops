@@ -30,7 +30,7 @@ class BookableTest extends TestCase
         /** @var BookableFlight $bookableFlight */
         $bookableFlight = factory(BookableFlight::class)->create(['event_id' => $event]);
 
-        $this->get($bookableFlight->getConfirmationUrl($booker))->assertRedirect('tenant/events/foo-bar')->assertSessionHas([
+        $this->get($bookableFlight->getConfirmationUrl($booker))->assertRedirect('events/foo-bar')->assertSessionHas([
             'booking-confirmed' => "You're booking is confirmed!",
         ]);
 
@@ -46,7 +46,31 @@ class BookableTest extends TestCase
     /** @test */
     public function it_cannot_confirm_with_wrong_signature()
     {
-        $this->assertTrue(false);
+        Travel::to(now());
+
+        /** @var Event $event */
+        $event = factory(Event::class)->create(['slug' => 'foo-bar']);
+
+        /** @var Booker $booker */
+        $booker = factory(Booker::class)->create();
+
+        /** @var BookableFlight $bookableFlight */
+        $bookableFlight = factory(BookableFlight::class)->create(['event_id' => $event]);
+
+        $confirmationUrl = $bookableFlight->getConfirmationUrl($booker);
+        $confirmationUrlWithoutSignature = Str::before($confirmationUrl, '?signature');
+
+        $this->get($confirmationUrlWithoutSignature)->assertRedirect('events/foo-bar')->assertSessionHas([
+            'booking-confirmation-failed' => "Something went wrong... Try again.",
+        ]);
+
+        $this->assertDatabaseMissing('bookables', [
+            'id' => $bookableFlight->id,
+            'booked_by_id' => $booker->id,
+            'booked_at' => now()->format('Y-m-d H:i:s'),
+        ]);
+
+        Travel::back();
     }
 
     /** @test */

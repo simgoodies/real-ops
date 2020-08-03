@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function show(Event $slug)
+    public function show(Event $event)
     {
-        return view('events.show', ['event' => $slug]);
+        return view('events.show', ['event' => $event]);
     }
 }

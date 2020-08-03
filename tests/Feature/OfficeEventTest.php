@@ -21,7 +21,7 @@ class OfficeEventTest extends TestCase
     {
         Travel::to(now());
 
-        $response = $this->post('tenant/office/events', [
+        $response = $this->post('office/events', [
             'title' => 'Event One',
             'description' => 'Event One Description',
             'start_date' => now()->format('Y-m-d'),
@@ -39,7 +39,7 @@ class OfficeEventTest extends TestCase
             'end_date' => now()->addHours(3)->format('Y-m-d'),
             'end_time' => now()->addHours(3)->format('H:i'),
         ]);
-        $response->assertRedirect('tenant/office/events/event-one');
+        $response->assertRedirect('office/events/event-one');
         $response->assertSessionHas('success', 'The event was created successfully');
 
         Travel::back();
@@ -74,9 +74,9 @@ class OfficeEventTest extends TestCase
             'slug' => 'delete-me',
         ]);
 
-        $this->delete('tenant/office/events/delete-me', [
+        $this->delete('office/events/delete-me', [
             'confirmText' => 'this is intentional',
-        ])->assertRedirect('tenant/office/events');
+        ])->assertRedirect('office/events');
 
         $this->assertDatabaseMissing('events', [
             'slug' => 'delete-me',
@@ -90,9 +90,9 @@ class OfficeEventTest extends TestCase
             'slug' => 'keep-me',
         ]);
 
-        $this->delete('tenant/office/events/keep-me', [
+        $this->delete('office/events/keep-me', [
             'confirmText' => 'wrong',
-        ])->assertRedirect('tenant/office/events/keep-me');
+        ])->assertRedirect('office/events/keep-me');
 
         $this->assertDatabaseHas('events', [
             'slug' => 'keep-me',

@@ -49,7 +49,6 @@ class Bookable extends Model
 
     public function getConfirmationUrl(Booker $booker)    {
         return URL::signedRoute('bookings.store', [
-            'tenant' => tenant('code'),
             'booker' => $booker,
             'bookable' => $this,
         ]);

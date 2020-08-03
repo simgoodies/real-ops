@@ -8,19 +8,18 @@
         <div class="p-4 bg-gray-100">
             <img class="mx-auto max-w-full h-auto" src="https://picsum.photos/800/300" alt="Event Banner">
         </div>
+
+        <div class="mt-4 px-4">
+            @include('partials._messages')
+        </div>
+
         <div class="mt-4 px-4">
             <h2 class="text-lg">Event actions</h2>
             <hr class="mt-2">
         </div>
 
         <div x-data="{ editOpen: false }"
-            @event-saved.window="editOpen = false"
             class="px-4">
-            <div x-data="{ showSavedMessage: false }" @event-saved.window="showSavedMessage = true; setTimeout(() => showSavedMessage = false, 5000);"
-                 x-show.transition.out.duration.1000ms="showSavedMessage"
-                 class="mt-2 p-2 text-blue-300 bg-blue-50 border-2 border-blue-500">
-                Changes were saved.
-            </div>
             <div x-show="!editOpen" class="md:flex md:-mx-2">
                 <div class="mt-4 md:px-2 md:w-1/2">
                     <button class="btn btn-blue w-full" @click="editOpen = true">Edit event details</button>
@@ -33,7 +32,7 @@
                     @endif
                     <button x-show="!showDeleteConfirm" @click="showDeleteConfirm = true" class="btn btn-red-secondary block w-full" href="#">Delete event (this action is permanent)</button>
                     <button x-show="showDeleteConfirm" @click="showDeleteConfirm = false" class="btn btn-blue-secondary w-full">Cancel (keep event)</button>
-                    <form x-show="showDeleteConfirm" class="mt-4" action="{{ tenant_path_route('office-events.destroy', ['event' => $event]) }}" method="POST">
+                    <form x-show="showDeleteConfirm" class="mt-4" action="{{ route('office-events.destroy', ['event' => $event]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="text" class="input w-full" name="confirmText" placeholder="type this sentence, 'this is intentional!'" required>

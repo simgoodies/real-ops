@@ -9,6 +9,11 @@
             {{ session()->get('booking-confirmed') }} &#128747;
         </div>
     @endif
+    @if(session()->has('booking-confirmation-failed'))
+        <div class="p-2 bg-red-200 text-red-800 border-2 border-red-700">
+            {{ session()->get('booking-confirmation-failed') }}
+        </div>
+    @endif
     @forelse($bookables as $bookable)
         @if($bookable->type == 'flight')
             <div x-data="{showConfirm: false}">

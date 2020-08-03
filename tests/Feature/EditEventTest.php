@@ -58,7 +58,8 @@ class EditEventTest extends TestCase
             ->set('title', 'The Changed Event Title')
             ->set('endDate', $newEndDate = now()->addDay()->format('Y-m-d'))
             ->set('endTime', $newEndTime = now()->addDay()->addHour()->format('H:i'))
-            ->call('save');
+            ->call('save')
+            ->assertRedirect('office/events/the-changed-event-title');
 
         $this->assertDatabaseHas('events', [
             'title' => 'The Changed Event Title',
@@ -70,13 +71,5 @@ class EditEventTest extends TestCase
         ]);
 
         Travel::back();
-    }
-
-    /** @test */
-    public function it_dispatches_browser_event_after_save()
-    {
-        $event = factory(Event::class)->create();
-
-        Livewire::test('edit-event', ['event' => $event])-> call('save')->assertDispatchedBrowserEvent('event-saved');
     }
 }

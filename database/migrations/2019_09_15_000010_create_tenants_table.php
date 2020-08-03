@@ -18,9 +18,6 @@ class CreateTenantsTable extends Migration
         Schema::create('tenants', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('code', 16);
-            $table->string('name')->nullable()->unique();
-
             $table->timestamps();
             $table->json('data')->nullable();
         });

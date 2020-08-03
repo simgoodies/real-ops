@@ -13,7 +13,7 @@
         </div>
 
         <div class="mt-4 px-4">
-            <a class="btn btn-blue block w-full " href="{{ tenant_path_route('office-events.index') }}">Manage Events</a>
+            <a class="btn btn-blue block w-full " href="{{ route('office-events.index') }}">Manage Events</a>
         </div>
 
         <div class="mt-4 px-4">

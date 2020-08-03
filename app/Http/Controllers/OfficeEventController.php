@@ -36,7 +36,7 @@ class OfficeEventController extends Controller
 
         $event->save();
 
-        return redirect()->to(tenant_path_route('office-events.show', ['event' => $event]))
+        return redirect()->route('office-events.show', ['event' => $event])
             ->with('success', 'The event was created successfully');
     }
 
@@ -52,12 +52,12 @@ class OfficeEventController extends Controller
 
         if (!Str::contains($confirmText, 'this is intentional')) {
             session()->flash('event-delete-failure', 'Confirmation was filled incorrectly!');
-            return redirect()->to(tenant_path_route('office-events.show', ['event' => $event]));
+            return redirect()->route('office-events.show', ['event' => $event]);
         }
 
         $event->delete();
         session()->flash('success', 'Event was deleted successfully!');
 
-        return redirect()->to(tenant_path_route('office-events.index'));
+        return redirect()->route('office-events.index');
     }
 }

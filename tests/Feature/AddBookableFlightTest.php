@@ -24,7 +24,7 @@ class AddBookableFlightTest extends TestCase
             'slug' => 'foo',
         ]);
 
-        $this->get('tenant/office/events/foo')->assertSee('add-bookable-flight');
+        $this->get('office/events/foo')->assertSee('add-bookable-flight');
     }
 
     /** @test */

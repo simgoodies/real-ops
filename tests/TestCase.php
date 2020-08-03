@@ -32,9 +32,20 @@ abstract class TestCase extends BaseTestCase
 
     public function initializeTenancy()
     {
-        $tenant = Tenant::create([
-            'code' => 'tenant'
+        $tenant = Tenant::create();
+        $tenant->domains()->create([
+            'domain' => 'foo',
         ]);
         tenancy()->initialize($tenant);
+
+        config(['app.url' => 'http://foo.' . config('app.url_base')]);
+
+        $urlGenerator = url();
+        $urlGenerator->forceRootUrl(config('app.url'));
+
+        $this->withServerVariables([
+            'SERVER_NAME' => config('app.url_base'),
+            'HTTP_HOST' => config('app.url_base'),
+        ]);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
+use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +16,15 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 */
 
 Route::get('create-tenant', function () {
-    \App\Models\Tenant::create([
-        'code' => uniqid(),
-    ]);
+    $tenant = \App\Models\Tenant::create();
+    $tenant->domains()->create(['domain' => 'foo']);
 });
 
-Route::group([
-    'prefix' => '/{tenant}',
-    'middleware' => ['web', InitializeTenancyByPath::class],
-], function () {
+Route::middleware([
+    'web',
+    PreventAccessFromCentralDomains::class,
+    InitializeTenancyBySubdomain::class,
+])->group(function () {
     Route::get('office')->uses(OfficeController::class. '@index')->name('office.index');
     Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');
     Route::get('office/events')->uses(OfficeEventController::class . '@index')->name('office-events.index');
@@ -33,4 +34,5 @@ Route::group([
     Route::get('events/{event}')->uses(EventController::class . '@show')->name('events.show');
     Route::get('booker/{booker}/booking/{bookable}/confirm')->uses(BookableController::class . '@confirm')->name('bookings.store');
 });
+
 

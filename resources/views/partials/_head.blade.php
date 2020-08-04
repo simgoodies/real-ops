@@ -3,10 +3,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>
-    Real Ops by VATGoodies
     @hasSection('title')
-        - @yield('title')
+        @yield('title') -
     @endIf
+    Simgoodies.app
 </title> <!-- CHANGE THIS TITTLE FOR EACH PAGE -->
 
 <!-- Bootstrap -->

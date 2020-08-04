@@ -15,6 +15,10 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
+Auth::routes(['verify' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::middleware([
     'web',
     PreventAccessFromCentralDomains::class,

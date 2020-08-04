@@ -15,11 +15,6 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
-Route::get('create-tenant', function () {
-    $tenant = \App\Models\Tenant::create();
-    $tenant->domains()->create(['domain' => 'foo']);
-});
-
 Route::middleware([
     'web',
     PreventAccessFromCentralDomains::class,
@@ -34,8 +29,3 @@ Route::middleware([
     Route::get('events/{event}')->uses(EventController::class . '@show')->name('events.show');
     Route::get('booker/{booker}/booking/{bookable}/confirm')->uses(BookableController::class . '@confirm')->name('bookings.store');
 });
-
-//Route::get('create-tenant', function () {
-//    $tenant = \App\Models\Tenant::create();
-//    $tenant->domains()->create(['domain' => 'foo']);
-//});

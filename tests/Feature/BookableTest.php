@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Mail\BookingConfirmedMailable;
 use App\Models\BookableFlight;
 use App\Models\Booker;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
@@ -22,16 +24,23 @@ class BookableTest extends TestCase
     {
         Travel::to(now());
 
+        Mail::fake();
+
         /** @var Event $event */
-        $event = factory(Event::class)->create(['slug' => 'foo-bar']);
+        $event = factory(Event::class)->create([
+            'title' => 'Foo Bar Event',
+            'slug' => 'foo-bar-event',
+        ]);
 
         /** @var Booker $booker */
-        $booker = factory(Booker::class)->create();
+        $booker = factory(Booker::class)->create([
+            'email' => 'foo@example.org',
+        ]);
 
         /** @var BookableFlight $bookableFlight */
         $bookableFlight = factory(BookableFlight::class)->create(['event_id' => $event]);
 
-        $this->get($bookableFlight->getConfirmationUrl($booker))->assertRedirect('events/foo-bar')->assertSessionHas([
+        $this->get($bookableFlight->getConfirmationUrl($booker))->assertRedirect('events/foo-bar-event')->assertSessionHas([
             'booking-confirmed' => "You're booking is confirmed!",
         ]);
 
@@ -41,14 +50,20 @@ class BookableTest extends TestCase
             'booked_at' => now()->format('Y-m-d H:i:s'),
         ]);
 
+        Mail::assertSent(BookingConfirmedMailable::class, function ($mail) {
+            $this->assertEquals('Your booking was confirmed!', $mail->subject);
+            $this->assertEquals('foo@example.org', $mail->to[0]['address']);
+            $this->assertEquals('info@realops.test', $mail->from[0]['address']);
+            $this->assertEquals('Foo Bar Event', $mail->from[0]['name']);
+            return true;
+        });
+
         Travel::back();
     }
 
     /** @test */
     public function it_cannot_confirm_with_wrong_signature()
     {
-        Travel::to(now());
-
         /** @var Event $event */
         $event = factory(Event::class)->create(['slug' => 'foo-bar']);
 
@@ -68,17 +83,12 @@ class BookableTest extends TestCase
         $this->assertDatabaseMissing('bookables', [
             'id' => $bookableFlight->id,
             'booked_by_id' => $booker->id,
-            'booked_at' => now()->format('Y-m-d H:i:s'),
         ]);
-
-        Travel::back();
     }
 
     /** @test */
     public function it_cannot_confirm_if_already_confirmed_by_other()
     {
-        Travel::to(now());
-
         /** @var Event $event */
         $event = factory(Event::class)->create(['slug' => 'foo-bar']);
 
@@ -109,7 +119,5 @@ class BookableTest extends TestCase
             'id' => $bookableFlight->id,
             'booked_by_id' => $bookerOne->id,
         ]);
-
-        Travel::back();
     }
 }

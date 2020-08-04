@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class BookingRequestedMailable extends Mailable
+class BookingConfirmedMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,13 +31,12 @@ class BookingRequestedMailable extends Mailable
     private function populateMail()
     {
         $fromEmail = 'info@' . config('app.url_base');
-        $confirmationUrl = $this->bookable->getConfirmationUrl($this->booker);
         $this->from($fromEmail, $this->bookable->event->title);
-        $this->subject('Confirm your requested booking');
-        $this->markdown('emails.booking-requested');
+        $this->subject('Your booking was confirmed!');
+        $this->markdown('emails.booking-confirmed');
         $this->with([
+            'bookable' => $this->bookable,
             'event' => $this->bookable->event,
-            'confirmationUrl' => $confirmationUrl,
         ]);
     }
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BookingConfirmedMailable;
 use App\Models\Bookable;
 use App\Models\Booker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BookableController extends Controller
 {
@@ -25,6 +27,8 @@ class BookableController extends Controller
         $bookable->bookedBy()->associate($booker);
         $bookable->booked_at = now();
         $bookable->save();
+
+        Mail::to($booker->email)->send(new BookingConfirmedMailable($booker, $bookable));
 
         session()->flash('booking-confirmed', "You're booking is confirmed!");
 

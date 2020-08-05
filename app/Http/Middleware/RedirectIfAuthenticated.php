@@ -19,7 +19,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+            if (!tenant()) {
+                return redirect()->route('login-to-environment.index');
+            }
         }
 
         return $next($request);

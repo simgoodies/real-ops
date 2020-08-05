@@ -13,4 +13,12 @@ class Tenant extends BaseTenant
     {
         return true;
     }
+
+    public static function getCustomColumns(): array
+    {
+        return [
+            'owner_id',
+            'name',
+        ];
+    }
 }

@@ -3,6 +3,10 @@
 @section('title', 'Office')
 
 @section('main-content')
+    <form action="{{ route('tenant-logout') }}" method="post">
+        @csrf
+        <input type="submit" value="Logout">
+    </form>
     <div class="container mx-auto">
         @include('partials._page-heading', ['title' => 'Office'])
         <div class="p-4 bg-gray-100">

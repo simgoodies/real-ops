@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,21 +12,17 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
-Auth::routes(['verify' => true]);
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
 
-Route::middleware([
-    'web',
-    PreventAccessFromCentralDomains::class,
-    InitializeTenancyBySubdomain::class,
-])->group(function () {
-    Route::get('office')->uses(OfficeController::class. '@index')->name('office.index');
-    Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');
-    Route::get('office/events')->uses(OfficeEventController::class . '@index')->name('office-events.index');
-    Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-events.store');
-    Route::get('office/events/{event}')->uses(OfficeEventController::class . '@show')->name('office-events.show');
-    Route::delete('office/events/{event}')->uses(OfficeEventController::class . '@destroy')->name('office-events.destroy');
-    Route::get('events/{event}')->uses(EventController::class . '@show')->name('events.show');
-    Route::get('booker/{booker}/booking/{bookable}/confirm')->uses(BookableController::class . '@confirm')->name('bookings.store');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::middleware('auth')->group(function() {
+    Route::get('login-to-environment')->uses(LoginToEnvironmentController::class . '@index')->name('login-to-environment.index');
+    Route::post('login-to-environment')->uses(LoginToEnvironmentController::class . '@store')->name('login-to-environment.store');
+    Route::get('setup-environment')->uses(SetupEnvironmentController::class . '@show')->name('setup-environment.show');
+    Route::post('setup-environment')->uses(SetupEnvironmentController::class . '@store')->name('setup-environment.store');
 });

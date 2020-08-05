@@ -14,6 +14,7 @@ abstract class TestCase extends BaseTestCase
     use AdditionalAssertions;
 
     protected $tenancy = false;
+    protected $tenant;
 
     protected function setUp(): void
     {
@@ -21,7 +22,11 @@ abstract class TestCase extends BaseTestCase
 
         Collection::macro('assertEquals', function($collection) {
             $this->zip($collection)->eachSpread(function ($a, $b) {
-                Assert::assertTrue($a->is($b));
+                if (is_null($a)) {
+                    Assert::assertTrue(false);
+                } else {
+                    Assert::assertTrue($a->is($b));
+                }
             });
         });
 
@@ -32,11 +37,11 @@ abstract class TestCase extends BaseTestCase
 
     public function initializeTenancy()
     {
-        $tenant = Tenant::create();
-        $tenant->domains()->create([
+        $this->tenant = Tenant::create();
+        $this->tenant->domains()->create([
             'domain' => 'foo',
         ]);
-        tenancy()->initialize($tenant);
+        tenancy()->initialize($this->tenant);
 
         config(['app.url' => 'http://foo.' . config('app.url_base')]);
 

@@ -16,6 +16,7 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
+        "laravel-validation-rules/subdomain": "^2.2",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
@@ -24,6 +25,7 @@
         "stancl/tenancy": "^3.1"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.3",
         "deployer/deployer": "^6.8",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+use Stancl\Tenancy\Middleware\ScopeSessions;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::middleware([
 Route::middleware([
     'web',
     'auth',
+    ScopeSessions::class,
     PreventAccessFromCentralDomains::class,
     InitializeTenancyBySubdomain::class,
 ])->group(function () {

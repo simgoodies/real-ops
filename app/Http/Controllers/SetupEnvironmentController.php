@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use LVR\Subdomain\Subdomain;
 
 class SetupEnvironmentController extends Controller
@@ -25,8 +27,10 @@ class SetupEnvironmentController extends Controller
         ]);
 
         $tenant->domains()->create([
-            'domain' => $validated['subdomain']
+            'domain' => Str::lower($validated['subdomain']),
         ]);
+
+        Auth::user()->attachTeam($tenant);
 
         return redirect()->route('login-to-environment.index');
     }

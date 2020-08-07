@@ -32,6 +32,14 @@
     @apply bg-blue-50;
 }
 
+.btn-blue-tertiary {
+    @apply border border-gray-100;
+}
+
+.btn-blue-tertiary:hover {
+    @apply bg-blue-50;
+}
+
 .btn-red {
     @apply bg-red-400 text-gray-100;
 }

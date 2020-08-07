@@ -6,12 +6,13 @@
     @include('partials._navigation')
 
     <div class="container mx-auto">
-        @include('partials._page-heading', ['title' => 'Office'])
-        <div class="p-4 bg-gray-100">
-            <p>Welcome to your <strong>VATGoodies Real Ops</strong> office.</p>
-            <p>From your office you will have the ability to setup your event.</p>
-            <p>Activities such as organizing an event, choosing your focus airports, adding flights, managing
-                your controllers and much more will happen from this office.</p>
+        @include('partials._page-heading', ['title' => 'Real Ops by simgoodies.app'])
+        <div>
+            <div class="max-w-screen-xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+                <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+                    Welcome to the {{ tenant('name') ?? '' }} office
+                </h2>
+            </div>
         </div>
 
         <div class="mt-4 px-4">

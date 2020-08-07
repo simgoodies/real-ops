@@ -22,11 +22,11 @@
 
         <div x-data="{ editOpen: false }"
             class="px-4">
-            <div x-show="!editOpen" class="md:flex md:-mx-2">
-                <div class="mt-4 md:px-2 md:w-1/2">
+            <div x-show="!editOpen" class="md:flex md:flex-wrap md:-mx-2">
+                <div class="mt-4 w-full md:px-2 md:w-1/2">
                     <button class="btn btn-blue w-full" @click="editOpen = true">Edit event details</button>
                 </div>
-                <div x-data="{ showDeleteConfirm: false }" class="mt-4 md:px-2 md:w-1/2">
+                <div x-data="{ showDeleteConfirm: false }" class="mt-4 w-full md:px-2 md:w-1/2">
                     @if(session()->has('event-delete-failure'))
                         <div class="mb-4 p-2 bg-red-200 text-red-800 border-2 border-red-700">
                             {{ session()->get('event-delete-failure') }}
@@ -40,6 +40,21 @@
                         <input type="text" class="input w-full" name="confirmText" placeholder="type this sentence, 'this is intentional!'" required>
                         <button type="submit" class="mt-4 btn btn-red w-full">I am sure!</button>
                     </form>
+                </div>
+                <div class="mt-4 -mx-2 flex md:px-2 md:w-full">
+                    <div class="w-3/4 relative px-2">
+                        <input class="input w-full h-full" type="text" readonly value="{{ route('events.show', ['event' => $event]) }}" style="padding-left: 6.5rem">
+                        <div class="rounded-tl rounded-bl border-tl border-bl shadow-tl shadow-bl bg-blue-200 absolute inset-y-0 pt-2 px-4">
+                            event url:
+                        </div>
+                    </div>
+                    <div class="w-1/4 px-2">
+                        <a href="{{ route('events.show', ['event' => $event]) }}" target="_blank">
+                            <button class="btn btn-blue-tertiary w-full">
+                                Visit
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="mt-4 w-full">

@@ -3,6 +3,8 @@
 @section('title', 'Manage Events')
 
 @section('main-content')
+    @include('partials._navigation')
+
     <div class="container mx-auto">
         @include('partials._page-heading', ['title' => 'Manage Events'])
         @include('partials._messages')

@@ -3,10 +3,8 @@
 @section('title', 'Office')
 
 @section('main-content')
-    <form action="{{ route('tenant-logout') }}" method="post">
-        @csrf
-        <input type="submit" value="Logout">
-    </form>
+    @include('partials._navigation')
+
     <div class="container mx-auto">
         @include('partials._page-heading', ['title' => 'Office'])
         <div class="p-4 bg-gray-100">
@@ -21,7 +19,7 @@
         </div>
 
         <div class="mt-4 px-4">
-            <a class="btn btn-blue-secondary block w-full " href="#">Manage staff</a>
+            <a class="btn btn-blue-secondary block w-full opacity-25" href="#">Manage staff (coming soon)</a>
         </div>
     </div>
 @endsection

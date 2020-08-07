@@ -3,6 +3,8 @@
 @section('title', 'Create an event')
 
 @section('main-content')
+    @include('partials._navigation')
+
     <div class="container mx-auto">
         @include('partials._page-heading', ['title' => 'Create an event'])
         <div id="page-content" class="mt-4 px-2">

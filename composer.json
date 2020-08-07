@@ -22,7 +22,8 @@
         "laravel/ui": "^2.1",
         "livewire/livewire": "^1.2",
         "mpociot/teamwork": "^6.0",
-        "stancl/tenancy": "^3.1"
+        "stancl/tenancy": "^3.1",
+        "thomaswelton/laravel-gravatar": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",

@@ -40,6 +40,10 @@ class LoginController extends Controller
 
     protected function loggedOut()
     {
-        return redirect(config('app.url'));
+        if (empty(tenant())) {
+            return redirect()->route('landing-pages.index');
+        }
+
+        return redirect()->route('login-to-environment.index');
     }
 }

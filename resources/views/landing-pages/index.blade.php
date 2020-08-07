@@ -26,7 +26,7 @@
                         </div>
                         <div class="hidden md:block md:ml-10 md:pr-4">
                             <a href="#" class="ml-8 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">Features</a>
-                            <a href="#" class="ml-8 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">Discord</a>
+                            <a href="https://simgoodies.app/discord" class="ml-8 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">Discord</a>
                             <a href="{{ route('login') }}" class="ml-8 font-medium text-gray-500 hover:text-blue-900 transition duration-150 ease-in-out">Log in</a>
                             <span class="mx-8">or</span>
                             <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:text-blue-900 transition duration-150 ease-in-out">Create account</a>
@@ -39,7 +39,7 @@
                         <div class="rounded-lg bg-white shadow-xs overflow-hidden" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
                             <div class="px-5 pt-4 flex items-center justify-between">
                                 <div>
-                                    <img class="h-8 w-auto" src="images/favicon/android-chrome-512x512.png" alt="">
+                                    <img class="h-8 w-auto" src="images/favicon/android-chrome-512x512.png" alt="Simgoodes Logo">
                                 </div>
                                 <div class="-mr-2">
                                     <button @click="open = !open" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Close menu">
@@ -50,14 +50,13 @@
                                 </div>
                             </div>
                             <div class="px-2 pt-2 pb-3">
-                                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Product</a>
                                 <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Features</a>
-                                <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Marketplace</a>
-                                <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Company</a>
+                                <a href="https://simgoodies.app/discord" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Discord</a>
+                                <a href="{{ route('login') }}" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Login</a>
                             </div>
                             <div>
-                                <a href="#" class="block w-full px-5 py-3 text-center font-medium text-blue-600 bg-gray-50 hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:bg-gray-100 focus:text-blue-700 transition duration-150 ease-in-out" role="menuitem">
-                                    Log in
+                                <a href="{{ route('register') }}" class="block w-full px-5 py-3 text-center font-medium text-blue-600 bg-gray-50 hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:bg-gray-100 focus:text-blue-700 transition duration-150 ease-in-out" role="menuitem">
+                                    Create account
                                 </a>
                             </div>
                         </div>

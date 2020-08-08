@@ -51,7 +51,7 @@ class DisplayBookables extends Component
 
     public function render()
     {
-        $this->bookables = Bookable::all();
+        $this->bookables = Bookable::where('event_id', $this->event->id)->get();
         return view('livewire.display-bookables');
     }
 }

@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Models\Tenant;
+use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -15,6 +16,7 @@ abstract class TestCase extends BaseTestCase
 
     protected $tenancy = false;
     protected $tenant;
+    protected $user;
 
     protected function setUp(): void
     {
@@ -37,7 +39,9 @@ abstract class TestCase extends BaseTestCase
 
     public function initializeTenancy()
     {
-        $this->tenant = Tenant::create();
+        $this->tenant = Tenant::create([
+            'name' => 'Foo Tenant',
+        ]);
         $this->tenant->domains()->create([
             'domain' => 'foo',
         ]);
@@ -52,5 +56,11 @@ abstract class TestCase extends BaseTestCase
             'SERVER_NAME' => config('app.url_base'),
             'HTTP_HOST' => config('app.url_base'),
         ]);
+    }
+
+    public function login()
+    {
+        $this->user = factory(User::class)->create();
+        $this->actingAs($this->user);
     }
 }

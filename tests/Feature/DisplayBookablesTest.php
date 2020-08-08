@@ -121,4 +121,24 @@ class DisplayBookablesTest extends TestCase
             return true;
         });
     }
+
+    /** @test */
+    public function only_bookables_for_a_specific_event_is_shown()
+    {
+        $eventOne = factory(Event::class)->create();
+        $eventOneFlights = factory(BookableFlight::class, 3)->create([
+            'event_id' => $eventOne->id,
+        ]);
+        $eventTwo = factory(Event::class)->create();
+        $eventTwoFlights = factory(BookableFlight::class, 4)->create([
+            'event_id' => $eventTwo->id,
+        ]);
+
+        $displayBookablesComponent = Livewire::test('display-bookables', ['event' => $eventOne]);
+
+        $bookables = $displayBookablesComponent->viewData('bookables');
+
+        $this->assertCount(3, $bookables);
+        $eventOneFlights->assertEquals($bookables);
+    }
 }

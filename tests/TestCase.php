@@ -2,36 +2,65 @@
 
 namespace Tests;
 
+use App\Models\Tenant;
+use App\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use JMac\Testing\Traits\AdditionalAssertions;
+use PHPUnit\Framework\Assert;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+    use AdditionalAssertions;
 
-    protected function setUp()
+    protected $tenancy = false;
+    protected $tenant;
+    protected $user;
+
+    protected function setUp(): void
     {
         parent::setUp();
-        $this->migrateSystem();
+
+        Collection::macro('assertEquals', function($collection) {
+            $this->zip($collection)->eachSpread(function ($a, $b) {
+                if (is_null($a)) {
+                    Assert::assertTrue(false);
+                } else {
+                    Assert::assertTrue($a->is($b));
+                }
+            });
+        });
+
+        if ($this->tenancy) {
+            $this->initializeTenancy();
+        }
     }
 
-    protected function assertSystemDatabaseHas($table, array $data)
+    public function initializeTenancy()
     {
-        $this->assertDatabaseHas($table, $data, config('extras.database.db_connection', 'system'));
-    }
-
-    protected function assertSystemDatabaseMissing($table, array $data)
-    {
-        $this->assertDatabaseMissing($table, $data, config('extras.database.db_connection', 'system'));
-    }
-
-    protected function migrateSystem()
-    {
-        $this->connection->system()->getSchemaBuilder()->dropAllTables();
-
-        // refresh database
-        $this->artisan('migrate:fresh', [
-            '--no-interaction' => 1,
-            '--force' => 1
+        $this->tenant = Tenant::create([
+            'name' => 'Foo Tenant',
         ]);
+        $this->tenant->domains()->create([
+            'domain' => 'foo',
+        ]);
+        tenancy()->initialize($this->tenant);
+
+        config(['app.url' => 'http://foo.' . config('app.url_base')]);
+
+        $urlGenerator = url();
+        $urlGenerator->forceRootUrl(config('app.url'));
+
+        $this->withServerVariables([
+            'SERVER_NAME' => config('app.url_base'),
+            'HTTP_HOST' => config('app.url_base'),
+        ]);
+    }
+
+    public function login()
+    {
+        $this->user = factory(User::class)->create();
+        $this->actingAs($this->user);
     }
 }

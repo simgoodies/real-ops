@@ -2,28 +2,23 @@
 
 namespace App\Models;
 
-use Hyn\Tenancy\Abstracts\SystemModel;
+use Stancl\Tenancy\Database\Concerns\HasDomains;
+use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 
-/**
- * @property string identifier
- * @property string name
- * @property string email
- */
-class Tenant extends SystemModel
+class Tenant extends BaseTenant
 {
-    protected $fillable = [
-        'identifier',
-        'name',
-        'email',
-    ];
+    use HasDomains;
 
-    /**
-     * A tenant has one hostname.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function hostname()
+    public function getIncrementing()
     {
-        return $this->hasOne(Hostname::class);
+        return true;
+    }
+
+    public static function getCustomColumns(): array
+    {
+        return [
+            'owner_id',
+            'name',
+        ];
     }
 }

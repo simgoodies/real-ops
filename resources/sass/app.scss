@@ -1,0 +1,65 @@
+@import "~tailwindcss/base.css";
+
+@import "~tailwindcss/components.css";
+
+@import "~tailwindcss/utilities.css";
+
+.input {
+    @apply px-2 py-1 border shadow rounded;
+}
+
+.btn {
+    @apply px-6 py-2 text-center rounded cursor-pointer;
+}
+
+.btn-sm {
+    @apply px-3 py-1 text-sm text-center rounded cursor-pointer;
+}
+
+.btn-blue {
+    @apply bg-blue-500 text-gray-100;
+}
+
+.btn-blue:hover {
+    @apply bg-blue-400 text-gray-100;
+}
+
+.btn-blue-secondary {
+    @apply border border-blue-500 bg-white;
+}
+
+.btn-blue-secondary:hover {
+    @apply bg-blue-50;
+}
+
+.btn-blue-tertiary {
+    @apply border border-gray-100;
+}
+
+.btn-blue-tertiary:hover {
+    @apply bg-blue-50;
+}
+
+.btn-red {
+    @apply bg-red-400 text-gray-100;
+}
+
+.btn-red:hover {
+    @apply bg-red-300 text-gray-50;
+}
+
+.btn-red-secondary {
+    @apply border border-red-500 bg-white;
+}
+
+.btn-red-secondary:hover {
+    @apply bg-red-50;
+}
+
+.btn-red-tertiary {
+    @apply border border-gray-100;
+}
+
+.btn-red-tertiary:hover {
+    @apply bg-red-50;
+}

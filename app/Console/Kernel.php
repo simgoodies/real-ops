@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('realops:backup')->daily()->at('05:15');
+        // $schedule->command('inspire')->hourly();
     }
 
     /**

@@ -3,19 +3,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>
-    Real Ops by VATGoodies
     @hasSection('title')
-        - @yield('title')
+        @yield('title') -
     @endIf
+    Real Ops - Simgoodies.app
 </title> <!-- CHANGE THIS TITTLE FOR EACH PAGE -->
 
 <!-- Bootstrap -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ global_asset('css/app.css') }}">
 
 <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
 <link rel="manifest" href="images/favicon/site.webmanifest">
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.4.1/dist/alpine.min.js" defer></script>
+@livewireStyles
 
 @yield('stylesheets')
 

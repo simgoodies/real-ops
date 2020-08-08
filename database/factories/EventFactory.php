@@ -1,27 +1,18 @@
 <?php
 
-use Carbon\Carbon;
-use App\Models\Tenants\Event;
-use Faker\Generator as Faker;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
+use App\Models\Event;
+use Faker\Generator as Faker;
 
 $factory->define(Event::class, function (Faker $faker) {
     return [
-        'title' => 'Hakuna Matata Real Ops 2018',
-        'description' => 'Super awesome description as to why Hakuna Matata Real Ops 2018 will be the bomb!',
-        'start_time' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
-        'end_time' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s'),
-        'start_date' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
-        'end_date' => Carbon::now()->addDays(3)->addHours(4)->format('Y-m-d H:i:s'),
+        'title' => $faker->sentence,
+        'slug' => $faker->slug,
+        'description' => $faker->paragraph,
+        'start_date' => $faker->date(),
+        'start_time' => $faker->time('H:i', '+4 hours'),
+        'end_date' => $faker->date(),
+        'end_time' => $faker->time('H:i', '+4 hours'),
     ];
 });

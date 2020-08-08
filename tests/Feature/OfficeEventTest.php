@@ -19,6 +19,8 @@ class OfficeEventTest extends TestCase
     /** @test */
     public function it_can_create_an_event()
     {
+        $this->login();
+
         Travel::to(now());
 
         $response = $this->post('office/events', [
@@ -70,6 +72,8 @@ class OfficeEventTest extends TestCase
     /** @test */
     public function it_can_delete_an_event()
     {
+        $this->login();
+
         factory(Event::class)->create([
             'slug' => 'delete-me',
         ]);
@@ -86,6 +90,8 @@ class OfficeEventTest extends TestCase
     /** @test */
     public function it_does_not_delete_with_incorrect_confirmation()
     {
+        $this->login();
+
         factory(Event::class)->create([
             'slug' => 'keep-me',
         ]);

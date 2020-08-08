@@ -20,6 +20,8 @@ class AddBookableFlightTest extends TestCase
     /** @test */
     public function is_shown_on_office_event_show_page()
     {
+        $this->login();
+
         factory(Event::class)->create([
             'slug' => 'foo',
         ]);

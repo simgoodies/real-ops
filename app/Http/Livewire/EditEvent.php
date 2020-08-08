@@ -43,7 +43,6 @@ class EditEvent extends Component
 
         $this->event->fill([
             'title' => $this->title,
-            'slug' => SlugService::createSlug(Event::class, 'slug', $this->title),
             'description' => $this->description,
             'start_date' => $this->startDate,
             'start_time' => $this->startTime,

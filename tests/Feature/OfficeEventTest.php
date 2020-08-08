@@ -64,6 +64,7 @@ class OfficeEventTest extends TestCase
             'start_time' => 'required|date_format:H:i',
             'end_date' => 'required|date',
             'end_time' => 'required|date_format:H:i',
+            'banner_url' => 'nullable|url',
         ],
             $formRequest->rules()
         );

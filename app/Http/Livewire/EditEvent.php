@@ -16,6 +16,7 @@ class EditEvent extends Component
     public $startTime;
     public $endDate;
     public $endTime;
+    public $bannerUrl;
 
     public function mount(Event $event)
     {
@@ -26,6 +27,7 @@ class EditEvent extends Component
         $this->startTime = $event->start_time->format('H:i');
         $this->endDate = $event->end_date->format('Y-m-d');
         $this->endTime = $event->end_time->format('H:i');
+        $this->bannerUrl = $event->banner_url;
     }
 
     public function save()
@@ -36,6 +38,7 @@ class EditEvent extends Component
             'startTime' => 'required|date_format:H:i',
             'endDate' => 'required|date',
             'endTime' => 'required|date_format:H:i',
+            'bannerUrl' => 'nullable|url',
         ]);
 
         $this->event->fill([
@@ -46,6 +49,7 @@ class EditEvent extends Component
             'start_time' => $this->startTime,
             'end_date' => $this->endDate,
             'end_time' => $this->endTime,
+            'banner_url' => $this->bannerUrl,
         ]);
 
         $this->event->save();

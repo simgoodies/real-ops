@@ -17,6 +17,14 @@
             </div>
             @enderror
         </div>
+        <div class="mt-4">
+            <input wire:model.lazy="bannerUrl" class="input w-full" type="text" placeholder="Banner Url">
+            @error('bannerUrl')
+            <div class="text-red-800">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
         <div class="mt-4 -mx-2 flex">
             <div class="px-2 w-1/2">
                 <input wire:model.lazy="startDate" class="input w-full" type="date" placeholder="Start date" required>

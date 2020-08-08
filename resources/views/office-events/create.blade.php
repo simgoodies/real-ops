@@ -19,6 +19,10 @@
                     <label for="description">Describe the event</label>
                     <textarea class="mt-2 input" name="description" cols="20" rows="3"></textarea>
                 </div>
+                <div class="mt-8">
+                    <label for="banner_url">Banner Link (e.g. https://mysite.com/image.jpg)</label>
+                    <input class="w-full mt-2 input" name="banner_url" type="text">
+                </div>
                 <div class="md:-mx-2 md:flex">
                     <div class="mt-8 flex flex-col md:px-2 md:w-1/4">
                         <label for="start_date">On what day is the event? (ZULU)</label>

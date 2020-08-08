@@ -32,6 +32,7 @@ class OfficeEventController extends Controller
             'start_time' => $request->start_time,
             'end_date' => $request->end_date,
             'end_time' => $request->end_time,
+            'banner_url' => $request->banner_url,
         ]);
 
         $event->save();

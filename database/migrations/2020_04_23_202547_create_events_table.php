@@ -23,6 +23,7 @@ class CreateEventsTable extends Migration
             $table->time('start_time');
             $table->date('end_date');
             $table->time('end_time');
+            $table->string('banner_url')->nullable();
             $table->timestamps();
 
             $table->unique(['tenant_id', 'slug']);

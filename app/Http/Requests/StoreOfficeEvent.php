@@ -19,6 +19,7 @@ class StoreOfficeEvent extends FormRequest
             'start_time' => 'required|date_format:H:i',
             'end_date' => 'required|date',
             'end_time' => 'required|date_format:H:i',
+            'banner_url' => 'nullable|url',
         ];
     }
 
@@ -34,6 +35,7 @@ class StoreOfficeEvent extends FormRequest
             'end_date.date' => 'The event requires a valid end date',
             'end_time.required' => 'The event requires an end time',
             'end_time.date' => 'The event requires a valid end time',
+            'banner_url.url' => 'Please enter a valid url for the event banner',
         ];
     }
 }

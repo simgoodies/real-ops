@@ -27,6 +27,7 @@ class EditEventTest extends TestCase
             'start_time' => $startTime = now()->format('H:i'),
             'end_date' => $endDate = now()->format('Y-m-d'),
             'end_time' => $endTime = now()->addHour()->format('H:i'),
+            'banner_url' => 'https://example.org/image.jpg'
         ]);
 
         Livewire::test('edit-event', ['event' => $event])
@@ -35,9 +36,10 @@ class EditEventTest extends TestCase
             ->assertSet('startDate', $startDate)
             ->assertSet('startTime', $startTime)
             ->assertSet('endDate', $endDate)
-            ->assertSet('endTime', $endTime);
+            ->assertSet('endTime', $endTime)
+            ->assertSet('bannerUrl', 'https://example.org/image.jpg');
 
-            Travel::back();
+        Travel::back();
     }
 
     /** @test */
@@ -52,6 +54,7 @@ class EditEventTest extends TestCase
             'start_time' => $startTime = now()->format('H:i'),
             'end_date' => $endDate = now()->format('Y-m-d'),
             'end_time' => $endTime = now()->addHour()->format('H:i'),
+            'banner_url' => 'https://example.org/image.jpg',
         ]);
 
         Livewire::test('edit-event', ['event' => $event])
@@ -68,6 +71,7 @@ class EditEventTest extends TestCase
             'start_time' => $startTime,
             'end_date' => $newEndDate,
             'end_time' => $newEndTime,
+            'banner_url' => 'https://example.org/image.jpg',
         ]);
 
         Travel::back();

@@ -54,7 +54,7 @@
                     </div>
                     <div class="w-1/4 px-2">
                         <a href="{{ route('events.show', ['event' => $event]) }}" target="_blank">
-                            <button class="btn btn-blue-tertiary w-full">
+                            <button class="btn btn-blue-secondary w-full">
                                 Visit
                             </button>
                         </a>

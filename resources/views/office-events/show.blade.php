@@ -8,7 +8,11 @@
     <div class="container mx-auto">
         @include('partials._page-heading', ['title' => $event->title . ' - Event Details'])
         <div class="p-4 bg-gray-100">
-            <img class="mx-auto max-w-full h-auto" src="{{ $event->banner_url }}" alt="Event Banner">
+            @if($event->banner_url)
+                <img class="mx-auto max-w-full h-auto" src="{{ $event->banner_url }}" alt="Event Banner">
+            @else
+                <p>No Event Banner...</p>
+            @endif
         </div>
 
         <div class="mt-4 px-4">

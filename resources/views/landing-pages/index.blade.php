@@ -269,7 +269,7 @@
                 <blockquote class="mt-8">
                     <div class="max-w-3xl mx-auto text-center text-xl leading-9 font-medium text-gray-900 md:text-2xl lg:max-w-4xl">
                         <p>
-                            &ldquo;My wish is that you enjoy using the the real ops goodie. A goodie provided to you by
+                            &ldquo;My wish is that you enjoy using the real ops goodie. A goodie provided to you by
                             <a href="https://simgoodies.app" class="underline">simgoodies.app</a>. You can expect more coming from the side of Simgoodies!
                             <br class="hidden lg:block"> Thanks for trusting us with your events!&rdquo;
                         </p>

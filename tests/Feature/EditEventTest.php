@@ -62,7 +62,7 @@ class EditEventTest extends TestCase
             ->set('endDate', $newEndDate = now()->addDay()->format('Y-m-d'))
             ->set('endTime', $newEndTime = now()->addDay()->addHour()->format('H:i'))
             ->call('save')
-            ->assertRedirect('office/events/the-changed-event-title');
+            ->assertRedirect();
 
         $this->assertDatabaseHas('events', [
             'title' => 'The Changed Event Title',

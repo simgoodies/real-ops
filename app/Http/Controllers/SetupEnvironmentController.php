@@ -24,6 +24,7 @@ class SetupEnvironmentController extends Controller
 
         $tenant = Tenant::create([
             'name' => $validated['name'],
+            'owner_id' => Auth::id(),
         ]);
 
         $tenant->domains()->create([

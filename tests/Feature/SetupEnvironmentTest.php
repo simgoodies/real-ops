@@ -23,6 +23,7 @@ class SetupEnvironmentTest extends TestCase
 
         $this->assertDatabaseHas('tenants', [
             'name' => 'Foo Environment',
+            'owner_id' => $this->user->id,
         ]);
         $this->assertDatabaseHas('domains', [
             'domain' => 'foo-environment',

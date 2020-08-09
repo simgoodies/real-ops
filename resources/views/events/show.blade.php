@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Create an event')
+@section('title', $event->title)
 
 @section('main-content')
     <div class="container mx-auto">

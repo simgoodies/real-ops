@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Create an event')
+@section('title', 'Event Details')
 
 @section('main-content')
     @include('partials._navigation')

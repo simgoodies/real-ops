@@ -41,7 +41,7 @@ class BookableTest extends TestCase
         $bookableFlight = factory(BookableFlight::class)->create(['event_id' => $event]);
 
         $this->get($bookableFlight->getConfirmationUrl($booker))->assertRedirect('events/foo-bar-event')->assertSessionHas([
-            'booking-confirmed' => "You're booking is confirmed!",
+            'booking-confirmed' => "You're booking is confirmed! Check your e-mail for details.",
         ]);
 
         $this->assertDatabaseHas('bookables', [

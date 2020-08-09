@@ -30,7 +30,7 @@ class BookableController extends Controller
 
         Mail::to($booker->email)->send(new BookingConfirmedMailable($booker, $bookable));
 
-        session()->flash('booking-confirmed', "You're booking is confirmed!");
+        session()->flash('booking-confirmed', "You're booking is confirmed! Check your e-mail for details.");
 
         return redirect()->route('events.show', ['event' => $bookable->event]);
     }

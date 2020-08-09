@@ -33,4 +33,19 @@ class SetupEnvironmentTest extends TestCase
 
         $this->assertTrue($this->user->teams->contains($tenant));
     }
+
+    /** @test */
+    public function it_automatically_lowercases_subdomains()
+    {
+        $this->login();
+
+        $this->post('setup-environment', [
+            'name' => 'Foo Environment',
+            'subdomain' => 'FOOBAR',
+        ])->assertRedirect('login-to-environment');
+
+        $this->assertDatabaseHas('domains', [
+            'domain' => 'foobar',
+        ]);
+    }
 }

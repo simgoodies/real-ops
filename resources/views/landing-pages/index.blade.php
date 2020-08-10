@@ -96,9 +96,6 @@
                 <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
                     Does this sound familiar to you?
                 </h3>
-{{--                    <div class="max-w-3xl mx-auto text-center text-2xl leading-9 font-medium text-gray-900">--}}
-{{--                        <p>does this sound familiar?</p>--}}
-{{--                    </div>--}}
                 <div class="md:-mx-2 md:flex">
                     <div class="mt-10 max-w-3xl mx-auto text-center text-xl leading-9 font-medium text-gray-900 md:mt-4 md:px-2">
                         <p>

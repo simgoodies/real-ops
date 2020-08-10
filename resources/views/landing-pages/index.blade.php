@@ -102,7 +102,7 @@
                 <div class="md:-mx-2 md:flex">
                     <div class="mt-10 max-w-3xl mx-auto text-center text-xl leading-9 font-medium text-gray-900 md:mt-4 md:px-2">
                         <p>
-                            &ldquo;I have an idea for this event, if only I had a booking sytem that people could use to join the event!&rdquo;
+                            &ldquo;I have an idea for this event, if only I had a booking system that people could use to join the event!&rdquo;
                         </p>
                     </div>
                     <div class="mt-4 max-w-3xl mx-auto text-center text-xl leading-9 font-medium text-gray-900 md:px-2">

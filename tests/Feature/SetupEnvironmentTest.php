@@ -48,4 +48,28 @@ class SetupEnvironmentTest extends TestCase
             'domain' => 'foobar',
         ]);
     }
+
+    /** @test */
+    public function it_will_not_allow_non_unique_subdomains()
+    {
+        $this->login();
+
+        $this->post('setup-environment', [
+            'name' => 'Foo Environment',
+            'subdomain' => 'foobar',
+        ])->assertRedirect('login-to-environment');
+
+        $this->post('setup-environment', [
+            'name' => 'Foo Environment Two',
+            'subdomain' => 'foobar',
+        ])->assertSessionHasErrors('subdomain');
+
+        $this->assertDatabaseHas('tenants', [
+            'name' => 'Foo Environment',
+        ]);
+
+        $this->assertDatabaseMissing('tenants', [
+            'name' => 'Foo Environment Two',
+        ]);
+    }
 }

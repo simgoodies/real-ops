@@ -78,9 +78,7 @@ class AddBookableFlight extends Component
             'callsign',
             'originAirportIcao',
             'destinationAirportIcao',
-            'departureDate',
             'departureTime',
-            'arrivalDate',
             'arrivalTime',
         ]);
 

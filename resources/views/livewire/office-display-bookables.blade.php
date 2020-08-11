@@ -1,7 +1,7 @@
 <div>
     @forelse($bookables as $bookable)
         @if($bookable->type == 'flight')
-            <div class="-mx-1 flex font-light rounded bg-gray-100 mt-4 px-2 py-3">
+            <div wire:key="{{$bookable->id}}" class="-mx-1 flex font-light rounded bg-gray-100 mt-4 px-2 py-3">
                 <div class="px-1 w-3/4">
                     <span class="font-semibold">{{ $bookable->data['callsign'] }}</span> departing
                     <span class="font-semibold">

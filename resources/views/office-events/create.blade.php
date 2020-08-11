@@ -12,35 +12,35 @@
             <form class="mt-8" action="{{ route('office-events.store') }}" method="post">
                 @csrf
                 <div>
-                    <label for="title">Title the event</label>
-                    <input class="w-full mt-2 input" name="title" type="text">
+                    <label for="title">Title the event</label>t
+                    <input class="w-full mt-2 input" name="title" type="text" value="{{ old('title') }}">
                 </div>
                 <div class="mt-8 flex flex-col">
                     <label for="description">Describe the event</label>
-                    <textarea class="mt-2 input" name="description" cols="20" rows="3"></textarea>
+                    <textarea class="mt-2 input" name="description" cols="20" rows="3">{{ old('description') }}</textarea>
                 </div>
                 <div class="mt-8">
                     <label for="banner_url">Banner Link (e.g. https://mysite.com/image.jpg)</label>
-                    <input class="w-full mt-2 input" name="banner_url" type="text">
+                    <input class="w-full mt-2 input" name="banner_url" type="text" value="{{ old('banner_url') }}">
                 </div>
                 <div class="md:-mx-2 md:flex">
                     <div class="mt-8 flex flex-col md:px-2 md:w-1/4">
                         <label for="start_date">On what day is the event? (ZULU)</label>
-                        <input class="mt-2 input" name="start_date" type="date">
+                        <input class="mt-2 input" name="start_date" type="date" value="{{ old('start_date') }}">
                     </div>
                     <div class="mt-8 flex flex-col md:px-2 md:w-1/4">
                         <label for="start_time">At what time is the event? (ZULU)</label>
-                        <input class="mt-2 input" name="start_time" type="time">
+                        <input class="mt-2 input" name="start_time" type="time" value="{{ old('start_time') }}">
                     </div>
                 </div>
                 <div class="md:-mx-2 md:flex">
                     <div class="mt-8 flex flex-col md:px-2 md:w-1/4">
                         <label for="end_date">Until what day is the event? (ZULU)</label>
-                        <input class="mt-2 input" name="end_date" type="date">
+                        <input class="mt-2 input" name="end_date" type="date" value="{{ old('end_date') }}">
                     </div>
                     <div class="mt-8 flex flex-col md:px-2 md:w-1/4">
                         <label for="end_time">At what time is the event over? (ZULU)</label>
-                        <input class="mt-2 input" name="end_time" type="time">
+                        <input class="mt-2 input" name="end_time" type="time" value="{{ old('end_time') }}">
                     </div>
                 </div>
                 <div class="mt-8 flex justify-center md:justify-start">

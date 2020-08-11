@@ -64,6 +64,22 @@ class AddBookableFlightTest extends TestCase
     }
 
     /** @test */
+    public function a_flight_bookable_dates_is_prefilled_with_event_date()
+    {
+        Travel::to(now());
+
+        $event = factory(Event::class)->create([
+            'start_date' => $startDate = now()->format('Y-m-d'),
+        ]);
+
+        Livewire::test(AddBookableFlight::class, ['event' => $event])
+            ->assertSet('departureDate', $startDate)
+            ->assertSet('arrivalDate', $startDate);
+
+        Travel::back();
+    }
+
+    /** @test */
     public function an_added_bookable_flight_should_be_coupled_with_event()
     {
         $this->assertTrue(false);

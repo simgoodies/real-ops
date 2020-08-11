@@ -27,9 +27,9 @@ class AddBookableFlight extends Component
             'callsign' => null,
             'originAirportIcao' => null,
             'destinationAirportIcao' => null,
-            'departureDate' => null,
+            'departureDate' => $event->start_date->format('Y-m-d'),
             'departureTime' => null,
-            'arrivalDate' => null,
+            'arrivalDate' => $event->start_date->format('Y-m-d'),
             'arrivalTime' => null,
         ]);
     }

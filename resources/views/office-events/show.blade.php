@@ -72,6 +72,9 @@
             <h2 class="text-lg">Bookables actions</h2>
             <hr class="mt-2">
         </div>
+        <div>
+            @livewire('bookable-flight-import', ['event' => $event])
+        </div>
         <div x-data="{ bookable: 'none'}">
             <div x-show="bookable === 'none'" class="mt-4 px-4 md:px-4 w-1/2">
                 <button class="btn btn-blue w-full " @click="bookable = 'flight'">Add flight</button>

@@ -4,12 +4,14 @@ namespace App\Imports;
 
 use App\Models\BookableFlight;
 use App\Models\Event;
+use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class BookableFlightsImport implements ToModel, WithHeadingRow, SkipsOnFailure
+class BookableFlightsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFailure
 {
     use SkipsFailures;
 
@@ -20,13 +22,29 @@ class BookableFlightsImport implements ToModel, WithHeadingRow, SkipsOnFailure
         $this->event = $event;
     }
 
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
     public function model(array $row)
     {
+        $row['departure_time'] = Carbon::createFromFormat('Hi', $row['departure_time']);
+        $row['arrival_time'] = Carbon::createFromFormat('Hi', $row['arrival_time']);
+
+        if (empty($row['departure_date'])) {
+            $row['departure_date'] = $this->event->start_date;
+
+            if ($row['arrival_time'] > $row['departure_time']) {
+                $row['arrival_date'] = $this->event->start_date;
+            } else {
+                $row['arrival_date'] = $this->event->start_date->addDay();
+            }
+        }
+
+        if ($row['departure_date'] && empty($row['arrival_date'])) {
+            $row['arrival_date'] = $row['departure_date'];
+        }
+
+        if (empty($row['callsign'])) {
+            return null;
+        }
+
         return new BookableFlight([
             'event_id' => $this->event->id,
             'begin_date' => $row['departure_date'],
@@ -44,10 +62,13 @@ class BookableFlightsImport implements ToModel, WithHeadingRow, SkipsOnFailure
     public function rules(): array
     {
         return [
-            'departure_date' => ['required'],
+            'callsign' => ['required'],
+            'departure_date' => ['nullable'],
             'departure_time' => ['required'],
-            'arrival_date' => ['required'],
+            'arrival_date' => ['nullable'],
             'arrival_time' => ['required'],
+            'origin_airport_icao' => ['required'],
+            'destination_airport_icao' => ['required'],
         ];
     }
 }

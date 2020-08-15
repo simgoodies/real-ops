@@ -28,6 +28,8 @@ class BookableFlightImport extends Component
         ]);
 
         Excel::import(new BookableFlightsImport($this->event), $this->file);
+
+        $this->redirect(route('office-events.show', ['event' => $this->event]));
     }
 
     public function render()

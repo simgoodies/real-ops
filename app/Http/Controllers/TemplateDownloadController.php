@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class TemplateDownloadController extends Controller
 {
     public function flightTemplate()
     {
-        return Storage::disk('central-local')->download('flights-template.csv');
+        return Response::download(resource_path('flights-template.csv'));
     }
 }

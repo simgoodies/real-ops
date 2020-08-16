@@ -21,12 +21,14 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "livewire/livewire": "^1.2",
+        "maatwebsite/excel": "^3.1",
         "mpociot/teamwork": "^6.0",
         "stancl/tenancy": "^3.1",
         "thomaswelton/laravel-gravatar": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",
+        "barryvdh/laravel-ide-helper": "^2.8",
         "deployer/deployer": "^6.8",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
@@ -73,6 +75,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     }
 }

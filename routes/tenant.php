@@ -42,6 +42,8 @@ Route::middleware([
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('templates/flight-template')->uses(TemplateDownloadController::class . '@flightTemplate')->name('download-flight-template');
+
     Route::get('office')->uses(OfficeController::class. '@index')->name('office.index');
     Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');
     Route::get('office/events')->uses(OfficeEventController::class . '@index')->name('office-events.index');

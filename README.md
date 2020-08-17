@@ -1,3 +1,4 @@
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/simgoodies/real-ops.svg?label=version)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Discord](https://img.shields.io/discord/545254906257342493.svg?color=7289DA&label=Discord&style=popout)](https://vatgoodies.com/discord)
 

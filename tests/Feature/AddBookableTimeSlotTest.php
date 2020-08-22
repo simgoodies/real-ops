@@ -33,7 +33,7 @@ class AddBookableTimeSlotTest extends TestCase
             ->set('direction', BookableTimeSlot::DIRECTION_ARRIVAL)
             ->set('assignation', 'FOO1')
             ->set('startDate', '2020-12-31')
-            ->set('startTime', '23:45:30')
+            ->set('startTime', '23:45')
             ->set('availableBookables', 10)
             ->set('duration', BookableTimeSlot::DURATION_HOUR)
             ->call('save');

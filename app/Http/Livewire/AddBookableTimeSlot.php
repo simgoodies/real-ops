@@ -18,10 +18,30 @@ class AddBookableTimeSlot extends Component
     public $startTime;
     public $duration;
     public $availableBookables;
+    public $placeholderAvailableBookables;
+
+    public $added = false;
 
     public function mount(Event $event)
     {
         $this->event = $event;
+
+        $this->startDate = Carbon::createFromFormat('Y-m-d H:i:s', $this->event->start_date)->format('Y-m-d');
+        $this->startTime = Carbon::createFromFormat('Y-m-d H:i:s', $this->event->start_time)->format('H:i');
+        $this->direction = BookableTimeSlot::DIRECTION_DEPARTURE;
+        $this->duration = BookableTimeSlot::DURATION_HALFHOUR;
+        $this->placeholderAvailableBookables = 'e.g. ' . $this->duration / 2;
+    }
+
+    public function updated($field, $value)
+    {
+        if ($field !== 'added') {
+            $this->added = false;
+        }
+
+        if ($field == 'duration') {
+            $this->placeholderAvailableBookables = 'e.g. ' . $this->duration / 2;
+        }
     }
 
     public function save()
@@ -32,10 +52,10 @@ class AddBookableTimeSlot extends Component
             'startDate' => 'required',
             'startTime' => 'required',
             'duration' => ['required', 'numeric', Rule::in(BookableTimeSlot::DURATION_HOUR, BookableTimeSlot::DURATION_HALFHOUR)],
-            'availableBookables' => ['required', 'numeric'],
+            'availableBookables' => ['required', 'numeric', 'integer', 'min:1'],
         ]);
 
-        $startDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $this->startDate . ' ' . $this->startTime);
+        $startDateTime = Carbon::createFromFormat('Y-m-d H:i', $this->startDate . ' ' . $this->startTime);
         $endDateTime = $startDateTime->copy()->addMinutes($this->duration);
 
         $startDate = $startDateTime->format('Y-m-d');

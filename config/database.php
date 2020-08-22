@@ -61,6 +61,9 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'modes' => [
+                'NO_ZERO_DATE',
+            ],
         ],
 
         'mysql_test' => [
@@ -81,6 +84,9 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'modes' => [
+                'NO_ZERO_DATE',
+            ],
         ],
 
         'pgsql' => [

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Bookable;
+use App\Models\BookableTimeSlot;
 use App\Models\Event;
 use Livewire\Component;
 
@@ -29,7 +30,14 @@ class OfficeDisplayBookables extends Component
 
     public function render()
     {
+        if ($this->event->bookable_type == BookableTimeSlot::TYPE) {
+            $this->bookables = Bookable::where('event_id', $this->event->id)->groupBy('begin_date', 'begin_time')->get();
+
+            return view('livewire.office-display-bookables');
+        }
+
         $this->bookables = Bookable::where('event_id', $this->event->id)->get();
+
         return view('livewire.office-display-bookables');
     }
 }

@@ -29,6 +29,13 @@
                     <button x-show="showConfirm" @click.away="showConfirm = false" wire:click="deleteBookable({{$bookable->id}})" class="btn-sm btn-red">Confirm?</button>
                 </div>
             </div>
+        @elseif($event->bookable_type == 'time-slot' && $bookable->type == 'time-slot')
+            <div wire:key="{{$bookable->id}}" class="-mx-1 flex font-light rounded bg-gray-100 mt-4 px-2 py-3">
+                <div x-data="{showConfirm: false}" class="px-1 w-1/4 flex justify-center items-center">
+                    <button x-show="!showConfirm" @click="showConfirm = true" class="btn-sm btn-red-secondary">Delete</button>
+                    <button x-show="showConfirm" @click.away="showConfirm = false" wire:click="deleteBookable({{$bookable->id}})" class="btn-sm btn-red">Confirm?</button>
+                </div>
+            </div>
         @endif
     @empty
         No bookables added yet...

@@ -25,6 +25,7 @@ class Bookable extends Model
 
     protected $childTypes = [
         'flight' => BookableFlight::class,
+        'time-slot' => BookableTimeSlot::class,
     ];
 
     public function getRelationshipToPrimaryModel(): string

@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Models\BookableFlight;
 use App\Models\Event;
 use Faker\Generator as Faker;
 
@@ -14,5 +15,6 @@ $factory->define(Event::class, function (Faker $faker) {
         'start_time' => $faker->time('H:i', '+4 hours'),
         'end_date' => $faker->date(),
         'end_time' => $faker->time('H:i', '+4 hours'),
+        'bookable_type' => BookableFlight::TYPE,
     ];
 });

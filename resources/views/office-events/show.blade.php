@@ -72,27 +72,34 @@
             <h2 class="text-lg">Bookables actions</h2>
             <hr class="mt-2">
         </div>
-        <div x-data="{ openBookableAction: 'none'}">
-            <div class="flex">
-                <div x-show="openBookableAction === 'none'" class="mt-4 px-4 md:px-4 w-1/2">
-                    <button class="btn btn-blue w-full" @click="openBookableAction = 'addFlight'">Add flight</button>
+        @if($event->bookable_type)
+            <div x-data="{ openBookableAction: 'none'}">
+                <div class="flex">
+                    <div x-show="openBookableAction === 'none'" class="mt-4 px-4 md:px-4 w-1/2">
+                        <button class="btn btn-blue w-full" @click="openBookableAction = 'addFlight'">Add flight</button>
+                    </div>
+                    <div x-show="openBookableAction === 'none'" class="mt-4 px-4 md:px-4 w-1/2">
+                        <button class="btn btn-blue-secondary w-full" @click="openBookableAction = 'importFlights'">Import Flights</button>
+                    </div>
                 </div>
-                <div x-show="openBookableAction === 'none'" class="mt-4 px-4 md:px-4 w-1/2">
-                    <button class="btn btn-blue-secondary w-full" @click="openBookableAction = 'importFlights'">Import Flights</button>
+                <div x-show="openBookableAction !== 'none'" class="mt-4 px-4 md:px-4 w-full">
+                    <button class="btn btn-blue-secondary w-full " @click="openBookableAction = 'none'">Cancel</button>
+                </div>
+                <div x-show.transition.duration.300ms="openBookableAction === 'addFlight'" class="mt-4 px-4">
+                    @livewire('add-bookable-flight', ['event' => $event])
+                </div>
+                <div x-show.transition.duration.300ms="openBookableAction === 'importFlights'" class="mt-4 px-4">
+                    @livewire('bookable-flight-import', ['event' => $event])
                 </div>
             </div>
-            <div x-show="openBookableAction !== 'none'" class="mt-4 px-4 md:px-4 w-full">
-                <button class="btn btn-blue-secondary w-full " @click="openBookableAction = 'none'">Cancel</button>
+            <div class="mt-4 px-4">
+                @livewire('office-display-bookables', ['event' => $event])
             </div>
-            <div x-show.transition.duration.300ms="openBookableAction === 'addFlight'" class="mt-4 px-4">
-                @livewire('add-bookable-flight', ['event' => $event])
+        @else
+            <div class="mt-4 px-4">
+                <p class="text-center font-semibold text-xl">Choose Event Bookable Type</p>
+                @livewire('choose-event-bookable-type', ['event' => $event])
             </div>
-            <div x-show.transition.duration.300ms="openBookableAction === 'importFlights'" class="mt-4 px-4">
-                @livewire('bookable-flight-import', ['event' => $event])
-            </div>
-        </div>
-        <div class="mt-4 px-4">
-            @livewire('office-display-bookables', ['event' => $event])
-        </div>
+        @endif
     </div>
 @endsection

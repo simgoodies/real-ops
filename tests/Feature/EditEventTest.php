@@ -76,4 +76,20 @@ class EditEventTest extends TestCase
 
         Travel::back();
     }
+
+    /** @test */
+    public function it_shows_choose_event_bookable_type_if_non_chosen_yet()
+    {
+        $this->login();
+
+        factory(Event::class)->create([
+            'slug' => 'no-bookable-type',
+            'bookable_type' => null,
+        ]);
+
+        $this->get('office/events/no-bookable-type')
+            ->assertSeeLivewire('choose-event-bookable-type')
+            ->assertDontSeeLivewire('display-bookables')
+            ->assertDontSeeLivewire('add-bookable-flight');
+    }
 }

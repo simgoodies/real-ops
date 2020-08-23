@@ -67,8 +67,8 @@
                 <div class="px-2 w-1/2">
                     <select wire:model.lazy="direction" class="input w-full">
                         <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_ANY }}">Any</option>
-                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_OUTBOUND }}">Departures</option>
-                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_INBOUND }}">Arrivals</option>
+                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_OUTBOUND }}">Outbound</option>
+                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_INBOUND }}">Inbound</option>
                     </select>
                 </div>
             </div>

@@ -24,7 +24,25 @@ class OfficeDisplayBookables extends Component
 
     public function deleteBookable($bookableId)
     {
-        $this->bookables->find($bookableId)->delete();
+        if (!$bookable = $this->bookables->find($bookableId)) {
+            return;
+        }
+
+        if ($bookable->type == 'time-slot') {
+            BookableTimeSlot::where('begin_date', $bookable->begin_date)
+                ->where('begin_time', $bookable->begin_time)
+                ->where('end_date', $bookable->end_date)
+                ->where('end_time', $bookable->end_time)
+                ->where('data->assignation', $bookable->data['assignation'] ?? null)
+                ->where('data->direction', $bookable->data['direction'] ?? null)
+                ->delete();
+
+            $this->render();
+
+            return;
+        }
+
+        $bookable->delete();
         $this->render();
     }
 

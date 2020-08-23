@@ -17,20 +17,41 @@ class OfficeDisplayBookablesTimeSlotTest extends TestCase
     protected $tenancy = true;
 
     /** @test */
-    public function a_bookable_can_be_deleted()
+    public function a_time_slot_can_be_deleted()
     {
-        $this->assertTrue(false);
-        $event = factory(Event::class)->create();
-        $flight = factory(BookableFlight::class)->create([
+        $event = factory(Event::class)->create(['bookable_type' => BookableTimeSlot::TYPE]);
+        $timeSlotOne = factory(BookableTimeSlot::class, 5)->create([
             'event_id' => $event->id,
-            'data->callsign' => 'DELETE'
+            'begin_date' => '2020-12-15',
+            'begin_time' => '01:00:00',
+            'end_date' => '2020-12-15',
+            'end_time' => '02:00:00',
+            'data' => [
+                'assignation' => 'FOO1',
+                'direction' => BookableTimeSlot::DIRECTION_ANY,
+            ],
+        ]);
+        $timeSlotTwo = factory(BookableTimeSlot::class, 5)->create([
+            'event_id' => $event->id,
+            'begin_date' => '2020-12-15',
+            'begin_time' => '01:00:00',
+            'end_date' => '2020-12-15',
+            'end_time' => '02:00:00',
+            'data' => [
+                'assignation' => 'FOO2',
+                'direction' => BookableTimeSlot::DIRECTION_ANY,
+            ],
         ]);
 
         Livewire::test('office-display-bookables', ['event' => $event])
-            ->call('deleteBookable', $flight->id);
+            ->call('deleteBookable', $timeSlotOne->first()->id);
 
+        $this->assertDatabaseCount('bookables', 5);
         $this->assertDatabaseMissing('bookables', [
-            'data->callsign' => 'DELETE',
+            'data->assignation' => 'FOO1',
+        ]);
+        $this->assertDatabaseHas('bookables', [
+            'data->assignation' => 'FOO2',
         ]);
     }
 

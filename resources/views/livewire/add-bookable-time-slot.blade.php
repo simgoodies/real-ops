@@ -18,7 +18,7 @@
                 Time Slot Start Time*
             </label>
             <div class="px-2 w-1/2">
-                <input id="startTime" wire:model.lazy="startTime" class="input w-full" type="time" step="1800" placeholder="Time Slot Start Time" required>
+                <input id="startTime" wire:model.lazy="startTime" class="input w-full" type="time" placeholder="Time Slot Start Time" required>
             </div>
         </div>
         @error('startTime')

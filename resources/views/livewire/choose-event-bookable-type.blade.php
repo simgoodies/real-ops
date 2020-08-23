@@ -11,7 +11,7 @@
             <span class="font-bold">The Event Bookable Types:</span>
             <ul class="ml-4">
                 <li>Flights</li>
-                <li>Time Slots <span class="text-sm font-thin">(coming soon)</span></li>
+                <li>Time Slots</li>
             </ul>
             <br>
             Click on the type button for more information about the type.
@@ -32,13 +32,13 @@
                     <br>
                     Callsign, Departure and Arrival Airport, Departing Date and Time, Arrival Date and Time.
 
-                    <div wire:click="setBookableType('flight')" class="btn btn-blue mt-4">Choose Flights Bookable Type</div>
+                    <div wire:click="setBookableType('{{ \App\Models\BookableFlight::TYPE }}')" class="btn btn-blue mt-4">Choose Flights Bookable Type</div>
                 </div>
             </div>
             <div class="w-full mt-4">
                 <a @click="showingType = 'time-slot'" class="btn btn-blue-secondary block">Time Slots</a>
                 <div x-show="showingType == 'time-slot'" class="px-6 py-4 mt-4 rounded bg-white border-2 border-blue-200">
-                    <div class="mb-4 bg-blue-300 rounded text-center text-gray-50">COMING SOON</div>
+                    <div class="mb-4 mx-auto bg-green-400 rounded text-center text-gray-50 md:w-1/2 lg:w-1/4">NEW</div>
                     The time slots bookable type; handy for when you want to control flow.
                     <br><br>
                     Want to hold an event where you want bookings but not specifically tied to anything but a time-slot? Then this is the bookable type for your event!
@@ -48,6 +48,8 @@
                     <span class="font-bold">Works for these types of events:</span>
                     <br>
                     Friday Night Ops (FNO), Overload, Fly-ins
+
+                    <div wire:click="setBookableType('{{ \App\Models\BookableTimeSlot::TYPE }}')" class="btn btn-blue mt-4">Choose Time Slot Type</div>
                 </div>
             </div>
         </div>

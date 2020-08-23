@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\BookableFlight;
+use App\Models\BookableTimeSlot;
 use App\Models\Event;
 use Livewire\Component;
 
@@ -20,6 +21,7 @@ class ChooseEventBookableType extends Component
     {
         $allowedBookableTypes = [
             BookableFlight::TYPE,
+            BookableTimeSlot::TYPE,
         ];
 
         if (!in_array($type, $allowedBookableTypes)) {

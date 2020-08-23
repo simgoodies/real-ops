@@ -3,6 +3,8 @@
 namespace App\Mail;
 
 use App\Models\Bookable;
+use App\Models\BookableFlight;
+use App\Models\BookableTimeSlot;
 use App\Models\Booker;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -33,7 +35,14 @@ class BookingConfirmedMailable extends Mailable
         $fromEmail = 'info@' . config('app.url_base');
         $this->from($fromEmail, $this->bookable->event->title);
         $this->subject('Your booking was confirmed!');
-        $this->markdown('emails.booking-confirmed');
+
+        if ($this->bookable instanceof BookableFlight) {
+            $this->markdown('emails.booking-confirmed-flight');
+        }
+
+        if ($this->bookable instanceof BookableTimeSlot) {
+            $this->markdown('emails.booking-confirmed-time-slot');
+        }
         $this->with([
             'bookable' => $this->bookable,
             'event' => $this->bookable->event,

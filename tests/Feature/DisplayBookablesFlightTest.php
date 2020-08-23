@@ -2,16 +2,18 @@
 
 namespace Tests\Feature;
 
+use App\Mail\BookingRequestedMailable;
 use App\Models\BookableFlight;
 use App\Models\Booker;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Livewire;
 use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
 
-class DisplayBookablesTest extends TestCase
+class DisplayBookablesFlightTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -50,6 +52,7 @@ class DisplayBookablesTest extends TestCase
     public function it_wont_book_already_booked_bookables()
     {
         Travel::to(now());
+        Mail::fake();
 
         $event = factory(Event::class)->create([
             'slug' => 'foo-event',
@@ -69,6 +72,8 @@ class DisplayBookablesTest extends TestCase
         Livewire::test('display-bookables', ['event' => $event])
             ->set('email', $bookerTwo->email)
             ->call('bookBookable', $flight->id);
+
+        Mail::assertNothingSent();
 
         $this->assertDatabaseHas('bookables', [
             'id' => $flight->id,
@@ -95,6 +100,29 @@ class DisplayBookablesTest extends TestCase
         $this->assertDatabaseHas('bookers', [
             'email' => 'foo@example.org',
         ]);
+    }
+
+    /** @test */
+    public function it_sends_a_confirmation_mail_to_booker()
+    {
+        $event = factory(Event::class)->create([
+            'title' => 'Foo Bar Event'
+        ]);
+        $flight = factory(BookableFlight::class)->create(['event_id' => $event->id]);
+
+        Mail::fake();
+
+        Livewire::test('display-bookables', ['event' => $event])
+            ->set('email', 'foo@example.org')
+            ->call('bookBookable', $flight->id);
+
+        Mail::assertSent(BookingRequestedMailable::class, function ($mail) {
+            $this->assertEquals('Confirm your requested booking', $mail->subject);
+            $this->assertEquals('foo@example.org', $mail->to[0]['address']);
+            $this->assertEquals('info@realops.test', $mail->from[0]['address']);
+            $this->assertEquals('Foo Bar Event', $mail->from[0]['name']);
+            return true;
+        });
     }
 
     /** @test */

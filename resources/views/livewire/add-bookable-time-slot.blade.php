@@ -81,10 +81,10 @@
         <div class="mt-4">
             <div class="mt-4 -mx-2 flex">
                 <label class="px-2 my-auto w-1/2" for="assignation">
-                    Time Slot Assignation
+                    Slot Airport ICAO or Area ICAO
                 </label>
                 <div class="px-2 w-1/2">
-                    <input wire:model.lazy="assignation" list="assignation-list" class="awesomplete input w-full" id="assignation" type="text" placeholder="Slot assignation">
+                    <input wire:model.lazy="assignation" list="assignation-list" class="awesomplete input w-full" id="assignation" type="text" placeholder="e.g. EHAM / e.g. EHAA">
                     <datalist id="assignation-list">
                         @foreach($assignations as $assignation)
                             <option>{{ $assignation }}</option>

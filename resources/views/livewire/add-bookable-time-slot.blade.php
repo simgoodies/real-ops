@@ -47,7 +47,7 @@
         <div class="mt-4">
             <div class="mt-4 -mx-2 flex">
                 <label class="px-2 my-auto w-1/2" for="available-bookables">
-                    Available Bookables
+                    Available Bookables*
                 </label>
                 <div class="px-2 w-1/2">
                     <input wire:model.lazy="availableBookables" class="input w-full" id="available-bookables" type="number" step="1" min="1" placeholder="{{ $placeholderAvailableBookables }}">

@@ -30,7 +30,7 @@ class AddBookableTimeSlotTest extends TestCase
         ]);
 
         Livewire::test(AddBookableTimeSlot::class, ['event' => $event])
-            ->set('direction', BookableTimeSlot::DIRECTION_ARRIVAL)
+            ->set('direction', BookableTimeSlot::DIRECTION_INBOUND)
             ->set('assignation', 'FOO1')
             ->set('startDate', '2020-12-31')
             ->set('startTime', '23:45')
@@ -46,7 +46,8 @@ class AddBookableTimeSlotTest extends TestCase
             'end_date' => '2021-01-01',
             'end_time' => '00:45:00',
             'data->assignation' => 'FOO1',
-            'data->direction' => BookableTimeSlot::DIRECTION_ARRIVAL,
+            'data->direction' => BookableTimeSlot::DIRECTION_INBOUND,
+            'data->available_bookables' => 10,
         ]);
 
         Travel::back();

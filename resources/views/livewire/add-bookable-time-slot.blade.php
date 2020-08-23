@@ -66,8 +66,9 @@
                 </label>
                 <div class="px-2 w-1/2">
                     <select wire:model.lazy="direction" class="input w-full">
-                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_DEPARTURE }}">Departures</option>
-                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_ARRIVAL }}">Arrivals</option>
+                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_ANY }}">Any</option>
+                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_OUTBOUND }}">Departures</option>
+                        <option value="{{ \App\Models\BookableTimeSlot::DIRECTION_INBOUND }}">Arrivals</option>
                     </select>
                 </div>
             </div>
@@ -83,7 +84,12 @@
                     Time Slot Assignation
                 </label>
                 <div class="px-2 w-1/2">
-                    <input wire:model.lazy="assignation" class="input w-full" id="assignation" type="text" placeholder="Slot assignation">
+                    <input wire:model.lazy="assignation" list="assignation-list" class="awesomplete input w-full" id="assignation" type="text" placeholder="Slot assignation">
+                    <datalist id="assignation-list">
+                        @foreach($assignations as $assignation)
+                            <option>{{ $assignation }}</option>
+                        @endforeach
+                    </datalist>
                 </div>
             </div>
             @error('assignation')

@@ -31,7 +31,12 @@ class OfficeDisplayBookables extends Component
     public function render()
     {
         if ($this->event->bookable_type == BookableTimeSlot::TYPE) {
-            $this->bookables = Bookable::where('event_id', $this->event->id)->groupBy('begin_date', 'begin_time')->get();
+            $this->bookables = Bookable::where('event_id', $this->event->id)->groupBy(
+                'begin_date',
+                'begin_time',
+                'data->assignation',
+                'data->direction'
+            )->get();
 
             return view('livewire.office-display-bookables');
         }

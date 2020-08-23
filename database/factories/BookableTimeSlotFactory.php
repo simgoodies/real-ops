@@ -14,8 +14,7 @@ $factory->define(BookableTimeSlot::class, function (Faker $faker) {
         'end_date' => $faker->date(),
         'end_time' => $faker->time(),
         'data' => [
-            'direction' => $faker->randomElement([BookableTimeSlot::DIRECTION_DEPARTURE, BookableTimeSlot::DIRECTION_ARRIVAL]),
-            'assignation' => $faker->randomElement(['FOO1', 'BAR1', 'BAZ1']),
+            'direction' => BookableTimeSlot::DIRECTION_ANY,
         ],
     ];
 });

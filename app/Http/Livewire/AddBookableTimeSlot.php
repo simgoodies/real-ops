@@ -19,6 +19,7 @@ class AddBookableTimeSlot extends Component
     public $duration;
     public $availableBookables;
     public $placeholderAvailableBookables;
+    public $assignations;
 
     public $added = false;
 
@@ -28,9 +29,10 @@ class AddBookableTimeSlot extends Component
 
         $this->startDate = Carbon::createFromFormat('Y-m-d H:i:s', $this->event->start_date)->format('Y-m-d');
         $this->startTime = Carbon::createFromFormat('Y-m-d H:i:s', $this->event->start_time)->format('H:i');
-        $this->direction = BookableTimeSlot::DIRECTION_DEPARTURE;
+        $this->direction = BookableTimeSlot::DIRECTION_ANY;
         $this->duration = BookableTimeSlot::DURATION_HALFHOUR;
         $this->placeholderAvailableBookables = 'e.g. ' . $this->duration / 2;
+        $this->assignations = BookableTimeSlot::getPreviouslyUsedAssignations($event)->toArray();
     }
 
     public function updated($field, $value)
@@ -47,7 +49,14 @@ class AddBookableTimeSlot extends Component
     public function save()
     {
         $this->validate([
-            'direction' => ['required', Rule::in(BookableTimeSlot::DIRECTION_ARRIVAL, BookableTimeSlot::DIRECTION_DEPARTURE)],
+            'direction' => [
+                'required',
+                Rule::in(
+                    BookableTimeSlot::DIRECTION_ANY,
+                    BookableTimeSlot::DIRECTION_INBOUND,
+                    BookableTimeSlot::DIRECTION_OUTBOUND
+                )
+            ],
             'assignation' => 'nullable',
             'startDate' => 'required',
             'startTime' => 'required',
@@ -74,6 +83,7 @@ class AddBookableTimeSlot extends Component
                 'data' => [
                     'assignation' => $this->assignation,
                     'direction' => $this->direction,
+                    'available_bookables' => $this->availableBookables,
                 ],
             ]);
 

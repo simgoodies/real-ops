@@ -23,14 +23,6 @@
                     The flights bookable type is the classic type.
                     <br><br>
                     If your event requires the booking of specific defined flights from one point to another for specific dates and times, then this is the booking type for your event!.
-                    <br><br>
-                    <span class="font-bold">Works for these types of events:</span>
-                    <br>
-                    Real Ops, Crossfire
-                    <br><br>
-                    <span class="font-bold">Available fields:</span>
-                    <br>
-                    Callsign, Departure and Arrival Airport, Departing Date and Time, Arrival Date and Time.
 
                     <div wire:click="setBookableType('{{ \App\Models\BookableFlight::TYPE }}')" class="btn btn-blue mt-4">Choose Flights Bookable Type</div>
                 </div>
@@ -44,10 +36,6 @@
                     Want to hold an event where you want bookings but not specifically tied to anything but a time-slot? Then this is the bookable type for your event!
                     <br><br>
                     You will be given the option to split up your event in time slots. For each of those time slots you will indicate how much traffic you want to assign to it! Thus an excellent way to keep your traffic flow more manageable!
-                    <br><br>
-                    <span class="font-bold">Works for these types of events:</span>
-                    <br>
-                    Friday Night Ops (FNO), Overload, Fly-ins
 
                     <div wire:click="setBookableType('{{ \App\Models\BookableTimeSlot::TYPE }}')" class="btn btn-blue mt-4">Choose Time Slot Type</div>
                 </div>

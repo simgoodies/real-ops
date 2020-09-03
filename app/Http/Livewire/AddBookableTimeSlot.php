@@ -41,6 +41,10 @@ class AddBookableTimeSlot extends Component
             $this->added = false;
         }
 
+        if (in_array($field, ['assignation'])) {
+            $this->$field = strtoupper($value);
+        }
+
         if ($field == 'duration') {
             $this->placeholderAvailableBookables = 'e.g. ' . $this->duration / 2;
         }

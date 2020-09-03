@@ -12,7 +12,7 @@
             <form class="mt-8" action="{{ route('office-events.store') }}" method="post">
                 @csrf
                 <div>
-                    <label for="title">Title the event</label>t
+                    <label for="title">Title the event</label>
                     <input class="w-full mt-2 input" name="title" type="text" value="{{ old('title') }}">
                 </div>
                 <div class="mt-8 flex flex-col">

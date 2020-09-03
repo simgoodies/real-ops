@@ -13,6 +13,6 @@ class BookableFlight extends Bookable
     protected $table = 'bookables';
 
     protected $attributes = [
-        'type' => 'flight'
+        'type' => self::TYPE,
     ];
 }

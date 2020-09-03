@@ -31,4 +31,9 @@ class Event extends Model
     {
         return $this->hasMany(Bookable::class);
     }
+
+    public function hasBookingFor(Booker $booker)
+    {
+        return $this->bookables()->where('booked_by_id', $booker->id)->exists();
+    }
 }

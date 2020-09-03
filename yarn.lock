@@ -840,6 +840,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@fortawesome/fontawesome-free@^5.14.0":
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.14.0.tgz#a371e91029ebf265015e64f81bfbf7d228c9681f"
+  integrity sha512-OfdMsF+ZQgdKHP9jUbmDcRrP0eX90XXrsXIdyjLbkmSBzmMXPABB8eobUJtivaupucYaByz6WNe1PI1JuYm3qA==
+
 "@fullhuman/postcss-purgecss@^2.1.2":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@fullhuman/postcss-purgecss/-/postcss-purgecss-2.3.0.tgz#50a954757ec78696615d3e118e3fee2d9291882e"
@@ -1383,6 +1388,11 @@ autoprefixer@^9.4.2, autoprefixer@^9.4.5:
     num2fraction "^1.2.2"
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
+
+awesomplete@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/awesomplete/-/awesomplete-1.1.5.tgz#1b2b5dd106d3955595619c03da472a1dc0faf0af"
+  integrity sha512-UFw1mPW8NaSECDSTC36HbAOTpF9JK2wBUJcNn4MSvlNtK7SZ9N72gB+ajHtA6D1abYXRcszZnBA4nHBwvFwzHw==
 
 axios@0.19.0:
   version "0.19.0"
@@ -4543,13 +4553,6 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-laravel-mix-purgecss@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/laravel-mix-purgecss/-/laravel-mix-purgecss-5.0.0.tgz#4fb1b7371702948f0441d690415f270aa147aec1"
-  integrity sha512-4URem8XuQBiQQK2PkoLAdPWq/g6d1LLf+afrl7iTzT07ctNcpiofmmlgIWQnzwhv94wt/8xBY3wGZWosJoaGog==
-  dependencies:
-    postcss-purgecss-laravel "^0.1.1"
-
 laravel-mix@^5.0.1:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/laravel-mix/-/laravel-mix-5.0.4.tgz#606a28781b936d66cf96a0d631909cea22ebf0a8"
@@ -5938,13 +5941,6 @@ postcss-ordered-values@^4.1.2:
     cssnano-util-get-arguments "^4.0.0"
     postcss "^7.0.0"
     postcss-value-parser "^3.0.0"
-
-postcss-purgecss-laravel@^0.1.1:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/postcss-purgecss-laravel/-/postcss-purgecss-laravel-0.1.2.tgz#a69067f2dc1006599fcfa7fc37920e2e733424f0"
-  integrity sha512-w9qGUhn1krfK3ABxtkSIV/oyOhc/3c64enMAFJ8KEWqKcyXfzHZD2vCRnm/3AmgSoshM2QCifHDQd3RiLG6fNw==
-  dependencies:
-    "@fullhuman/postcss-purgecss" "^2.1.2"
 
 postcss-reduce-initial@^4.0.3:
   version "4.0.3"

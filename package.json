@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "@tailwindcss/ui": "^0.5.0",
+        "awesomplete": "^1.1.5",
         "tailwindcss": "^1.5.1"
     }
 }

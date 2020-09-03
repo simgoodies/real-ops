@@ -78,10 +78,4 @@ class AddBookableFlightTest extends TestCase
 
         Travel::back();
     }
-
-    /** @test */
-    public function an_added_bookable_flight_should_be_coupled_with_event()
-    {
-        $this->assertTrue(false);
-    }
 }

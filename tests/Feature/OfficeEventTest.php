@@ -60,6 +60,7 @@ class OfficeEventTest extends TestCase
 
         $this->assertEquals([
             'title' => 'required',
+            'description' => 'required',
             'start_date' => 'required|date',
             'start_time' => 'required|date_format:H:i',
             'end_date' => 'required|date',

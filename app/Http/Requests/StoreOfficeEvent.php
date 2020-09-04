@@ -15,6 +15,7 @@ class StoreOfficeEvent extends FormRequest
     {
         return [
             'title' => 'required',
+            'description' => 'required',
             'start_date' => 'required|date',
             'start_time' => 'required|date_format:H:i',
             'end_date' => 'required|date',
@@ -27,6 +28,7 @@ class StoreOfficeEvent extends FormRequest
     {
         return [
             'title.required' => 'The event requires a title',
+            'description.required' => 'The event requires a description',
             'start_date.required' => 'The event requires a start date',
             'start_date.date' => 'The event requires a valid start date',
             'start_time.required' => 'The event requires a start time',

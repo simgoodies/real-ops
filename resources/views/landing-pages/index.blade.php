@@ -215,6 +215,40 @@
                             </div>
                         </div>
                     </li>
+                    <li class="mt-10 md:mt-0">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="document-text w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg leading-6 font-medium text-gray-900">Import your flights</h4>
+                                <p class="mt-2 text-base leading-6 text-gray-500">
+                                    An easier and faster method of adding flights to your event for pilots to book is by simply importing them! You can easily import flights to your event!
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mt-10 md:mt-0">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="sparkles w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg leading-6 font-medium text-gray-900">Hidden nuggets</h4>
+                                <p class="mt-2 text-base leading-6 text-gray-500">
+                                    Not everything can be shown in 6 feature panels. Instead come take a look for yourself and see what other hidden nuggets are provided for you.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
 

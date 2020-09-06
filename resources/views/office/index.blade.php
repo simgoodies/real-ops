@@ -16,11 +16,11 @@
         </div>
 
         <div class="mt-4 px-4">
-            <a class="btn btn-blue block w-full " href="{{ route('office-events.index') }}">Manage Events</a>
+            <a class="btn btn-blue block w-full" href="{{ route('office-events.index') }}">Manage Events</a>
         </div>
 
         <div class="mt-4 px-4">
-            <a class="btn btn-blue-secondary block w-full opacity-25" href="#">Manage staff (coming soon)</a>
+            <a class="btn btn-blue-secondary block w-full" href="{{ route('staff.index') }}">Manage staff</a>
         </div>
     </div>
 @endsection

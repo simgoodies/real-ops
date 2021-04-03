@@ -6,7 +6,6 @@ use App\Http\Livewire\AddBookableFlight;
 use App\Models\BookableFlight;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
@@ -32,6 +31,8 @@ class AddBookableFlightTest extends TestCase
     /** @test */
     public function can_create_a_flight()
     {
+        $this->login();
+
         $event = factory(Event::class)->create();
 
         Travel::to(now());
@@ -66,6 +67,8 @@ class AddBookableFlightTest extends TestCase
     /** @test */
     public function a_flight_bookable_dates_is_prefilled_with_event_date()
     {
+        $this->login();
+
         Travel::to(now());
 
         $event = factory(Event::class)->create([

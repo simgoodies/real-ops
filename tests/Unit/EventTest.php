@@ -12,9 +12,12 @@ class EventTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $tenancy = true;
     /** @test */
     public function it_can_determine_if_someone_has_already_booked_something_for_this_event()
     {
+        $this->login();
+
         $event = factory(Event::class)->create();
         $booker = factory(Booker::class)->create();
         $bookable = factory(BookableFlight::class)->create([

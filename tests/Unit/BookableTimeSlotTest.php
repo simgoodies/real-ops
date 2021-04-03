@@ -5,16 +5,19 @@ namespace Tests\Unit;
 use App\Models\BookableTimeSlot;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class BookableTimeSlotTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $tenancy = true;
+
     /** @test */
     public function it_counts_related_time_slots_total_bookables()
     {
+        $this->login();
+
         $event = factory(Event::class)->create();
         $timeSlotOneA = factory(BookableTimeSlot::class, 5)->create([
             'event_id' => $event->id,

@@ -1695,7 +1695,7 @@
                     /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null
+         * @return \App\Models\User|null
          * @static
          */
         public static function user()
@@ -1730,7 +1730,7 @@
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return \App\User|false
+         * @return \App\Models\User|false
          * @static
          */
         public static function onceUsingId($id)
@@ -1794,7 +1794,7 @@
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \App\User|false
+         * @return \App\Models\User|false
          * @static
          */
         public static function loginUsingId($id, $remember = false)
@@ -1867,7 +1867,7 @@
                     /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User
+         * @return \App\Models\User
          * @static
          */
         public static function getLastAttempted()
@@ -1969,7 +1969,7 @@
                     /**
          * Return the currently cached user.
          *
-         * @return \App\User|null
+         * @return \App\Models\User|null
          * @static
          */
         public static function getUser()
@@ -2015,7 +2015,7 @@
                     /**
          * Determine if current user is authenticated. If not, throw an exception.
          *
-         * @return \App\User
+         * @return \App\Models\User
          * @throws \Illuminate\Auth\AuthenticationException
          * @static
          */
@@ -10008,7 +10008,6 @@
         }
                     /**
          *
-         *
          * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
          * @param array $rules
          * @param mixed $params
@@ -10019,7 +10018,6 @@
                         return \Illuminate\Http\Request::validate($rules, ...$params);
         }
                     /**
-         *
          *
          * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
          * @param string $errorBag
@@ -10032,7 +10030,6 @@
                         return \Illuminate\Http\Request::validateWithBag($errorBag, $rules, ...$params);
         }
                     /**
-         *
          *
          * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestSignatureValidation()
          * @param mixed $absolute
@@ -11154,7 +11151,6 @@
         }
                     /**
          *
-         *
          * @see \Laravel\Ui\AuthRouteMethods::resetPassword()
          * @static
          */
@@ -11164,7 +11160,6 @@
         }
                     /**
          *
-         *
          * @see \Laravel\Ui\AuthRouteMethods::confirmPassword()
          * @static
          */
@@ -11173,7 +11168,6 @@
                         return \Illuminate\Routing\Router::confirmPassword();
         }
                     /**
-         *
          *
          * @see \Laravel\Ui\AuthRouteMethods::emailVerification()
          * @static
@@ -14174,12 +14168,55 @@
         }
 
     }
+            /**
+     *
+     *
+     */
+        class Collection {
+                    /**
+         *
+         *
+         * @see \Barryvdh\Debugbar\ServiceProvider::register()
+         * @static
+         */
+        public static function debug()
+        {
+                        return \Illuminate\Support\Collection::debug();
+        }
+                    /**
+         *
+         *
+         * @see \Maatwebsite\Excel\Mixins\DownloadCollection::downloadExcel()
+         * @param string $fileName
+         * @param string|null $writerType
+         * @param mixed $withHeadings
+         * @static
+         */
+        public static function downloadExcel($fileName, $writerType = null, $withHeadings = false)
+        {
+                        return \Illuminate\Support\Collection::downloadExcel($fileName, $writerType, $withHeadings);
+        }
+                    /**
+         *
+         *
+         * @see \Maatwebsite\Excel\Mixins\StoreCollection::storeExcel()
+         * @param string $filePath
+         * @param string|null $disk
+         * @param string|null $writerType
+         * @param mixed $withHeadings
+         * @static
+         */
+        public static function storeExcel($filePath, $disk = null, $writerType = null, $withHeadings = false)
+        {
+                        return \Illuminate\Support\Collection::storeExcel($filePath, $disk, $writerType, $withHeadings);
+        }
+
+    }
 
 }
 
         namespace Bugsnag\BugsnagLaravel\Facades {
             /**
-     *
      *
      * @see \Bugsnag\Client
      */
@@ -14934,7 +14971,6 @@
     namespace Barryvdh\Debugbar {
             /**
      *
-     *
      * @method static void alert(mixed $message)
      * @method static void critical(mixed $message)
      * @method static void debug(mixed $message)
@@ -15486,10 +15522,30 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function determineVersionUsing($determineVersionCallable)
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->determineVersionUsing($determineVersionCallable);
+        }
+                    /**
+         *
+         *
+         * @return null|string
+         * @static
+         */
+        public static function version()
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->version();
+        }
+                    /**
+         *
+         *
+         * @static
+         */
+        public static function getMiddleware()
         {
                         /** @var \Facade\FlareClient\Flare $instance */
                         return $instance->determineVersionUsing($determineVersionCallable);
@@ -15657,6 +15713,15 @@
         }
                     /**
          *
+         * @static
+         */
+        public static function censorRequestBodyFields($fieldNames)
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->censorRequestBodyFields($fieldNames);
+        }
+                    /**
+         *
          *
          * @static
          */
@@ -15739,7 +15804,6 @@
         class Livewire {
                     /**
          *
-         *
          * @static
          */
         public static function component($alias, $viewClass = null)
@@ -15748,7 +15812,6 @@
                         return $instance->component($alias, $viewClass);
         }
                     /**
-         *
          *
          * @static
          */
@@ -15759,7 +15822,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function getClass($alias)
@@ -15768,7 +15830,6 @@
                         return $instance->getClass($alias);
         }
                     /**
-         *
          *
          * @static
          */
@@ -15809,7 +15870,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function visit($browser, $class, $queryString = '')
@@ -15839,7 +15899,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function setPersistentMiddleware($middleware)
@@ -15848,7 +15907,6 @@
                         return $instance->setPersistentMiddleware($middleware);
         }
                     /**
-         *
          *
          * @static
          */
@@ -15859,7 +15917,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function styles($options = [])
@@ -15868,7 +15925,6 @@
                         return $instance->styles($options);
         }
                     /**
-         *
          *
          * @static
          */
@@ -15879,7 +15935,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function isLivewireRequest()
@@ -15888,7 +15943,6 @@
                         return $instance->isLivewireRequest();
         }
                     /**
-         *
          *
          * @static
          */
@@ -15899,7 +15953,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function isProbablyLivewireRequest()
@@ -15908,7 +15961,6 @@
                         return $instance->isProbablyLivewireRequest();
         }
                     /**
-         *
          *
          * @static
          */
@@ -15919,7 +15971,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function originalPath()
@@ -15928,7 +15979,6 @@
                         return $instance->originalPath();
         }
                     /**
-         *
          *
          * @static
          */
@@ -15939,7 +15989,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function getRootElementTagName($dom)
@@ -15948,7 +15997,6 @@
                         return $instance->getRootElementTagName($dom);
         }
                     /**
-         *
          *
          * @static
          */
@@ -15959,7 +16007,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function listen($event, $callback)
@@ -15969,7 +16016,6 @@
         }
                     /**
          *
-         *
          * @static
          */
         public static function isOnVapor()
@@ -15978,7 +16024,6 @@
                         return $instance->isOnVapor();
         }
                     /**
-         *
          *
          * @static
          */
@@ -16461,7 +16506,6 @@
         }
                     /**
          *
-         *
          * @see \Stancl\Tenancy\Features\UserImpersonation::bootstrap()
          * @param \Stancl\Tenancy\Contracts\Tenant $tenant
          * @param string $userId
@@ -16770,6 +16814,252 @@
         {            //Method inherited from \thomaswelton\GravatarLib\Gravatar
                         /** @var \Thomaswelton\LaravelGravatar\Gravatar $instance */
                         return $instance->get($email, $hash_email);
+        }
+
+    }
+
+}
+
+    namespace Illuminate\Http {
+            /**
+     *
+     *
+     */
+        class Request {
+                    /**
+         *
+         *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
+         * @param array $rules
+         * @param mixed $params
+         * @static
+         */
+        public static function validate($rules, ...$params)
+        {
+                        return \Illuminate\Http\Request::validate($rules, ...$params);
+        }
+                    /**
+         *
+         *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
+         * @param string $errorBag
+         * @param array $rules
+         * @param mixed $params
+         * @static
+         */
+        public static function validateWithBag($errorBag, $rules, ...$params)
+        {
+                        return \Illuminate\Http\Request::validateWithBag($errorBag, $rules, ...$params);
+        }
+                    /**
+         *
+         *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestSignatureValidation()
+         * @param mixed $absolute
+         * @static
+         */
+        public static function hasValidSignature($absolute = true)
+        {
+                        return \Illuminate\Http\Request::hasValidSignature($absolute);
+        }
+
+    }
+
+}
+
+    namespace Illuminate\Routing {
+            /**
+     *
+     *
+     * @mixin \Illuminate\Routing\RouteRegistrar
+     */
+        class Router {
+                    /**
+         *
+         *
+         * @see \Laravel\Ui\AuthRouteMethods::auth()
+         * @param mixed $options
+         * @static
+         */
+        public static function auth($options = [])
+        {
+                        return \Illuminate\Routing\Router::auth($options);
+        }
+                    /**
+         *
+         *
+         * @see \Laravel\Ui\AuthRouteMethods::resetPassword()
+         * @static
+         */
+        public static function resetPassword()
+        {
+                        return \Illuminate\Routing\Router::resetPassword();
+        }
+                    /**
+         *
+         *
+         * @see \Laravel\Ui\AuthRouteMethods::confirmPassword()
+         * @static
+         */
+        public static function confirmPassword()
+        {
+                        return \Illuminate\Routing\Router::confirmPassword();
+        }
+                    /**
+         *
+         *
+         * @see \Laravel\Ui\AuthRouteMethods::emailVerification()
+         * @static
+         */
+        public static function emailVerification()
+        {
+                        return \Illuminate\Routing\Router::emailVerification();
+        }
+
+    }
+
+}
+
+    namespace Illuminate\Testing {
+            /**
+     *
+     *
+     * @mixin \Illuminate\Http\Response
+     */
+        class TestResponse {
+                    /**
+         *
+         *
+         * @see \JMac\Testing\AdditionalAssertionsServiceProvider::register()
+         * @param array $structure
+         * @static
+         */
+        public static function assertJsonTypedStructure($structure)
+        {
+                        return \Illuminate\Testing\TestResponse::assertJsonTypedStructure($structure);
+        }
+                    /**
+         *
+         *
+         * @see \Livewire\LivewireServiceProvider::registerTestMacros()
+         * @param mixed $component
+         * @static
+         */
+        public static function assertSeeLivewire($component)
+        {
+                        return \Illuminate\Testing\TestResponse::assertSeeLivewire($component);
+        }
+                    /**
+         *
+         *
+         * @see \Livewire\LivewireServiceProvider::registerTestMacros()
+         * @param mixed $component
+         * @static
+         */
+        public static function assertDontSeeLivewire($component)
+        {
+                        return \Illuminate\Testing\TestResponse::assertDontSeeLivewire($component);
+        }
+
+    }
+
+}
+
+    namespace Illuminate\View {
+            /**
+     *
+     *
+     */
+        class ComponentAttributeBag {
+                    /**
+         *
+         *
+         * @see \Livewire\LivewireServiceProvider::registerViewMacros()
+         * @param mixed $name
+         * @static
+         */
+        public static function wire($name)
+        {
+                        return \Illuminate\View\ComponentAttributeBag::wire($name);
+        }
+
+    }
+            /**
+     *
+     *
+     */
+        class View {
+                    /**
+         *
+         *
+         * @see \Livewire\Macros\ViewMacros::extends()
+         * @param mixed $view
+         * @param mixed $params
+         * @static
+         */
+        public static function extends($view, $params = [])
+        {
+                        return \Illuminate\View\View::extends($view, $params);
+        }
+                    /**
+         *
+         *
+         * @see \Livewire\Macros\ViewMacros::layout()
+         * @param mixed $view
+         * @param mixed $params
+         * @static
+         */
+        public static function layout($view, $params = [])
+        {
+                        return \Illuminate\View\View::layout($view, $params);
+        }
+                    /**
+         *
+         *
+         * @see \Livewire\Macros\ViewMacros::section()
+         * @param mixed $section
+         * @static
+         */
+        public static function section($section)
+        {
+                        return \Illuminate\View\View::section($section);
+        }
+                    /**
+         *
+         *
+         * @see \Livewire\Macros\ViewMacros::slot()
+         * @param mixed $slot
+         * @static
+         */
+        public static function slot($slot)
+        {
+                        return \Illuminate\View\View::slot($slot);
+        }
+
+    }
+
+}
+
+    namespace Stancl\Tenancy {
+            /**
+     *
+     *
+     */
+        class Tenancy {
+                    /**
+         *
+         *
+         * @see \Stancl\Tenancy\Features\UserImpersonation::bootstrap()
+         * @param \Stancl\Tenancy\Contracts\Tenant $tenant
+         * @param string $userId
+         * @param string $redirectUrl
+         * @param string|null $authGuard
+         * @return \Stancl\Tenancy\Database\Models\ImpersonationToken
+         * @static
+         */
+        public static function impersonate($tenant, $userId, $redirectUrl, $authGuard = null)
+        {
+                        return \Stancl\Tenancy\Tenancy::impersonate($tenant, $userId, $redirectUrl, $authGuard);
         }
 
     }

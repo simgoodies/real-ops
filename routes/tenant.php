@@ -45,6 +45,12 @@ Route::middleware([
     Route::get('templates/flight-template')->uses(TemplateDownloadController::class . '@flightTemplate')->name('download-flight-template');
 
     Route::get('office')->uses(OfficeController::class. '@index')->name('office.index');
+
+    // Office Staff
+    Route::get('office/staff')->uses(StaffController::class .  '@index')->name('staff.index');
+    Route::post('office/staff/invite')->uses(StaffController::class . '@invite')->name('staff-invite.store');
+
+    // Office Events
     Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');
     Route::get('office/events')->uses(OfficeEventController::class . '@index')->name('office-events.index');
     Route::post('office/events')->uses(OfficeEventController::class . '@store')->name('office-events.store');

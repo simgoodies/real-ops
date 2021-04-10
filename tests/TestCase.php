@@ -3,7 +3,7 @@
 namespace Tests;
 
 use App\Models\Tenant;
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -61,6 +61,10 @@ abstract class TestCase extends BaseTestCase
     public function login()
     {
         $this->user = factory(User::class)->create();
+
+        $this->user->attachTeam($this->tenant);
+        $this->user->switchTeam($this->tenant);
+
         $this->actingAs($this->user);
     }
 }

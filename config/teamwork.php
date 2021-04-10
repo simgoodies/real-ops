@@ -9,7 +9,7 @@ return [
     | This is the Auth model used by Teamwork.
     |
     */
-    'user_model' => config('auth.providers.users.model', App\User::class),
+    'user_model' => config('auth.providers.users.model', App\Models\User::class),
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +69,7 @@ return [
     | Update the team if it is in a different namespace.
     |
     */
-    'invite_model' => Mpociot\Teamwork\TeamInvite::class,
+    'invite_model' => App\Models\TeamInvite::class,
 
     /*
     |--------------------------------------------------------------------------

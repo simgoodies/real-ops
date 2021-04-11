@@ -49,6 +49,8 @@ Route::middleware([
     // Office Staff
     Route::get('office/staff')->uses(StaffController::class .  '@index')->name('staff.index');
     Route::post('office/staff/invite')->uses(StaffController::class . '@invite')->name('staff-invite.store');
+    Route::get('office/staff/accept-invitation/{token}')->uses(StaffController::class . '@acceptInvitation')->name('staff-accept-invitation.store');
+    Route::get('office/staff/decline-invitation/{token}')->uses(StaffController::class . '@declineInvitation')->name('staff-decline-invitation.store');
 
     // Office Events
     Route::get('office/events/create')->uses(OfficeEventController::class . '@create')->name('office-events.create');

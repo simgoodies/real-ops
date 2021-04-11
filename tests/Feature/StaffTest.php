@@ -2,11 +2,16 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\StaffController;
+use App\Http\Requests\StoreTeamInviteRequest;
 use App\Mail\StaffInvitedMailable;
 use App\Models\TeamInvite;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Mpociot\Teamwork\Facades\Teamwork;
 use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
 
@@ -132,7 +137,6 @@ class StaffTest extends TestCase
         Mail::fake();
         $this->login();
 
-
         $now = now()->toDateTimeString();
         $enoughTimePassed = now()->subHour(25)->toDateTimeString();
 
@@ -176,19 +180,91 @@ class StaffTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_if_non_email_format_was_invited()
+    public function store_validates_using_a_form_request()
     {
-        $this->markTestIncomplete('TODO');
+        $formRequest = new StoreTeamInviteRequest();
+
+        $this->assertActionUsesFormRequest(
+            StaffController::class,
+            'invite',
+            StoreTeamInviteRequest::class
+        );
+
+        $this->assertEquals([
+            'email' => 'required|email',
+        ],
+            $formRequest->rules()
+        );
     }
 
     /** @test */
     public function it_only_displays_members_that_are_actually_part_of_the_team()
     {
-        $this->markTestIncomplete('TODO');
+        $this->login();
+        $externalTenant = factory(Tenant::class)->create();
+        $externalUser = factory(User::class)->create();
+        $externalUser->attachTeam($externalTenant);
+        $internalUser = factory(User::class)->create();
+        $internalUser->attachTeam($this->tenant);
+
+        $response = $this->get('office/staff');
+
+        $response->assertViewHas('staff');
+
+        $this->assertContains($internalUser->id, $response['staff']->pluck('id'));
+        $this->assertNotContainsEquals($externalUser->id, $response['staff']->pluck('id'));
     }
 
     /** @test */
     public function it_does_not_remove_the_owner_of_the_team()
+    {
+        $this->markTestIncomplete('TODO');
+    }
+
+    /** @test */
+    public function it_can_accept_an_invitation()
+    {
+        $this->withoutExceptionHandling();
+        Mail::fake();
+        $this->login();
+
+        $soonToBeMember = factory(User::class)->create();
+        $invitation = factory(TeamInvite::class)->create([
+            'team_id' => tenant('id'),
+            'email' => $soonToBeMember->email,
+        ]);
+
+        $this->assertTrue(Teamwork::hasPendingInvite($soonToBeMember->email, $this->tenant));
+        $this->assertDatabaseMissing('tenant_user', [
+            'team_id' => $this->tenant->id,
+            'user_id' => $soonToBeMember->id,
+        ]);
+
+        Auth::logout();
+        $this->actingAs($soonToBeMember);
+
+        $response = $this->get("office/staff/accept-invitation/{$invitation->accept_token}");
+        $response->assertRedirect('office');
+        $response->assertSessionHas('success', 'You have successfully joined Foo Tenant');
+
+        $this->assertDatabaseHas('tenant_user', [
+            'team_id' => $this->tenant->id,
+            'user_id' => $this->user->id,
+        ]);
+        $this->assertDatabaseHas('tenant_user', [
+            'team_id' => $this->tenant->id,
+            'user_id' => $soonToBeMember->id,
+        ]);
+    }
+
+    /** @test */
+    public function it_should_ask_new_users_to_register_prior_to_accepting_an_invitation()
+    {
+        $this->markTestIncomplete('TODO');
+    }
+
+    /** @test */
+    public function it_can_decline_an_invitation()
     {
         $this->markTestIncomplete('TODO');
     }

@@ -6,7 +6,7 @@ use Stancl\Tenancy\Contracts\Tenant;
 
 class CreateFrameworkDirectoriesForTenant
 {
-    protected $tenant;
+    protected Tenant $tenant;
 
     public function __construct(Tenant $tenant)
     {

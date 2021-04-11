@@ -18,10 +18,10 @@ class LoginToEnvironmentTest extends TestCase
         /** @var User $user */
         $user = factory(User::class)->create();
 
-        $tenantOne = Tenant::create(['name' => 'Foo']);
+        $tenantOne = factory(Tenant::class)->create(['name' => 'Foo']);
         $domainOne = $tenantOne->domains()->create(['domain' => 'domain1']);
 
-        $tenantTwo = Tenant::create(['name' => 'Bar']);
+        $tenantTwo = factory(Tenant::class)->create(['name' => 'Bar']);
         $domainTwo = $tenantTwo->domains()->create(['domain' => 'domain2']);
 
         $user->attachTeam($tenantOne);

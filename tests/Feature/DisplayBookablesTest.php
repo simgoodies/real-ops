@@ -7,6 +7,7 @@ use App\Models\Booker;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Livewire;
 use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
@@ -20,6 +21,7 @@ class DisplayBookablesTest extends TestCase
     /** @test */
     public function it_does_not_immediately_book()
     {
+        Mail::fake();
         Travel::to(now());
 
         $event = factory(Event::class)->create([
@@ -83,6 +85,7 @@ class DisplayBookablesTest extends TestCase
     /** @test */
     public function it_creates_a_booker_record_for_new_bookers()
     {
+        Mail::fake();
         $event = factory(Event::class)->create();
         $flight = factory(BookableFlight::class)->create([
             'event_id' => $event->id,

@@ -22,6 +22,7 @@ class DisplayBookablesFlightTest extends TestCase
     /** @test */
     public function it_does_not_immediately_book()
     {
+        Mail::fake();
         Travel::to(now());
 
         $event = factory(Event::class)->create([
@@ -88,6 +89,7 @@ class DisplayBookablesFlightTest extends TestCase
     /** @test */
     public function it_creates_a_booker_record_for_new_bookers()
     {
+        Mail::fake();
         $event = factory(Event::class)->create();
         $flight = factory(BookableFlight::class)->create([
             'event_id' => $event->id,
@@ -105,12 +107,12 @@ class DisplayBookablesFlightTest extends TestCase
     /** @test */
     public function it_sends_a_confirmation_mail_to_booker()
     {
+        Mail::fake();
         $event = factory(Event::class)->create([
             'title' => 'Foo Bar Event'
         ]);
         $flight = factory(BookableFlight::class)->create(['event_id' => $event->id]);
 
-        Mail::fake();
 
         Livewire::test('display-bookables', ['event' => $event])
             ->set('email', 'foo@example.org')

@@ -65,6 +65,7 @@ class BookableTest extends TestCase
     /** @test */
     public function it_cannot_confirm_with_wrong_signature()
     {
+        Mail::fake();
         /** @var Event $event */
         $event = factory(Event::class)->create(['slug' => 'foo-bar']);
 
@@ -90,6 +91,7 @@ class BookableTest extends TestCase
     /** @test */
     public function it_cannot_confirm_if_already_confirmed_by_other()
     {
+        Mail::fake();
         /** @var Event $event */
         $event = factory(Event::class)->create(['slug' => 'foo-bar']);
 
@@ -176,6 +178,7 @@ class BookableTest extends TestCase
     /** @test */
     public function it_cannot_confirm_if_time_slot_is_full()
     {
+        Mail::fake();
         $event = factory(Event::class)->create(['slug' => 'foo-bar']);
         $bookerOne = factory(Booker::class)->create();
         $bookerTwo = factory(Booker::class)->create();
@@ -228,7 +231,6 @@ class BookableTest extends TestCase
     public function it_confirms_only_available_bookings_for_time_slots()
     {
         Mail::fake();
-        $this->withoutExceptionHandling();
         $event = factory(Event::class)->create(['slug' => 'foo-bar']);
         $bookerOne = factory(Booker::class)->create();
         $bookerTwo = factory(Booker::class)->create();

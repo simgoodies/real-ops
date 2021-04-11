@@ -26,6 +26,18 @@
                     </div>
                 </form>
             </div>
+            <div class="px-4 mt-4">
+                <h2 class="text-lg">Members of {{ tenant('name') }}.</h2>
+                <hr class="mt-2">
+                <div class="mt-4">
+                    @foreach($staff as $member)
+                        <div class="pl-4 mt-2">
+                            {{ $member->email }}
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

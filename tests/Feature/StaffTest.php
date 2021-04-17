@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Mpociot\Teamwork\Facades\Teamwork;
 use RachidLaasri\Travel\Travel;
 use Tests\TestCase;
@@ -224,9 +225,8 @@ class StaffTest extends TestCase
     /** @test */
     public function it_can_accept_an_invitation()
     {
-        $this->withoutExceptionHandling();
-        Mail::fake();
         $this->login();
+        Mail::fake();
 
         $soonToBeMember = factory(User::class)->create();
         $invitation = factory(TeamInvite::class)->create([
@@ -240,12 +240,16 @@ class StaffTest extends TestCase
             'user_id' => $soonToBeMember->id,
         ]);
 
+        $url = url()->route('staff-accept-invitation.store', ['token' => $invitation->accept_token]);
+
         Auth::logout();
+        $this->uninitializeTenancy();
         $this->actingAs($soonToBeMember);
 
-        $response = $this->get("office/staff/accept-invitation/{$invitation->accept_token}");
-        $response->assertRedirect('office');
-        $response->assertSessionHas('success', 'You have successfully joined Foo Tenant');
+        $response = $this->get($url);
+
+
+        $response->assertRedirect(Url::route('login', ['info' => 'You have successfully joined Foo Tenant']));
 
         $this->assertDatabaseHas('tenant_user', [
             'team_id' => $this->tenant->id,
@@ -258,14 +262,33 @@ class StaffTest extends TestCase
     }
 
     /** @test */
-    public function it_should_ask_new_users_to_register_prior_to_accepting_an_invitation()
+    public function it_should_prompt_users_to_register_or_login_prior_to_accepting_an_invitation()
     {
-        $this->markTestIncomplete('TODO');
+        Mail::fake();
+
+        $invitation = factory(TeamInvite::class)->create([
+            'team_id' => tenant('id'),
+            'email' => 'invitee@example.org',
+        ]);
+
+        $this->assertTrue(Teamwork::hasPendingInvite('invitee@example.org', $this->tenant));
+
+        $url = URL::route('staff-accept-invitation.store', ['token' => $invitation->accept_token]);
+
+        $this->uninitializeTenancy();
+
+        $response = $this->get($url);
+        $response->assertRedirect(Url::route('register', ['info' => 'Please create an account and try accepting the invitation again!']));
     }
 
     /** @test */
     public function it_can_decline_an_invitation()
     {
         $this->markTestIncomplete('TODO');
+    }
+
+    public function it_should_give_proper_error_if_an_invitation_no_longer_exists()
+    {
+        $this->markTestIncomplete('This functionality already implemented but test needs writing');
     }
 }

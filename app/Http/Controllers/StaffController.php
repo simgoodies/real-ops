@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTeamInviteRequest;
 use App\Jobs\AcceptInvitation;
 use App\Jobs\InviteStaff;
+use App\Models\User;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Mpociot\Teamwork\Facades\Teamwork;
 
 class StaffController extends Controller
 {
@@ -29,8 +34,17 @@ class StaffController extends Controller
             'token' => 'required|alpha_num',
         ]);
 
-        AcceptInvitation::dispatchNow($validated['token']);
+        if (! $teamInvite = Teamwork::getInviteFromAcceptToken($validated['token'])) {
+            return redirect()->route('login', ['info' => 'This invitation has already been used and/or is no longer valid!']);
+        }
 
-        return redirect()->route('office.index');
+        if (! $invitedUser = User::where('email', $teamInvite->email)->first()) {
+            return redirect()->route('register', ['info' => 'Please create an account and try accepting the invitation again!']);
+        };
+
+        $invitedUser->attachTeam($teamInvite->team);
+        $teamInvite->delete();
+
+        return redirect()->route('login', ['info' => 'You have successfully joined ' . $teamInvite->team->name]);
     }
 }

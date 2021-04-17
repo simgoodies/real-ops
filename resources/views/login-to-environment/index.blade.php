@@ -7,29 +7,31 @@
         <div class="sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
             <div class="px-4 py-8 sm:px-10">
                 <div>
-                    <img class="mx-auto h-12 w-auto" src="images/favicon/android-chrome-512x512.png" alt="Simgoodies Logo">
-                    <h2 class="mt-6 text-center text-2xl leading-9 font-extrabold text-gray-900">
+                    <img class="w-auto h-12 mx-auto" src="images/favicon/android-chrome-512x512.png" alt="Simgoodies Logo">
+                    <h2 class="mt-6 text-2xl font-extrabold leading-9 text-center text-gray-900">
                         Login to your environment
                     </h2>
                 </div>
-                <div class="mt-8 py-6 px-4 flex-column border rounded-lg bg-white">
+                @include('partials._messages')
+
+                <div class="px-4 py-6 mt-8 bg-white border rounded-lg flex-column">
                     <div class="flex -mx-2">
-                        <a href="{{ route('setup-environment.show') }}" class="px-2 w-2/3">
-                            <button class="px-1 w-full btn btn-blue-secondary">
+                        <a href="{{ route('setup-environment.show') }}" class="w-2/3 px-2">
+                            <button class="w-full px-1 btn btn-blue-secondary">
                                 Create Environment
                             </button>
                         </a>
 
-                        <form class="px-2 w-1/3" action="{{ route('logout') }}" method="post">
+                        <form class="w-1/3 px-2" action="{{ route('logout') }}" method="post">
                             @csrf
-                            <button class="px-1 w-full btn btn-blue-tertiary">
+                            <button class="w-full px-1 btn btn-blue-tertiary">
                                 Logout
                             </button>
                         </form>
                     </div>
 
                     @if($domains->isNotEmpty())
-                        <div class="mt-6 mx-4 border border-gray-100 border-b-4"></div>
+                        <div class="mx-4 mt-6 border border-b-4 border-gray-100"></div>
                     @endif
                     <div>
                         @foreach($domains as $domain)

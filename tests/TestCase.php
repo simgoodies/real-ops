@@ -58,6 +58,19 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
+    public function uninitializeTenancy()
+    {
+        config(['app.url' => 'http://' . config('app.url_base')]);
+
+        $urlGenerator = url();
+        $urlGenerator->forceRootUrl(config('app.url'));
+
+        $this->withServerVariables([
+            'SERVER_NAME' => config('app.url_base'),
+            'HTTP_HOST' => config('app.url_base'),
+        ]);
+    }
+
     public function login()
     {
         $this->user = factory(User::class)->create();
